@@ -1,12 +1,15 @@
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
+import Header from "./components/header";
+import Login from "./components/login";
 
-function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <div className="App"></div>;
-    </ThemeProvider>
-  );
-}
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <div>
+      <Header />
+      <Login />
+    </div>
+  </ThemeProvider>
+);
 
 export default App;

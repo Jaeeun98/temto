@@ -85,6 +85,7 @@ summary,
 time,
 mark,
 audio,
+input,
 video {
   margin: 0;
   padding: 0;
@@ -92,6 +93,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -137,6 +139,4 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #3498db; /* 테마 색상과 맞춤 */
-  color: #ffffff; /* 테마 텍스트 색상과 맞춤 */
 }
