@@ -3,15 +3,15 @@ import theme from "../styles/theme";
 
 export default function Header() {
   return (
-    <HeaderStyle>
+    <Container>
       <img src="/images/logo.png" alt="temto_logo" />
-    </HeaderStyle>
+    </Container>
   );
 }
 
-const HeaderStyle = styled.header`
+const Container = styled.header`
   background-color  : ${theme.colors.default};
-  border-bottom: ${theme.colors.line_gray};
+  border-bottom:1px solid ${theme.colors.line_gray};
   height: 80px;
   padding-left: 20px;
   display: flex;

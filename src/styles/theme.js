@@ -4,6 +4,7 @@ const theme = {
     default: "#F9F6FD",
     line_gray: "#DDDDDD",
     text_default: "#BA95EA",
+    text_point: "#521E95",
     gray: "#F6F6F6",
     text_gray: "#3A3A3A",
     delete: "#FF5000",
