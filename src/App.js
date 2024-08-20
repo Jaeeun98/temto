@@ -1,18 +1,21 @@
 import { ThemeProvider } from "styled-components";
 import theme from "./styles/theme";
 import Header from "./components/header";
-import { Outlet, useLocation } from 'react-router-dom';
+import Navbar from "./components/navbar.tsx";
+
+import { Outlet, useLocation } from "react-router-dom";
 
 const App = () => {
-  const location = useLocation()
+  const location = useLocation();
+  const pathname = location?.pathname;
 
   return (
     <ThemeProvider theme={theme}>
-      {location?.pathname !== '/' && <Header />}
+      {pathname !== "/" && <Header />}
+      {pathname !== "/" && <Navbar />}
       <Outlet />
     </ThemeProvider>
-    )
-  
-}
+  );
+};
 
 export default App;

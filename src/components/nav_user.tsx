@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import theme from "../styles/theme";
 
-export default function User() { 
+export default function NavUser() { 
     return (
         <Container>
             <ImgContainer>
@@ -14,20 +14,20 @@ export default function User() {
 }
 
 const Container = styled.div`
-    padding:70px;
+    padding:50px;
     text-align: center;
 
-     .id {
-color: ${theme.colors.text_point};
-        font-weight: 500;
-        font-size: 28px;
-        }
-
     p {
+        margin-top: 20px;
 
-       
-        
+        .id {
+            color: ${theme.colors.text_point};
+            font-weight: 500;
+            font-size: 28px;
+        }
     }
+
+     
 `
 
 const ImgContainer = styled.div`
@@ -35,12 +35,11 @@ const ImgContainer = styled.div`
     height: 120px;
     border-radius: 50%;
     overflow: hidden;
-    margin-bottom: 20px;
+    margin: auto;    
 
     img {
         width: 100%;
         height: 100%;
-
     }
     
 `
