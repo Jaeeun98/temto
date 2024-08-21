@@ -6,6 +6,7 @@ import App from "./App";
 import "./index.css";
 import Login from "./pages/login.tsx";
 import Order from "./pages/order.tsx";
+import Goods from "./pages/goods.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Login /> },
       { path: "/order", element: <Order /> },
+      { path: "/goods", element: <Goods /> },
     ],
   },
 ]);
