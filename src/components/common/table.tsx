@@ -2,18 +2,11 @@ import React from "react";
 import { useTable, usePagination, Column, TableOptions } from "react-table";
 import theme from "../../styles/theme";
 import styled from "styled-components";
+import { useTableContext } from "../../context/table_data_context";
 
-interface Props<T extends object> {
-  columns: any;
-  data: T[];
-  itemsPerPage: number;
-}
+export default function Table() {
+  const { tableData } = useTableContext();
 
-export default function Table<T extends object>({
-  columns,
-  data,
-  itemsPerPage,
-}: Props<T>) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -27,12 +20,12 @@ export default function Table<T extends object>({
     state: { pageIndex },
     prepareRow,
     gotoPage,
-  } = useTable<T>(
+  } = useTable(
     {
       // @ts-ignore
-      columns,
-      data,
-      initialState: { pageIndex: 0, pageSize: itemsPerPage }, // 페이지네이션 초기 상태 및 페이지 당 항목 수
+      columns: tableData.columns,
+      data: tableData.data,
+      initialState: { pageIndex: 0, pageSize: tableData.page }, // 페이지네이션 초기 상태 및 페이지 당 항목 수
     },
     usePagination
   );
@@ -44,39 +37,56 @@ export default function Table<T extends object>({
         style={{ width: "100%", borderCollapse: "collapse" }}
       >
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <Tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps()}
-                  style={{
-                    borderBottom: "1px solid #696969",
-                    fontWeight: 500,
-                    fontSize: 18,
-                  }}
-                >
-                  {column.render("Header")}
-                </th>
-              ))}
-            </Tr>
-          ))}
+          {headerGroups.map((headerGroup) => {
+            const { key, ...rest } = headerGroup.getHeaderGroupProps(); // key를 추출
+
+            return (
+              <Tr key={key} {...rest}>
+                {headerGroup.headers.map((column) => {
+                  const { key, ...rest } = column.getHeaderProps(); // key를 추출
+
+                  return (
+                    <th
+                      key={key}
+                      {...rest}
+                      style={{
+                        borderBottom: "1px solid #696969",
+                        fontWeight: 500,
+                        fontSize: 18,
+                      }}
+                    >
+                      {column.render("Header")}
+                    </th>
+                  );
+                })}
+              </Tr>
+            );
+          })}
         </thead>
         <tbody {...getTableBodyProps()}>
           {page.map((row) => {
             prepareRow(row);
+
+            const { key, ...rest } = row.getRowProps(); // key를 추출
+
             return (
-              <Tr {...row.getRowProps()}>
-                {row.cells.map((cell) => (
-                  <td
-                    {...cell.getCellProps()}
-                    style={{
-                      borderBottom: "1px solid #ddd",
-                      textAlign: "center",
-                    }}
-                  >
-                    {cell.render("Cell")}
-                  </td>
-                ))}
+              <Tr key={key} {...rest}>
+                {row.cells.map((cell) => {
+                  const { key, ...rest } = cell.getCellProps();
+
+                  return (
+                    <td
+                      key={key}
+                      {...rest}
+                      style={{
+                        borderBottom: "1px solid #ddd",
+                        textAlign: "center",
+                      }}
+                    >
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
               </Tr>
             );
           })}

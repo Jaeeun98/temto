@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import App from "./App";
 import "./index.css";
@@ -19,12 +20,15 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <RouterProvider router={router}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </RouterProvider>
+  <QueryClientProvider client={queryClient}>
+    <RouterProvider router={router}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </RouterProvider>
+  </QueryClientProvider>
 );

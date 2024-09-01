@@ -1,0 +1,43 @@
+import React from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
+
+interface Content {
+  [key: string]: string;
+}
+
+//columns type 다시 설정
+interface TableData {
+  data: Content[];
+  columns: any;
+  page: number;
+}
+
+interface TableProvierType {
+  tableData: TableData;
+  setTableData: React.Dispatch<React.SetStateAction<TableData>>;
+}
+
+const TableContext = createContext<TableProvierType | undefined>(undefined);
+
+//table data
+export const TableProvier = ({ children }: { children: ReactNode }) => {
+  const [tableData, setTableData] = useState<TableData>({
+    data: [],
+    columns: [],
+    page: 7,
+  });
+
+  return (
+    <TableContext.Provider value={{ tableData, setTableData }}>
+      {children}
+    </TableContext.Provider>
+  );
+};
+
+export const useTableContext = () => {
+  const context = useContext(TableContext);
+  if (context === undefined) {
+    throw new Error("useTableContext must be used within a TableProvier");
+  }
+  return context;
+};

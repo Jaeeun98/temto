@@ -1,10 +1,10 @@
 import React from "react";
 
 import styled from "styled-components";
-import TextInput from "../styles/common/text_input";
-import Button from "../styles/common/button";
 
 import Footer from "../components/footer";
+import Button from "../components/common/button";
+import TextInput from "../components/common/text_input";
 
 export default function Login() {
   // const [loginData, setLoginData] = useState({});
@@ -12,11 +12,11 @@ export default function Login() {
     <Container>
       <Content>
         <img src="/images/logo.png" alt="temto_logo" />
-        <div>
-          <TextInput type="text" placeholder="아이디 입력"></TextInput>
-          <TextInput type="text" placeholder="비밀번호 입력"></TextInput>
+        <form>
+          <TextInput type="text" placeholder="아이디 입력" />
+          <TextInput type="text" placeholder="비밀번호 입력" />
           <Button disabled={true}>로그인</Button>
-        </div>
+        </form>
         <Footer />
       </Content>
     </Container>
