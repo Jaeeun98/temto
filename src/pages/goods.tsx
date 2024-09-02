@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
-
+import React from "react";
 import styled from "styled-components";
 
 import ListContainer from "../components/common/list_container";
 import { getGoodsList } from "../api/goods";
-import { useTableContext } from "../context/table_data_context";
-import { TableButton } from "../components/common/table_button";
-import { TableCheckBox } from "../components/common/table_checkbox";
+import useFetchAndSetTableData from "../hooks/useSetTableData";
 
 const columns = [
   {
@@ -41,36 +37,43 @@ const columns = [
 ];
 
 export default function Goods() {
-  const {
-    data: goodsData,
-    error,
-    isLoading,
-  } = useQuery(["goodsList", 0], () => getGoodsList(1));
+  const { data, error, isLoading } = useFetchAndSetTableData(
+    ["goodsList", 0],
+    () => getGoodsList(1),
+    true, // 버튼 추가 여부를 결정하는 매개변수
+    columns
+  );
 
-  const { setTableData } = useTableContext();
+  // const {
+  //   data: goodsData,
+  //   error,
+  //   isLoading,
+  // } = useQuery(["goodsList", 0], () => getGoodsList(1));
 
-  //추후에 공통 함수로 만들기 > 그때 타입도 수정하기
-  const getData = () => {
-    return goodsData.content.map((item: any) => {
-      return {
-        ...item,
-        modify_button: <TableButton>수정</TableButton>,
-        checkbox: <TableCheckBox type="checkbox" />,
-      };
-    });
-  };
+  // const { setTableData } = useTableContext();
 
-  useEffect(() => {
-    if (goodsData) {
-      const data = getData();
+  // //추후에 공통 함수로 만들기 > 그때 타입도 수정하기
+  // const getData = () => {
+  //   return goodsData.content.map((item: any) => {
+  //     return {
+  //       ...item,
+  //       modify_button: <TableButton>수정</TableButton>,
+  //       checkbox: <TableCheckBox type="checkbox" />,
+  //     };
+  //   });
+  // };
 
-      setTableData({
-        data,
-        page: goodsData.pageable.pageSize,
-        columns,
-      });
-    }
-  }, [goodsData]);
+  // useEffect(() => {
+  //   if (goodsData) {
+  //     const data = getData();
+
+  //     setTableData({
+  //       data,
+  //       page: goodsData.pageable.pageSize,
+  //       columns,
+  //     });
+  //   }
+  // }, [goodsData]);
 
   // if (isLoading) {
   //   return <div>Loading...</div>;
