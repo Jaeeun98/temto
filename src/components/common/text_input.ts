@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import theme from "../../styles/theme";
+import colors from "../../styles/theme";
 
 const TextInput = styled.input`
   width: 400px;
@@ -10,7 +10,7 @@ const TextInput = styled.input`
   font-size: 14px;
 
   &:focus {
-    border: 1px solid ${theme.colors.point};
+    border: 1px solid ${colors.primary[4]};
   }
 `;
 

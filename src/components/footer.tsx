@@ -1,7 +1,7 @@
 import React from "react";
 
 import styled from "styled-components";
-import theme from "../styles/theme";
+import colors from "../styles/theme";
 
 export default function Footer() {
   return (
@@ -16,7 +16,7 @@ const FooterStyled = styled.footer`
   position: absolute;
   bottom: 7%;
   width: 400px;
-  color: ${theme.colors.text_gray};
+  color: ${colors.grayscale[3]};
 
   p {
     margin-top: 20px;

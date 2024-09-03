@@ -1,8 +1,8 @@
 import React from "react";
 import { useTable, usePagination, Column, TableOptions } from "react-table";
-import theme from "../../styles/theme";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
+import colors from "../../styles/theme";
 
 export default function Table() {
   const { tableData } = useTableContext();
@@ -125,7 +125,7 @@ export default function Table() {
 const Tr = styled.tr`
   height: 68px;
   line-height: 68px;
-  color: ${theme.colors.text_gray};
+  color: ${colors.grayscale[1]};
 `;
 
 const Pagination = styled.div`
@@ -139,13 +139,13 @@ const Pagination = styled.div`
   button {
     background: none;
     border: none;
-    color: #c6c6c6;
+    color: ${colors.grayscale[4]};
     cursor: pointer;
     padding: 8px;
   }
 
   button.active {
-    color: #6a0dad; /* 선택된 페이지 번호 색상 */
+    color: ${colors.primary[4]}; /* 선택된 페이지 번호 색상 */
   }
 
   button:disabled {
@@ -154,7 +154,7 @@ const Pagination = styled.div`
   }
 
   button:not(.active):hover {
-    color: #000;
+    color: ${colors.grayscale[1]};
   }
 
   button:first-child,

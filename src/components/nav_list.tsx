@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
-import theme from "../styles/theme";
+import colors from "../styles/theme";
 
 const nav_arr = [
   {
@@ -55,7 +55,7 @@ const Ul = styled.ul`
 const Li = styled.li<{ pathname: boolean }>`
   padding: 20px;
   color: ${(props) =>
-    props.pathname ? theme.colors.text_point : theme.colors.text_default};
+    props.pathname ? colors.primary[4] : colors.grayscale[3]};
   font-size: 20px;
   font-weight: 500;
 `;
