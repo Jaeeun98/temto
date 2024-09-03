@@ -6,7 +6,7 @@ import theme from "../styles/theme";
 export default function Header() {
   return (
     <Container>
-      <img src="/images/logo.png" alt="temto_logo" />
+      <img src="/images/header_logo.png" alt="temto_logo" />
     </Container>
   );
 }
@@ -20,7 +20,7 @@ const Container = styled.header`
   align-items: center;
 
   img {
-    width: 70px;
+    width: 215px;
     height: 40px;
   }
 `;
