@@ -8,7 +8,7 @@ interface Content {
 //columns type 다시 설정
 interface TableData {
   data: Content[];
-  columns: any;
+  columns: any; //추후에 다시 작성
   page: number;
 }
 

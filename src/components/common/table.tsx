@@ -30,6 +30,8 @@ export default function Table() {
     usePagination
   );
 
+  console.log(tableData);
+
   return (
     <div>
       <table
