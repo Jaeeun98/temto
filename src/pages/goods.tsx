@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ListContainer from "../components/common/list_container";
 import { getGoodsList } from "../api/goods";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
+import { TableContainer } from "../styles/table_container";
 
 const columns = [
   {
@@ -84,13 +85,8 @@ export default function Goods() {
   // }
 
   return (
-    <Container>
+    <TableContainer>
       <ListContainer title={"굿즈 리스트"} />
-    </Container>
+    </TableContainer>
   );
 }
-
-//나중에 공통으로 빼기
-const Container = styled.div`
-  width: 100%;
-`;

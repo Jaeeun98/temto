@@ -1,5 +1,5 @@
 import React from "react";
-import { useTable, usePagination, Column, TableOptions } from "react-table";
+import { useTable, usePagination } from "react-table";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
 import colors from "../../styles/theme";
@@ -45,7 +45,7 @@ export default function Table() {
             return (
               <Tr key={key} {...rest}>
                 {headerGroup.headers.map((column) => {
-                  const { key, ...rest } = column.getHeaderProps(); // key를 추출
+                  const { key, ...rest } = column.getHeaderProps();
 
                   return (
                     <th

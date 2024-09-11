@@ -35,7 +35,6 @@ export default function NavList() {
   const location = useLocation();
   const pathname = location?.pathname;
 
-  console.log(pathname);
   return (
     <Ul>
       {nav_arr.map((item) => (

@@ -3,8 +3,8 @@ import React from "react";
 import styled from "styled-components";
 
 import Footer from "../components/footer";
-import Button from "../components/common/button";
-import TextInput from "../components/common/text_input";
+import Button from "../styles/button";
+import TextInput from "../styles/text_input";
 
 export default function Login() {
   // const [loginData, setLoginData] = useState({});

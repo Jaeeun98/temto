@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../../styles/theme";
+import colors from "./theme";
 
 const TextInput = styled.input`
   width: 400px;
