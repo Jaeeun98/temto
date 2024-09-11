@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import theme from "../../styles/theme";
 import Table from "./table";
+import colors from "../../styles/theme";
 
 interface Props {
   title: string;
@@ -22,7 +22,7 @@ const Container = styled.section`
 `;
 
 const H1 = styled.h1`
-  color: ${theme.colors.text_point};
+  color: ${colors.primary[4]};
   font-weight: 700;
   font-size: 28px;
   margin-bottom: 50px;
