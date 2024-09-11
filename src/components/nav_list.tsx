@@ -35,6 +35,7 @@ export default function NavList() {
   const location = useLocation();
   const pathname = location?.pathname;
 
+  console.log(pathname);
   return (
     <Ul>
       {nav_arr.map((item) => (
@@ -59,7 +60,7 @@ const Li = styled.li<{ pathname: string }>`
   padding: 20px;
   cursor: pointer;
   color: ${(props) =>
-    props.pathname ? colors.primary[4] : colors.grayscale[3]};
+    props.pathname === "true" ? colors.primary[4] : colors.grayscale[3]};
   font-size: 20px;
   font-weight: 500;
 `;
