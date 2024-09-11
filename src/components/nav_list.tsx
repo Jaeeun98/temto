@@ -38,8 +38,11 @@ export default function NavList() {
   return (
     <Ul>
       {nav_arr.map((item) => (
-        <Link to={item.link}>
-          <Li pathname={pathname === item.link} key={item.title}>
+        <Link key={item.link} to={item.link}>
+          <Li
+            pathname={pathname === item.link ? "true" : "false"}
+            key={item.title}
+          >
             {item.title}
           </Li>
         </Link>
@@ -52,10 +55,13 @@ const Ul = styled.ul`
   width: 100%;
 `;
 
-const Li = styled.li<{ pathname: boolean }>`
+const Li = styled.li<{ pathname: string }>`
   padding: 20px;
+  cursor: pointer;
   color: ${(props) =>
-    props.pathname ? theme.colors.text_point : theme.colors.text_default};
+    props.pathname === "true"
+      ? theme.colors.text_point
+      : theme.colors.text_default};
   font-size: 20px;
   font-weight: 500;
 `;
