@@ -15,12 +15,12 @@ export default function DeleteButton({ text, api }: Props) {
 
 const Button = styled.button`
   background: none;
-  border: 1px solid ${colors.delete};
+  border: 1px solid ${({ theme }) => theme.colors.delete};
   width: 100px;
   height: 50px;
   border-radius: 8px;
   font-size: 16px;
-  color: ${colors.delete};
+  color: ${({ theme }) => theme.colors.delete};
   cursor: pointer;
   font-weight: 500;
 `;

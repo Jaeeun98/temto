@@ -9,6 +9,7 @@ function useFetchAndSetTableData<T>(
   addButton: boolean = true,
   columns: any
 ) {
+  //*나중에 에러 처리 & 로딩 처리 넣기
   const { data, error, isLoading } = useQuery(queryKey, fetchFunction);
   const { setTableData } = useTableContext();
 

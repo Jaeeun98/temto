@@ -16,7 +16,7 @@ const FooterStyled = styled.footer`
   position: absolute;
   bottom: 7%;
   width: 400px;
-  color: ${colors.grayscale[3]};
+  color: ${({ theme }) => theme.colors.grayscale[3]};
 
   p {
     margin-top: 20px;

@@ -12,8 +12,8 @@ export default function Header() {
 }
 
 const Container = styled.header`
-  background-color: ${colors.grayscale[7]};
-  border-bottom: 1px solid ${colors.grayscale[8]};
+  background-color: ${({ theme }) => theme.colors.grayscale[7]};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grayscale[8]};
   height: 80px;
   padding-left: 20px;
   display: flex;

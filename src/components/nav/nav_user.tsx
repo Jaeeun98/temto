@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import colors from "../styles/theme";
 
 export default function NavUser() {
   return (
@@ -23,7 +22,7 @@ const Container = styled.div`
     margin-top: 20px;
 
     .id {
-      color: ${colors.primary[0]};
+      color: ${(props) => props.theme.colors.primary[0]};
       font-weight: 500;
       font-size: 28px;
     }

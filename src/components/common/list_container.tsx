@@ -22,7 +22,7 @@ const Container = styled.section`
 `;
 
 const H1 = styled.h1`
-  color: ${colors.primary[4]};
+  color: ${({ theme }) => theme.colors.primary[4]};
   font-weight: 700;
   font-size: 28px;
   margin-bottom: 50px;

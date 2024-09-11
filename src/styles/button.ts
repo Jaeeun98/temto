@@ -7,13 +7,13 @@ const Button = styled.button`
   height: 48px;
   padding: 5px 13px;
   border-radius: 8px;
-  background-color: ${colors.primary[4]};
-  color: ${colors.grayscale[7]};
+  background-color: ${({ theme }) => theme.colors.primary[4]};
+  color: ${({ theme }) => theme.colors.grayscale[7]};
   font-size: 16px;
 
   &:disabled {
-    background-color: ${colors.grayscale[6]};
-    color: ${colors.grayscale[3]};
+    background-color: ${({ theme }) => theme.colors.grayscale[6]};
+    color: ${({ theme }) => theme.colors.grayscale[3]};
     cursor: not-allowed;
   }
 `;

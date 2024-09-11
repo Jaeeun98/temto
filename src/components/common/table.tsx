@@ -127,7 +127,7 @@ export default function Table() {
 const Tr = styled.tr`
   height: 68px;
   line-height: 68px;
-  color: ${colors.grayscale[1]};
+  color: ${({ theme }) => theme.colors.grayscale[1]};
 `;
 
 const Pagination = styled.div`
@@ -141,13 +141,14 @@ const Pagination = styled.div`
   button {
     background: none;
     border: none;
-    color: ${colors.grayscale[4]};
+    color: ${({ theme }) => theme.colors.grayscale[4]};
     cursor: pointer;
     padding: 8px;
   }
 
   button.active {
-    color: ${colors.primary[4]}; /* 선택된 페이지 번호 색상 */
+    color: ${({ theme }) =>
+      theme.colors.primary[4]}; /* 선택된 페이지 번호 색상 */
   }
 
   button:disabled {
@@ -156,7 +157,7 @@ const Pagination = styled.div`
   }
 
   button:not(.active):hover {
-    color: ${colors.grayscale[1]};
+    color: ${({ theme }) => theme.colors.grayscale[1]};
   }
 
   button:first-child,

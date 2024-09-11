@@ -10,7 +10,7 @@ const TextInput = styled.input`
   font-size: 14px;
 
   &:focus {
-    border: 1px solid ${colors.primary[4]};
+    border: 1px solid ${({ theme }) => theme.colors.primary[4]};
   }
 `;
 
