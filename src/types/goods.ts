@@ -1,4 +1,4 @@
-interface GoodsDetail {
+export interface GoodsDetail {
   goodsName: string;
   goodsPrice: string;
   goodsColor: string;
