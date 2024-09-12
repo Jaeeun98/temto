@@ -7,6 +7,7 @@ import { ModalTextInputWrapper } from "../styles/modal_text_input_wrapper";
 import ModalInputDate from "./common/modal_input_date";
 import ModalArea from "./common/modal_area";
 import ModalImgAdd from "./common/modal_img_add";
+import ModalButton from "./common/modal_button";
 
 //관광지 추가, 수정 모달창
 export default function TourModal() {
@@ -57,13 +58,9 @@ export default function TourModal() {
             <label htmlFor="">뱃지 분류코드</label>
             <select name="" id=""></select>
           </ModalTextInputWrapper>
-
           <ModalImgAdd value="" inputChange={inputChange} />
         </div>
-        <ButtonBox>
-          <button className="no">취소</button>
-          <button className="yes">추가</button>
-        </ButtonBox>
+        <ModalButton />
       </Modal>
     </ModalWrapper>
   );
@@ -75,6 +72,8 @@ const Modal = styled.div`
   margin: 10px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 30px;
+  border-radius: 12px;
+
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 

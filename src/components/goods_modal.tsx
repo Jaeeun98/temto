@@ -7,6 +7,7 @@ import { ModalTextInputWrapper } from "../styles/modal_text_input_wrapper";
 import ModalInputDate from "./common/modal_input_date";
 import ModalArea from "./common/modal_area";
 import ModalImgAdd from "./common/modal_img_add";
+import ModalButton from "./common/modal_button";
 
 //굿즈 추가, 수정 모달창
 export default function GoodsModal() {
@@ -65,10 +66,7 @@ export default function GoodsModal() {
           />
           <ModalImgAdd value="" inputChange={inputChange} />
         </div>
-        <ButtonBox>
-          <button className="no">취소</button>
-          <button className="yes">추가</button>
-        </ButtonBox>
+        <ModalButton />
       </Modal>
     </ModalWrapper>
   );
@@ -81,6 +79,7 @@ const Modal = styled.div`
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 10px 30px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 12px;
 `;
 
 /*버튼 공통 컴포넌트로 만들수 있으면 만들기 */
