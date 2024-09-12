@@ -4,9 +4,10 @@ import styled from "styled-components";
 import ModalCloseButton from "./common/modal_close_button";
 import ModalInputText from "./common/modal_input_text";
 import ModalButton from "./common/modal_button";
+import { ModalTextInputWrapper } from "../styles/modal_text_input_wrapper";
 
-//특산품 제공 추가, 수정 모달창
-export default function LocalOfferModal() {
+//푸시 추가, 수정 모달창
+export default function PushModal() {
   const inputChange = () => {};
   return (
     <ModalWrapper>
@@ -14,23 +15,15 @@ export default function LocalOfferModal() {
         <ModalCloseButton close="" />
         <div>
           <ModalInputText
-            label="특산품명"
+            label="제목"
             value=""
             inputChange={inputChange}
-            placeholder="특산품명 입력"
+            placeholder="제목 입력"
           />
-          <ModalInputText
-            label="금액"
-            value=""
-            inputChange={inputChange}
-            placeholder="금액 입력"
-          />
-          <ModalInputText
-            label="뱃지 코드"
-            value=""
-            inputChange={inputChange}
-            placeholder="뱃지코드 입력"
-          />
+          <ModalTextInputWrapper>
+            <label htmlFor="">내용</label>
+            <textarea name="" id="" placeholder="내용 입력"></textarea>
+          </ModalTextInputWrapper>
         </div>
         <ModalButton />
       </Modal>

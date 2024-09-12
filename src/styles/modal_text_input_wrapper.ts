@@ -8,17 +8,23 @@ export const ModalTextInputWrapper = styled.div`
     font-weight: 500;
   }
 
-  select {
+  select,
+  textarea {
     border: none;
   }
 
   input,
-  select {
+  select,
+  textarea {
     margin-top: 10px;
     padding: 10px 0;
     font-size: 14px;
     width: 100%;
     color: ${({ theme }) => theme.colors.grayscale[1]};
     border-bottom: 1px solid ${({ theme }) => theme.colors.grayscale[4]};
+  }
+
+  textarea {
+    height: 100px;
   }
 `;
