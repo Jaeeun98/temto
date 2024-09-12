@@ -8,7 +8,12 @@ export const ModalTextInputWrapper = styled.div`
     font-weight: 500;
   }
 
-  input {
+  select {
+    border: none;
+  }
+
+  input,
+  select {
     margin-top: 10px;
     padding: 10px 0;
     font-size: 14px;

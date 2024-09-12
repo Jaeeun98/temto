@@ -5,19 +5,13 @@ interface Props {
   label: string;
   value: string;
   inputChange: any;
-  placeholder: string;
 }
 
-export default function ModalInputText({
-  label,
-  value,
-  inputChange,
-  placeholder,
-}: Props) {
+export default function ModalArea({ label, value, inputChange }: Props) {
   return (
     <ModalTextInputWrapper>
       <label htmlFor="">{label}</label>
-      <input type="text" defaultValue={value} placeholder={placeholder} />
+      <select name="" id=""></select>
     </ModalTextInputWrapper>
   );
 }

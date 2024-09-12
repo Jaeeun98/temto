@@ -8,8 +8,8 @@ import ModalInputDate from "./common/modal_input_date";
 import ModalArea from "./common/modal_area";
 import ModalImgAdd from "./common/modal_img_add";
 
-//굿즈 추가, 수정 모달창
-export default function GoodsModal() {
+//관광지 추가, 수정 모달창
+export default function TourModal() {
   const inputChange = () => {};
   return (
     <ModalWrapper>
@@ -17,52 +17,47 @@ export default function GoodsModal() {
         <ModalCloseButton close="" />
         <div>
           <ModalInputText
-            label="굿즈명"
+            label="관광지명"
             value=""
             inputChange={inputChange}
-            placeholder="굿즈명 입력"
+            placeholder="관광지명 입력"
           />
           <ModalInputText
-            label="굿즈 금액"
+            label="주소"
             value=""
             inputChange={inputChange}
-            placeholder="굿즈 금액 입력"
+            placeholder="주소 입력"
+          />
+          <ModalArea label="관광지 지역" value="" inputChange={inputChange} />
+          <ModalInputText
+            label="관광지 위도"
+            value=""
+            inputChange={inputChange}
+            placeholder="관광지 위도"
           />
           <ModalInputText
-            label="뱃지 해금 개수"
+            label="관광지 경도"
             value=""
             inputChange={inputChange}
-            placeholder="뱃지 해금 개수 입력"
+            placeholder="관광지 경도"
           />
           <ModalInputText
-            label="색상"
+            label="링크"
             value=""
             inputChange={inputChange}
-            placeholder="#빨강"
+            placeholder="링크 입력"
           />
           <ModalInputText
-            label="사이즈"
+            label="연락처"
             value=""
             inputChange={inputChange}
-            placeholder="#s"
+            placeholder="연락처 입력"
           />
-          <ModalInputText
-            label="발송지"
-            value=""
-            inputChange={inputChange}
-            placeholder="발송지 입력"
-          />
-          <ModalArea label="지역" value="" inputChange="" />
-          <ModalInputDate
-            label="상품출시일"
-            value=""
-            inputChange={inputChange}
-          />
-          <ModalInputDate
-            label="예상 배송일"
-            value=""
-            inputChange={inputChange}
-          />
+          <ModalTextInputWrapper>
+            <label htmlFor="">뱃지 분류코드</label>
+            <select name="" id=""></select>
+          </ModalTextInputWrapper>
+
           <ModalImgAdd value="" inputChange={inputChange} />
         </div>
         <ButtonBox>
@@ -79,13 +74,14 @@ const Modal = styled.div`
   height: 950px;
   margin: 10px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
-  padding: 10px 30px;
+  padding: 30px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 
 /*버튼 공통 컴포넌트로 만들수 있으면 만들기 */
 const ButtonBox = styled.div`
   text-align: right;
+  margin-top: 21px;
 
   .yes {
     background: ${({ theme }) => theme.colors.primary[4]};
