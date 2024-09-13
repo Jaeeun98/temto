@@ -22,7 +22,7 @@ const columns = [
     accessor: "localItemPrice",
   },
   {
-    Header: "뱃지 개수",
+    Header: "지역코드",
     accessor: "localItemBadgeCount",
   },
   {

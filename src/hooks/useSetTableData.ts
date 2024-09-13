@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useTableContext } from "../context/table_data_context";
 import { addModifyButton } from "../components/common/table_button";
+import { addCheckbox } from "../components/common/table_checkbox";
 
 function useFetchAndSetTableData<T>(
   queryKey: [string, any],
@@ -16,6 +17,7 @@ function useFetchAndSetTableData<T>(
   useEffect(() => {
     if (data) {
       let contentData = data.content;
+      contentData = contentData.map(addCheckbox);
       if (addButton) contentData = contentData.map(addModifyButton);
 
       setTableData({

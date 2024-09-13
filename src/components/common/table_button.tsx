@@ -16,5 +16,6 @@ export const TableButton = styled.button`
   border-radius: 8px;
   width: 84px;
   height: 38px;
+  cursor: pointer;
 `;
 //추후에 공통 함수로 만들기 > 그때 타입도 수정하기
