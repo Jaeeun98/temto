@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import styled from "styled-components";
 
-const nav_arr = [
+export const nav_arr = [
   {
     title: "주문 리스트",
     link: "/order",
@@ -38,10 +38,7 @@ export default function NavList() {
     <Ul>
       {nav_arr.map((item) => (
         <Link key={item.link} to={item.link}>
-          <Li
-            pathname={pathname === item.link ? "true" : "false"}
-            key={item.title}
-          >
+          <Li pathname={pathname === item.link ? "true" : "false"}>
             {item.title}
           </Li>
         </Link>
