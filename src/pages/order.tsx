@@ -1,8 +1,5 @@
-import React, { useEffect } from "react";
-import { useQuery } from "react-query";
-// import { Container } from "./goods";
+import React from "react";
 import ListContainer from "../components/common/list_container";
-import { useTableContext } from "../context/table_data_context";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
 import { getOrderList } from "../api/order";
 import { TableContainer } from "../styles/table_container";
@@ -35,17 +32,19 @@ const columns = [
   },
 ];
 
+//주문 리스트
 export default function Order() {
-  const { data, error, isLoading } = useFetchAndSetTableData(
-    ["goodsList", 0],
+  useFetchAndSetTableData(
+    ["OrderList", 0],
     () => getOrderList(1),
     true, // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
+  console.log("order");
 
   return (
     <TableContainer>
-      <ListContainer title={"주문 리스트"} />
+      <ListContainer />
     </TableContainer>
   );
 }
