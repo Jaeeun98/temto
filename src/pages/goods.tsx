@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 import ListContainer from "../components/common/list_container";
-import { getGoodsList } from "../api/goods";
+import { getGoodsList, goodsDelete } from "../api/goods";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
 import { TableContainer } from "../styles/table_container";
 
 const columns = [
   {
-    Header: "",
+    header: "",
     accessor: "checkbox",
   },
   {
@@ -31,6 +31,18 @@ const columns = [
     accessor: "goodsSize",
   },
   {
+    Header: "발송지",
+    accessor: "goodsFrom",
+  },
+  {
+    Header: "상품출시일",
+    accessor: "goodsReleaseDate",
+  },
+  {
+    Header: "예상 발송일",
+    accessor: "goodsDeliveryDate",
+  },
+  {
     Header: "수정",
     accessor: "modify_button",
   },
@@ -45,7 +57,11 @@ export default function Goods() {
     columns
   );
 
-  console.log("goods");
+  // console.log("goodsId", goodsId);
+
+  const handleGoodsDelete = (id: string) => goodsDelete(id);
+
+  const handleAdd = () => {};
 
   // const {
   //   data: goodsData,
@@ -88,7 +104,7 @@ export default function Goods() {
 
   return (
     <TableContainer>
-      <ListContainer />
+      <ListContainer idTitle="goodsId" deleteApi={handleGoodsDelete} />
     </TableContainer>
   );
 }

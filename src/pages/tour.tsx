@@ -2,7 +2,7 @@ import React from "react";
 import ListContainer from "../components/common/list_container";
 import { TableContainer } from "../styles/table_container";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
-import { getPushList } from "../api/push";
+import { getTorismList } from "../api/tour";
 
 const columns = [
   {
@@ -38,8 +38,8 @@ const columns = [
 //관광지 리스트
 export default function Tour() {
   useFetchAndSetTableData(
-    ["pushList", 0],
-    () => getPushList(1),
+    ["tourList", 0],
+    () => getTorismList(1),
     true, // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
