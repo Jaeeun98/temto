@@ -10,6 +10,7 @@ const Button = styled.button`
   background-color: ${({ theme }) => theme.colors.primary[4]};
   color: ${({ theme }) => theme.colors.grayscale[7]};
   font-size: 16px;
+  cursor: pointer;
 
   &:disabled {
     background-color: ${({ theme }) => theme.colors.grayscale[6]};

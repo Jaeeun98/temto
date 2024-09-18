@@ -1,21 +1,80 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styled from "styled-components";
 
 import Footer from "../components/footer";
 import Button from "../styles/button";
 import TextInput from "../styles/text_input";
+import { login } from "../api/login";
+import { useNavigate } from "react-router-dom";
+
+interface LoginData {
+  adminUserEmail: string;
+  password: string;
+}
 
 export default function Login() {
-  // const [loginData, setLoginData] = useState({});
+  const navigate = useNavigate();
+
+  const [loginData, setLoginData] = useState<LoginData>({
+    adminUserEmail: "",
+    password: "",
+  });
+
+  const btnDisabled = () => {
+    if (loginData.adminUserEmail !== "" && loginData.password !== "")
+      return false;
+    return true;
+  };
+
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setLoginData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleLogin = async () => {
+    try {
+      const result = await login(loginData);
+
+      alert("로그인 되었습니다.");
+      localStorage.setItem("accessToken", result.data.accessToken);
+      navigate("/order");
+    } catch (error) {
+      // 에러 발생 시 처리 로직
+      console.error("로그인 중 에러 발생:", error);
+      setLoginData({ adminUserEmail: "", password: "" });
+    }
+  };
+
   return (
     <Container>
       <Content>
         <img src="/images/logo.png" alt="temto_logo" />
-        <form>
-          <TextInput type="text" placeholder="아이디 입력" />
-          <TextInput type="text" placeholder="비밀번호 입력" />
-          <Button disabled={true}>로그인</Button>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleLogin();
+          }}
+        >
+          <TextInput
+            onChange={inputChange}
+            name="adminUserEmail"
+            type="text"
+            placeholder="아이디 입력"
+            value={loginData.adminUserEmail}
+          />
+          <TextInput
+            name="password"
+            type="password"
+            placeholder="비밀번호 입력"
+            onChange={inputChange}
+            value={loginData.password}
+          />
+          <Button disabled={btnDisabled()}>로그인</Button>
         </form>
         <Footer />
       </Content>

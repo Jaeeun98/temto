@@ -4,19 +4,38 @@ export const axiosInstance = axios.create({
   baseURL: "http://144.24.95.101:18080/api/v1",
   headers: {
     "Content-Type": "application/json", // 공통된 헤더
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwNDEzMEIzODlBRDg2RkFBQTREMDlENTNGMzRFNUY4NSIsInVzZXJFbWFpbCI6IjA0MTMwQjM4OUFEODZGQUFBNEQwOUQ1M0YzNEU1Rjg1IiwiZXhwIjoxNzI1MzExMTIxLCJpYXQiOjE3MjUyNzUxMjF9.OlWSXeZlKsAlSaoaqm3btzw9287HCU8-6t_5bqK52LU`,
   },
 });
 
+// 토큰 가져오기
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 //에러 처리 > 추후에 수정하기
 axiosInstance.interceptors.response.use(
+  //응답 성공시
   (response) => response,
+
+  //응답 실패시
   (err) => {
     if (err.response) {
-      console.error(err.response.data.message || "알수없는 에러");
-    } else {
-      console.error("알수없는 에러");
+      if (err.response?.status === 401) {
+        alert("로그인이 만료되었습니다.");
+        window.location.href = "/login";
+      } else {
+        alert(err.response.data.errorMessage);
+        return Promise.reject(err);
+      }
     }
-    return Promise.reject(err);
   }
 );
