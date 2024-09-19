@@ -1,7 +1,7 @@
 import React from "react";
 import ListContainer from "../components/common/list_container";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
-import { getOrderList } from "../api/order";
+import { getOrderList, orderDelete } from "../api/order";
 import { TableContainer } from "../styles/table_container";
 
 const columns = [
@@ -28,7 +28,7 @@ const columns = [
   },
   {
     Header: "주문진행상황",
-    accessor: "orderStatus",
+    accessor: "progress_button",
   },
 ];
 
@@ -37,14 +37,20 @@ export default function Order() {
   useFetchAndSetTableData(
     ["OrderList", 0],
     () => getOrderList(0),
-    true, // 버튼 추가 여부를 결정하는 매개변수
+    "progress_button", // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
-  console.log("order");
+
+  const handleOrderDelete = async (id: string) => {
+    const result = await orderDelete(id);
+
+    if (result.status === 200) alert("해당 리스트가 거절되었습니다.");
+    console.log(result);
+  };
 
   return (
     <TableContainer>
-      <ListContainer />
+      <ListContainer idTitle="orderId" handleDelete={handleOrderDelete} />
     </TableContainer>
   );
 }

@@ -4,10 +4,16 @@ import Table from "./table";
 import { useLocation } from "react-router-dom";
 import { nav_arr } from "../nav/nav_list";
 
-export default function ListContainer() {
+interface Props {
+  onCheckboxChange?: any;
+  idTitle?: string; //object key
+  handleDelete?: any;
+}
+
+export default function ListContainer({ handleDelete, idTitle }: Props) {
   // const [title, setTitle] = useState("");
   const location = useLocation();
-  const pathname = location?.pathname;
+  // const pathname = location?.pathname;
 
   const title = useMemo(() => {
     const pathname = location?.pathname;
@@ -15,21 +21,10 @@ export default function ListContainer() {
     return selectedMenu ? selectedMenu.title : "";
   }, [location.pathname]);
 
-  // //title 구하는 함수
-  // const handleTitle = () => {
-  //   const selectPathname = nav_arr.filter((menu) => pathname === menu.link)[0]
-  //     .title;
-  //   return selectPathname;
-  // };
-
-  // useEffect(() => {
-  //   setTitle(handleTitle());
-  // }, [pathname]);
-
   return (
     <Container>
       <H1>{title}</H1>
-      <Table />
+      <Table idTitle={idTitle} handleDelete={handleDelete} />
     </Container>
   );
 }

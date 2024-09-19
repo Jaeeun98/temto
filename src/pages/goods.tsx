@@ -53,7 +53,7 @@ export default function Goods() {
   useFetchAndSetTableData(
     ["goodsList", 0],
     () => getGoodsList(0),
-    true, // 버튼 추가 여부를 결정하는 매개변수
+    "modify_button",
     columns
   );
 
@@ -104,7 +104,7 @@ export default function Goods() {
 
   return (
     <TableContainer>
-      <ListContainer idTitle="goodsId" deleteApi={handleGoodsDelete} />
+      <ListContainer idTitle="goodsId" handleDelete={handleGoodsDelete} />
     </TableContainer>
   );
 }

@@ -36,7 +36,7 @@ export default function Local() {
   useFetchAndSetTableData(
     ["LocalList", 0],
     () => getLocalList(0),
-    true,
+    "modify_button",
     columns
   );
   return (

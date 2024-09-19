@@ -28,7 +28,7 @@ export default function Push() {
   useFetchAndSetTableData(
     ["pushList", 0],
     () => getPushList(),
-    true, // 버튼 추가 여부를 결정하는 매개변수
+    "detail_button", // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
   return (

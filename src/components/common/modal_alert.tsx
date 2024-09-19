@@ -11,14 +11,24 @@ interface Props {
 
 //알림 창
 export default function ModalAlert({ text, api, close }: Props) {
+  //api 호출
+  const handleApi = () => {
+    api();
+    close();
+  };
+
   return (
     <ModalWrapper>
       <Alert>
         <ModalCloseButton close={close} />
         <Text> {text}</Text>
         <ResButtonBox>
-          <button className="yes">네</button>
-          <button className="no">아니요</button>
+          <button className="yes" onClick={handleApi}>
+            네
+          </button>
+          <button className="no" onClick={close}>
+            아니요
+          </button>
         </ResButtonBox>
       </Alert>
     </ModalWrapper>

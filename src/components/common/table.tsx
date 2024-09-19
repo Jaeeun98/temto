@@ -1,36 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTable, usePagination } from "react-table";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
-import colors from "../../styles/theme";
+import Pagination from "./table_pagination";
+import DeleteButton from "./delete_button";
+import AddButton from "./add_button";
+import ModalAlert from "./modal_alert";
 
-export default function Table() {
+interface Props {
+  onCheckboxChange?: any;
+  idTitle: any;
+  handleDelete?: any;
+  handleAdd?: any;
+}
+
+interface AlertModalState {
+  deleteAlert: boolean;
+  addAlert: boolean;
+  modifyAlert: boolean;
+}
+
+type AlertType = keyof AlertModalState;
+
+export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
   const { tableData } = useTableContext();
+  const [id, setId] = useState([]);
+  const [alertModal, setAlertModal] = useState<AlertModalState>({
+    deleteAlert: false,
+    addAlert: false,
+    modifyAlert: false,
+  });
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    page, // 현재 페이지의 데이터
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
-    pageOptions,
-    state: { pageIndex },
-    prepareRow,
-    gotoPage,
-  } = useTable(
-    {
-      // @ts-ignore
-      columns: tableData.columns,
-      data: tableData.data,
-      initialState: { pageIndex: 0, pageSize: tableData.page }, // 페이지네이션 초기 상태 및 페이지 당 항목 수
-    },
-    usePagination
-  );
+  //api 호출시 필요한 ID 저장
+  const handleSaveId = (cell: any, row: any) => {
+    if (cell.column.id === "checkbox") {
+      setId(id.concat(row.original[idTitle]));
+    }
+  };
 
-  console.log(tableData);
+  // const handleDelete = () => {
+  //   deleteApi(id);
+  // };
+
+  const handleAlertModal = (alertType: AlertType) => {
+    console.log(alertType);
+    setAlertModal((prev) => ({
+      ...prev,
+      [alertType]: !prev[alertType],
+    }));
+  };
+
+  //react-table 데이터
+  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
+    useTable(
+      {
+        // @ts-ignore
+        columns: tableData.columns,
+        data: tableData.data,
+        initialState: { pageIndex: 0, pageSize: tableData.page },
+      },
+      usePagination
+    );
+
+  console.log(alertModal);
 
   return (
     <div>
@@ -68,16 +100,16 @@ export default function Table() {
         <tbody {...getTableBodyProps()}>
           {page.map((row) => {
             prepareRow(row);
-
             const { key, ...rest } = row.getRowProps(); // key를 추출
 
             return (
               <Tr key={key} {...rest}>
                 {row.cells.map((cell) => {
                   const { key, ...rest } = cell.getCellProps();
-
+                  // console.log(row);
                   return (
                     <td
+                      onClick={() => handleSaveId(cell, row)}
                       key={key}
                       {...rest}
                       style={{
@@ -94,32 +126,22 @@ export default function Table() {
           })}
         </tbody>
       </table>
-      <Pagination>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          «
-        </button>
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          &lsaquo;
-        </button>
-        {pageOptions.map((pageNumber) => (
-          <button
-            key={pageNumber}
-            onClick={() => gotoPage(pageNumber)}
-            className={pageIndex === pageNumber ? "active" : ""}
-          >
-            {pageNumber + 1}
-          </button>
-        ))}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          &rsaquo;
-        </button>
-        <button
-          onClick={() => gotoPage(pageOptions.length - 1)}
-          disabled={!canNextPage}
-        >
-          »
-        </button>
-      </Pagination>
+      {tableData.page && <Pagination />}
+
+      <ButtonContainer>
+        <DeleteButton
+          text="거절"
+          onClick={() => handleAlertModal("deleteAlert")}
+        />
+        {handleAdd && <AddButton text="등록" api="" />}
+      </ButtonContainer>
+      {alertModal.deleteAlert && (
+        <ModalAlert
+          close={() => handleAlertModal("deleteAlert")}
+          api={() => handleDelete(id)}
+          text="선택하신 리스트를 거절하시겠습니까?"
+        />
+      )}
     </div>
   );
 }
@@ -130,40 +152,9 @@ const Tr = styled.tr`
   color: ${({ theme }) => theme.colors.grayscale[1]};
 `;
 
-const Pagination = styled.div`
+const ButtonContainer = styled.div`
+  position: absolute;
+  right: 40px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  font-size: 14px;
-  font-weight: 400;
-
-  button {
-    background: none;
-    border: none;
-    color: ${({ theme }) => theme.colors.grayscale[4]};
-    cursor: pointer;
-    padding: 8px;
-  }
-
-  button.active {
-    color: ${({ theme }) =>
-      theme.colors.primary[4]}; /* 선택된 페이지 번호 색상 */
-  }
-
-  button:disabled {
-    color: #ccc; /* 비활성화된 버튼 색상 */
-    cursor: not-allowed;
-  }
-
-  button:not(.active):hover {
-    color: ${({ theme }) => theme.colors.grayscale[1]};
-  }
-
-  button:first-child,
-  button:last-child {
-    font-weight: bold;
-    font-size: 18px;
-    margin: 0 5px;
-  }
+  gap: 10px;
 `;

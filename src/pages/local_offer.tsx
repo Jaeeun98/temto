@@ -32,7 +32,7 @@ export default function LocalOffer() {
   useFetchAndSetTableData(
     ["LocalOfferList", 0],
     () => getLocalOfferList(0),
-    true,
+    "modify_button",
     columns
   );
 

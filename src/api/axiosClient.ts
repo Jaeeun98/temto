@@ -36,7 +36,8 @@ axiosInstance.interceptors.response.use(
         window.location.href = "/";
       } else {
         alert(err.response.data.errorMessage);
-        return Promise.reject(err);
+        return;
+        // return Promise.reject(err);
       }
     }
   }

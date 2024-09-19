@@ -5,12 +5,12 @@ import colors from "../../styles/theme";
 //* api 타입 지정하기
 interface Props {
   text: string;
-  api: any;
+  onClick: any;
 }
 
 //거절 & 삭제 버튼
-export default function DeleteButton({ text, api }: Props) {
-  return <Button>{text}</Button>;
+export default function DeleteButton({ text, onClick }: Props) {
+  return <Button onClick={onClick}>{text}</Button>;
 }
 
 const Button = styled.button`
