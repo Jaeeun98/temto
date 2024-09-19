@@ -29,9 +29,11 @@ axiosInstance.interceptors.response.use(
   //응답 실패시
   (err) => {
     if (err.response) {
+      console.log(err);
       if (err.response?.status === 401) {
         alert("로그인이 만료되었습니다.");
-        window.location.href = "/login";
+        localStorage.removeItem("accessToken");
+        window.location.href = "/";
       } else {
         alert(err.response.data.errorMessage);
         return Promise.reject(err);
