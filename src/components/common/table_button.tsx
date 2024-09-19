@@ -3,10 +3,13 @@
 import React from "react";
 import styled from "styled-components";
 
-export const addModifyButton = (item: any) => {
+export const addTableButton = (tableData: any, keyText: string) => {
+  console.log(keyText);
   return {
-    ...item,
-    modify_button: <TableButton>수정</TableButton>,
+    ...tableData,
+    [keyText]: (
+      <TableButton>{keyText === "detail_button" ? "보기" : "수정"}</TableButton>
+    ),
   };
 };
 
@@ -18,4 +21,3 @@ export const TableButton = styled.button`
   height: 38px;
   cursor: pointer;
 `;
-//추후에 공통 함수로 만들기 > 그때 타입도 수정하기

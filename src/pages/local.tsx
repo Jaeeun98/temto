@@ -35,7 +35,7 @@ const columns = [
 export default function Local() {
   useFetchAndSetTableData(
     ["LocalList", 0],
-    () => getLocalList(1),
+    () => getLocalList(0),
     true,
     columns
   );

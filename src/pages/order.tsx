@@ -36,7 +36,7 @@ const columns = [
 export default function Order() {
   useFetchAndSetTableData(
     ["OrderList", 0],
-    () => getOrderList(1),
+    () => getOrderList(0),
     true, // 버튼 추가 여부를 결정하는 매개변수
     columns
   );

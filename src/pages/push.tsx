@@ -19,15 +19,15 @@ const columns = [
   },
   {
     Header: "상세보기",
-    accessor: "pushId",
+    accessor: "detail_button",
   },
 ];
 
 //푸시 리스트
 export default function Push() {
   useFetchAndSetTableData(
-    ["tourList", 0],
-    () => getPushList(1),
+    ["pushList", 0],
+    () => getPushList(),
     true, // 버튼 추가 여부를 결정하는 매개변수
     columns
   );

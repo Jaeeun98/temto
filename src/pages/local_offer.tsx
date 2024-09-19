@@ -31,7 +31,7 @@ const columns = [
 export default function LocalOffer() {
   useFetchAndSetTableData(
     ["LocalOfferList", 0],
-    () => getLocalOfferList(1),
+    () => getLocalOfferList(0),
     true,
     columns
   );

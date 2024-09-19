@@ -39,7 +39,7 @@ const columns = [
 export default function Tour() {
   useFetchAndSetTableData(
     ["tourList", 0],
-    () => getTorismList(1),
+    () => getTorismList(0),
     true, // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
