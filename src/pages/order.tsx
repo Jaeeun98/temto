@@ -34,18 +34,20 @@ const columns = [
 
 //주문 리스트
 export default function Order() {
-  useFetchAndSetTableData(
+  const { refetch } = useFetchAndSetTableData(
     ["OrderList", 0],
     () => getOrderList(0),
     "progress_button", // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
 
-  const handleOrderDelete = async (id: string) => {
+  const handleOrderDelete = async (id: string[]) => {
     const result = await orderDelete(id);
 
-    if (result.status === 200) alert("해당 리스트가 거절되었습니다.");
-    console.log(result);
+    if (result.status === 200) {
+      alert("해당 리스트가 거절되었습니다.");
+      refetch();
+    }
   };
 
   return (

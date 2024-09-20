@@ -12,8 +12,8 @@ export const getOrderList = async (page: number) => {
 };
 
 //주문 삭제
-export const orderDelete = async (orderItemIds: any) => {
-  const result = await axiosInstance.delete(`/order-item`, orderItemIds);
+export const orderDelete = async (orderItemIds: string[]) => {
+  const result = await axiosInstance.post(`/order-item`, orderItemIds);
   return result;
 };
 
