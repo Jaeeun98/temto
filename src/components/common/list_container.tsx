@@ -4,13 +4,20 @@ import Table from "./table";
 import { useLocation } from "react-router-dom";
 import { nav_arr } from "../nav/nav_list";
 
+export type IdTitle = "goodsId" | "orderId";
+
 interface Props {
   onCheckboxChange?: any;
-  idTitle?: string; //object key
+  idTitle?: IdTitle; //object key
   handleDelete?: any;
+  handleAdd?: any;
 }
 
-export default function ListContainer({ handleDelete, idTitle }: Props) {
+export default function ListContainer({
+  handleDelete,
+  idTitle = "goodsId",
+  handleAdd,
+}: Props) {
   // const [title, setTitle] = useState("");
   const location = useLocation();
   // const pathname = location?.pathname;
@@ -24,7 +31,11 @@ export default function ListContainer({ handleDelete, idTitle }: Props) {
   return (
     <Container>
       <H1>{title}</H1>
-      <Table idTitle={idTitle} handleDelete={handleDelete} />
+      <Table
+        idTitle={idTitle}
+        handleDelete={handleDelete}
+        handleAdd={handleAdd}
+      />
     </Container>
   );
 }

@@ -50,61 +50,31 @@ const columns = [
 
 //굿즈
 export default function Goods() {
-  useFetchAndSetTableData(
+  const { refetch } = useFetchAndSetTableData(
     ["goodsList", 0],
     () => getGoodsList(0),
     "modify_button",
     columns
   );
 
-  // console.log("goodsId", goodsId);
+  const handleGoodsDelete = async (id: string) => {
+    const result = await goodsDelete(id);
 
-  const handleGoodsDelete = (id: string) => goodsDelete(id);
+    if (result.status === 200) {
+      alert("해당 리스트가 삭제되었습니다.");
+      refetch();
+    }
+  };
 
   const handleAdd = () => {};
 
-  // const {
-  //   data: goodsData,
-  //   error,
-  //   isLoading,
-  // } = useQuery(["goodsList", 0], () => getGoodsList(1));
-
-  // const { setTableData } = useTableContext();
-
-  // //추후에 공통 함수로 만들기 > 그때 타입도 수정하기
-  // const getData = () => {
-  //   return goodsData.content.map((item: any) => {
-  //     return {
-  //       ...item,
-  //       modify_button: <TableButton>수정</TableButton>,
-  //       checkbox: <TableCheckBox type="checkbox" />,
-  //     };
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   if (goodsData) {
-  //     const data = getData();
-
-  //     setTableData({
-  //       data,
-  //       page: goodsData.pageable.pageSize,
-  //       columns,
-  //     });
-  //   }
-  // }, [goodsData]);
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-
-  // if (error) {
-  //   return <div>Error occurred: {error.message}</div>;
-  // }
-
   return (
     <TableContainer>
-      <ListContainer idTitle="goodsId" handleDelete={handleGoodsDelete} />
+      <ListContainer
+        idTitle="goodsId"
+        handleAdd={handleAdd}
+        handleDelete={handleGoodsDelete}
+      />
     </TableContainer>
   );
 }

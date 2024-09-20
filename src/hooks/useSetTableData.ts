@@ -15,7 +15,7 @@ function useFetchAndSetTableData<T>(
   columns: any
 ) {
   //*나중에 에러 처리 & 로딩 처리 넣기
-  const { data, error, isLoading } = useQuery(queryKey, fetchFunction);
+  const { data, error, isLoading, refetch } = useQuery(queryKey, fetchFunction);
   const { setTableData } = useTableContext();
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function useFetchAndSetTableData<T>(
     }
   }, [data]);
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, refetch };
 }
 
 export default useFetchAndSetTableData;

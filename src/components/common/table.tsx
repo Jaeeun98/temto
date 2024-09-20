@@ -6,10 +6,11 @@ import Pagination from "./table_pagination";
 import DeleteButton from "./delete_button";
 import AddButton from "./add_button";
 import ModalAlert from "./modal_alert";
+import { IdTitle } from "./list_container";
 
 interface Props {
   onCheckboxChange?: any;
-  idTitle: any;
+  idTitle: IdTitle;
   handleDelete?: any;
   handleAdd?: any;
 }
@@ -30,6 +31,7 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
     addAlert: false,
     modifyAlert: false,
   });
+  const deleteText = idTitle === "orderId" ? "거절" : "삭제";
 
   //api 호출시 필요한 ID 저장
   const handleSaveId = (cell: any, row: any) => {
@@ -38,12 +40,7 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
     }
   };
 
-  // const handleDelete = () => {
-  //   deleteApi(id);
-  // };
-
   const handleAlertModal = (alertType: AlertType) => {
-    console.log(alertType);
     setAlertModal((prev) => ({
       ...prev,
       [alertType]: !prev[alertType],
@@ -130,7 +127,7 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
 
       <ButtonContainer>
         <DeleteButton
-          text="거절"
+          text={deleteText}
           onClick={() => handleAlertModal("deleteAlert")}
         />
         {handleAdd && <AddButton text="등록" api="" />}
@@ -139,9 +136,16 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
         <ModalAlert
           close={() => handleAlertModal("deleteAlert")}
           api={() => handleDelete(id)}
-          text="선택하신 리스트를 거절하시겠습니까?"
+          text={`선택하신 리스트를 ${deleteText}하시겠습니까?`}
         />
       )}
+      {/* {alertModal.modifyAlert && (
+        <ModalAlert
+          close={() => handleAlertModal("deleteAlert")}
+          api={() => handleDelete(id)}
+          text="선택하신 리스트를 거절하시겠습니까?"
+        />
+      )} */}
     </div>
   );
 }
