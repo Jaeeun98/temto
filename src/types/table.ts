@@ -6,4 +6,9 @@ export interface AlertModalState {
 
 export type AlertType = keyof AlertModalState;
 
-export type IdTitle = "goodsId" | "orderId";
+export type IdTitle =
+  | "goodsId"
+  | "orderId"
+  | "tourPlaceId"
+  | "localOfferId"
+  | "pushId";

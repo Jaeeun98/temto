@@ -52,6 +52,12 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
   });
   const deleteText = idTitle === "orderId" ? "거절" : "삭제";
 
+  //등록 버튼 출력 여부
+  const addButtonCheck = () => {
+    if (idTitle === "localOfferId" || idTitle === "pushId") return false;
+    return true;
+  };
+
   //api 호출시 필요한 ID 저장 - checkbox
   const handleSaveId = (row: Row<any>) =>
     setCheckboxId(checkBoxId.concat(row.original[idTitle]));
@@ -150,7 +156,7 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
       {tableData.page && <Pagination />}
       <ButtonContainer>
         <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
-        {handleAdd && <AddButton text="등록" onClick={handleAddAlert} />}
+        {addButtonCheck() && <AddButton text="등록" onClick={handleAddAlert} />}
       </ButtonContainer>
       {alertModal.addAlert && addComponent(idTitle, id, handleAddAlert, "등록")}
       {alertModal.modifyAlert &&

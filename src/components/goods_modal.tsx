@@ -120,7 +120,7 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
   const handleCancleAlert = () =>
     handleAlertModal("deleteAlert", setAlertModal);
 
-  //굿즈 등록
+  //*굿즈 등록
   const handleGoodsAdd = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
@@ -130,7 +130,7 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     const result = await goodsAdd(formData);
   };
 
-  //이미지 수정 api 호출
+  //*굿즈 수정
   const handleGoodsModify = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
@@ -139,7 +139,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     formData.append("goodsId", id);
 
     const result = await goodsModify(id, formData);
-    console.log(result);
   };
 
   //수정시 굿즈 데이터 가져오기
@@ -152,8 +151,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
   useEffect(() => {
     state === "수정" && handleGoodsData();
   }, []);
-
-  console.log(data);
 
   return (
     <ModalWrapper>

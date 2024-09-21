@@ -57,6 +57,7 @@ export default function Goods() {
     columns
   );
 
+  //*나중에 alert 처리 공통으로 합치기
   const handleGoodsDelete = async (id: string) => {
     const result = await goodsDelete(id);
 
@@ -66,15 +67,9 @@ export default function Goods() {
     }
   };
 
-  const handleAdd = () => {};
-
   return (
     <TableContainer>
-      <ListContainer
-        idTitle="goodsId"
-        handleAdd={handleAdd}
-        handleDelete={handleGoodsDelete}
-      />
+      <ListContainer idTitle="goodsId" handleDelete={handleGoodsDelete} />
     </TableContainer>
   );
 }
