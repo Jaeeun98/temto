@@ -1,12 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
+interface Props {
+  cancleButton: any;
+  addButton: any;
+  state: "등록" | "수정";
+}
+
 //모달 취소, 추가 버튼
-export default function ModalButton() {
+export default function ModalButton({ cancleButton, addButton, state }: Props) {
   return (
     <ButtonBox>
-      <button className="no">취소</button>
-      <button className="yes">추가</button>
+      <button onClick={cancleButton} className="no">
+        취소
+      </button>
+      <button type="submit" onClick={addButton} className="yes">
+        {state}
+      </button>
     </ButtonBox>
   );
 }

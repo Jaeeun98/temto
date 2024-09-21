@@ -4,14 +4,26 @@ import { ModalTextInputWrapper } from "../../styles/modal_text_input_wrapper";
 interface Props {
   label: string;
   value: string;
+  placeholder: string;
   name?: string;
 }
 
-export default function ModalInputDate({ label, value, name }: Props) {
+export default function ModalInputNumber({
+  label,
+  value,
+  placeholder,
+  name,
+}: Props) {
   return (
     <ModalTextInputWrapper>
       <label htmlFor={label}>{label}</label>
-      <input id={label} type="date" name={name} defaultValue={value} />
+      <input
+        id={label}
+        type="number"
+        name={name}
+        defaultValue={value}
+        placeholder={placeholder}
+      />
     </ModalTextInputWrapper>
   );
 }

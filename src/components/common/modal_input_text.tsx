@@ -4,20 +4,26 @@ import { ModalTextInputWrapper } from "../../styles/modal_text_input_wrapper";
 interface Props {
   label: string;
   value: string;
-  inputChange: any;
   placeholder: string;
+  name?: string;
 }
 
 export default function ModalInputText({
   label,
   value,
-  inputChange,
   placeholder,
+  name,
 }: Props) {
   return (
     <ModalTextInputWrapper>
-      <label htmlFor="">{label}</label>
-      <input type="text" defaultValue={value} placeholder={placeholder} />
+      <label htmlFor={label}>{label}</label>
+      <input
+        id={label}
+        type="text"
+        name={name}
+        defaultValue={value}
+        placeholder={placeholder}
+      />
     </ModalTextInputWrapper>
   );
 }

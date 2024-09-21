@@ -1,7 +1,7 @@
 export interface AlertModalState {
   deleteAlert: boolean;
-  addAlert: boolean;
-  modifyAlert: boolean;
+  addAlert?: boolean;
+  modifyAlert?: boolean;
 }
 
 export type AlertType = keyof AlertModalState;

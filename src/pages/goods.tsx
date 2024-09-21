@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import ListContainer from "../components/common/list_container";
 import { getGoodsList, goodsDelete } from "../api/goods";

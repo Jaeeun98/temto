@@ -6,11 +6,11 @@ import React from "react";
 //* api 타입 지정하기
 interface Props {
   text: string;
-  api: any;
+  onClick: any;
 }
 
-export default function AddButton({ text, api }: Props) {
-  return <Button>{text}</Button>;
+export default function AddButton({ text, onClick }: Props) {
+  return <Button onClick={onClick}>{text}</Button>;
 }
 const Button = styled.button`
   background: ${({ theme }) => theme.colors.primary[4]};

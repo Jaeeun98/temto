@@ -3,8 +3,7 @@ import styled from "styled-components";
 import Table from "./table";
 import { useLocation } from "react-router-dom";
 import { nav_arr } from "../nav/nav_list";
-
-export type IdTitle = "goodsId" | "orderId";
+import { IdTitle } from "../../types/table";
 
 interface Props {
   onCheckboxChange?: any;

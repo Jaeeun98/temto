@@ -1,31 +1,50 @@
 import React, { useState } from "react";
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, Row } from "react-table";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
 import Pagination from "./table_pagination";
 import DeleteButton from "./delete_button";
 import AddButton from "./add_button";
 import ModalAlert from "./modal_alert";
-import { IdTitle } from "./list_container";
+import { AlertModalState, AlertType, IdTitle } from "../../types/table";
+import GoodsModal from "../goods_modal";
 
 interface Props {
   onCheckboxChange?: any;
-  idTitle: IdTitle;
+  idTitle: IdTitle; //api에 넣을 id key
   handleDelete?: any;
   handleAdd?: any;
 }
 
-interface AlertModalState {
-  deleteAlert: boolean;
-  addAlert: boolean;
-  modifyAlert: boolean;
-}
+//id = 선택된 id
+const addComponent = (
+  idTitle: IdTitle,
+  id: string,
+  closeModal: any,
+  state: "등록" | "수정"
+) => {
+  switch (idTitle) {
+    case "goodsId":
+      return <GoodsModal id={id} closeModal={closeModal} state={state} />;
+  }
+};
 
-type AlertType = keyof AlertModalState;
+//*추후에 위치 바꾸고 정리
+//모달 알림창 ture, false
+export const handleAlertModal = (
+  alertType: AlertType,
+  setAlertModal: React.Dispatch<React.SetStateAction<AlertModalState>>
+) => {
+  setAlertModal((prev: any) => ({
+    ...prev,
+    [alertType]: !prev[alertType],
+  }));
+};
 
 export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
   const { tableData } = useTableContext();
-  const [id, setId] = useState([]);
+  const [checkBoxId, setCheckboxId] = useState([]); //여러개 선택
+  const [id, setId] = useState(""); //하나만 선택
   const [alertModal, setAlertModal] = useState<AlertModalState>({
     deleteAlert: false,
     addAlert: false,
@@ -33,20 +52,22 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
   });
   const deleteText = idTitle === "orderId" ? "거절" : "삭제";
 
-  //api 호출시 필요한 ID 저장
-  const handleSaveId = (cell: any, row: any) => {
-    if (cell.column.id === "checkbox") {
-      setId(id.concat(row.original[idTitle]));
-    }
+  //api 호출시 필요한 ID 저장 - checkbox
+  const handleSaveId = (row: Row<any>) =>
+    setCheckboxId(checkBoxId.concat(row.original[idTitle]));
+
+  const handleModifySaveId = (row: Row<any>) => setId(row.original[idTitle]);
+
+  const handleDeleteAlert = () =>
+    handleAlertModal("deleteAlert", setAlertModal);
+
+  const handleAddAlert = () => {
+    handleAlertModal("addAlert", setAlertModal);
   };
 
-  const handleAlertModal = (alertType: AlertType) => {
-    setAlertModal((prev) => ({
-      ...prev,
-      [alertType]: !prev[alertType],
-    }));
+  const handleModifyAlert = () => {
+    handleAlertModal("modifyAlert", setAlertModal);
   };
-
   //react-table 데이터
   const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
     useTable(
@@ -58,8 +79,6 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
       },
       usePagination
     );
-
-  console.log(alertModal);
 
   return (
     <div>
@@ -103,10 +122,15 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
               <Tr key={key} {...rest}>
                 {row.cells.map((cell) => {
                   const { key, ...rest } = cell.getCellProps();
-                  // console.log(row);
+
                   return (
                     <td
-                      onClick={() => handleSaveId(cell, row)}
+                      onClick={() => {
+                        if (cell.column.id === "checkbox") handleSaveId(row);
+                        else if (cell.column.id === "modify_button")
+                          handleModifySaveId(row);
+                        handleModifyAlert();
+                      }}
                       key={key}
                       {...rest}
                       style={{
@@ -124,28 +148,20 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
         </tbody>
       </table>
       {tableData.page && <Pagination />}
-
       <ButtonContainer>
-        <DeleteButton
-          text={deleteText}
-          onClick={() => handleAlertModal("deleteAlert")}
-        />
-        {handleAdd && <AddButton text="등록" api="" />}
+        <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
+        {handleAdd && <AddButton text="등록" onClick={handleAddAlert} />}
       </ButtonContainer>
+      {alertModal.addAlert && addComponent(idTitle, id, handleAddAlert, "등록")}
+      {alertModal.modifyAlert &&
+        addComponent(idTitle, id, handleModifyAlert, "수정")}
       {alertModal.deleteAlert && (
         <ModalAlert
-          close={() => handleAlertModal("deleteAlert")}
-          api={() => handleDelete(id)}
+          close={handleDeleteAlert}
+          api={() => handleDelete(checkBoxId)}
           text={`선택하신 리스트를 ${deleteText}하시겠습니까?`}
         />
       )}
-      {/* {alertModal.modifyAlert && (
-        <ModalAlert
-          close={() => handleAlertModal("deleteAlert")}
-          api={() => handleDelete(id)}
-          text="선택하신 리스트를 거절하시겠습니까?"
-        />
-      )} */}
     </div>
   );
 }

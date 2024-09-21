@@ -8,7 +8,7 @@ interface Props {
 export default function ModalCloseButton({ close }: Props) {
   return (
     <ModalCloseBox>
-      <button>X</button>
+      <button onClick={close}>X</button>
     </ModalCloseBox>
   );
 }

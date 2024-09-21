@@ -7,8 +7,29 @@ export const axiosInstance = axios.create({
   },
 });
 
+export const formAxiosInstance = axios.create({
+  baseURL: "http://144.24.95.101:18080/api/v1",
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
+
 // 토큰 가져오기
 axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// 토큰 가져오기
+formAxiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("accessToken");
     if (token) {
