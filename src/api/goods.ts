@@ -1,4 +1,3 @@
-import { GoodsDetail } from "../types/goods";
 import { axiosInstance, formAxiosInstance } from "./axiosClient";
 
 //굿즈 목록 리스트
