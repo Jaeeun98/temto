@@ -1,12 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import styled from "styled-components";
-import colors from "../styles/theme";
 
 export default function Header() {
+  const navigate = useNavigate();
   return (
     <Container>
-      <img src="/images/header_logo.png" alt="temto_logo" />
+      <img
+        onClick={() => navigate("/order")}
+        src="/images/header_logo.png"
+        alt="temto_logo"
+      />
     </Container>
   );
 }
@@ -22,5 +27,6 @@ const Container = styled.header`
   img {
     width: 215px;
     height: 40px;
+    cursor: pointer;
   }
 `;
