@@ -11,5 +11,5 @@ export type IdTitle =
   | "orderId"
   | "tourPlaceId"
   | "localItemId"
-  | "localOfferId"
+  | "giveLocalItemId"
   | "pushId";

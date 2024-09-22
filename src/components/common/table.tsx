@@ -10,6 +10,7 @@ import { AlertModalState, AlertType, IdTitle } from "../../types/table";
 import GoodsModal from "../goods_modal";
 import TourModal from "../tour_modal";
 import LocalModal from "../local_modal";
+import LocalOfferModal from "../local_offer_modal";
 
 interface Props {
   onCheckboxChange?: any;
@@ -32,6 +33,8 @@ const addComponent = (
       return <TourModal id={id} closeModal={closeModal} state={state} />;
     case "localItemId":
       return <LocalModal id={id} closeModal={closeModal} state={state} />;
+    case "giveLocalItemId":
+      return <LocalOfferModal id={id} closeModal={closeModal} state={state} />;
   }
 };
 
@@ -60,7 +63,7 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
 
   //등록 버튼 출력 여부
   const addButtonCheck = () => {
-    if (idTitle === "localOfferId" || idTitle === "pushId") return false;
+    if (idTitle === "giveLocalItemId" || idTitle === "pushId") return false;
     return true;
   };
 
