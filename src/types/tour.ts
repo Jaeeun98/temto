@@ -1,6 +1,6 @@
 export interface TourDetail {
-  mapX: string;
-  mapY: string;
+  tourismMapX: string;
+  tourismMapY: string;
   badgeCode: string;
   tourismName: string;
   tourismAddress: string;

@@ -26,8 +26,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
     tourismAddress: "",
     tourismLink: "",
     tourismContact: "",
-    mapX: "",
-    mapY: "",
+    tourismMapX: "",
+    tourismMapY: "",
     badgeCode: "",
     tourismImages: [],
   });
@@ -36,8 +36,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
   });
 
   const {
-    mapX,
-    mapY,
+    tourismMapX,
+    tourismMapY,
     badgeCode,
     tourismName,
     tourismAddress,
@@ -76,8 +76,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleInputCheck = () => {
     if (
-      mapX === "" ||
-      mapY === "" ||
+      tourismMapX === "" ||
+      tourismMapY === "" ||
       badgeCode === "" ||
       tourismName === "" ||
       tourismAddress === "" ||
@@ -93,8 +93,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleFormData = () => {
     const formData = new FormData();
-    formData.append("mapX", mapX);
-    formData.append("mapY", mapY);
+    formData.append("mapX", tourismMapX);
+    formData.append("mapY", tourismMapY);
     formData.append("badgeCode", badgeCode);
     formData.append("tourismName", tourismName);
     formData.append("tourismAddress", tourismAddress);
@@ -148,6 +148,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
     state === "수정" && handleTourData();
   }, []);
 
+  console.log(data);
+
   return (
     <ModalWrapper>
       <Modal>
@@ -167,14 +169,14 @@ export default function TourModal({ id, closeModal, state }: Props) {
           />
           <ModalInputText
             label="관광지 위도"
-            value={mapX}
-            name="mapX"
+            value={tourismMapX}
+            name="tourismMapX"
             placeholder="관광지 위도"
           />
           <ModalInputText
             label="관광지 경도"
-            value={mapY}
-            name="mapY"
+            value={tourismMapY}
+            name="tourismMapY"
             placeholder="관광지 경도"
           />
           <ModalInputText
@@ -183,7 +185,12 @@ export default function TourModal({ id, closeModal, state }: Props) {
             name="tourismLink"
             placeholder="링크 입력"
           />
-          <ModalInputText label="연락처" value="" placeholder="연락처 입력" />
+          <ModalInputText
+            label="연락처"
+            value={tourismContact}
+            name="tourismContact"
+            placeholder="연락처 입력"
+          />
           <ModalBadgeCode value={badgeCode} />
           <ModalImgAdd
             handleImgDelete={handleImgDelete}
