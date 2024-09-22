@@ -22,6 +22,8 @@ interface Props {
 
 //굿즈 추가, 수정 모달창
 export default function GoodsModal({ id, closeModal, state }: Props) {
+  const date = new Date();
+
   const [data, setData] = useState<GoodsDetail>({
     goodsName: "",
     goodsPrice: "",
@@ -30,8 +32,8 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     goodsSize: "",
     goodsFrom: "",
     goodsImages: [],
-    goodsReleaseDate: "",
-    goodsDeliveryDate: "",
+    goodsReleaseDate: date.toISOString(),
+    goodsDeliveryDate: date.toISOString(),
     areaCodeId: "",
     detailAreaCodeId: "",
   });
@@ -84,9 +86,14 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     formData.append("goodsFrom", goodsFrom);
     formData.append("goodsReleaseDate", goodsReleaseDate);
     formData.append("goodsDeliveryDate", goodsDeliveryDate);
-    formData.append("goodsImages", goodsImages);
+    // formData.append("goodsImages", goodsImages);
     formData.append("areaCodeId", areaCodeId);
     formData.append("detailAreaCodeId", detailAreaCodeId);
+
+    // 이미지 파일을 배열로 추가
+    for (let i = 0; i < goodsImages.length; i++) {
+      formData.append("goodsImages", goodsImages[i]);
+    }
     return formData;
   };
 
@@ -96,9 +103,9 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     //이미지 추가
     if (name.lastIndexOf("Images") !== -1) {
       const file = e.target.files[0];
-      const fileUrl = URL.createObjectURL(file);
+      // const fileUrl = URL.createObjectURL(file);
 
-      value = goodsImages ? [...goodsImages, fileUrl] : [fileUrl];
+      value = goodsImages ? [...goodsImages, file] : [file];
     }
 
     if (name === "badgeOpenCount") value = Number(value);
@@ -128,6 +135,11 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     const formData = handleFormData();
 
     const result = await goodsAdd(formData);
+
+    if (result.status === 200) {
+      alert("데이터를 등록했습니다.");
+      window.location.reload();
+    }
   };
 
   //*굿즈 수정
@@ -136,16 +148,19 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const formData = handleFormData();
-    formData.append("goodsId", id);
 
     const result = await goodsModify(id, formData);
+    if (result.status === 200) {
+      alert("데이터를 수정했습니다.");
+      window.location.reload();
+    }
   };
 
   //수정시 굿즈 데이터 가져오기
   const handleGoodsData = async () => {
     if (id === "") return;
     const result = await getGoodsDetailList(id);
-    setData(result);
+    setData({ ...result, goodsImages: [] });
   };
 
   useEffect(() => {

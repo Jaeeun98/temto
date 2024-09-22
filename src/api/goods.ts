@@ -15,7 +15,7 @@ export const getGoodsDetailList = async (goodsId: string) => {
 //굿즈 등록
 export const goodsAdd = async (goodsDetailData: FormData) => {
   const result = await formAxiosInstance.post(`/goods`, goodsDetailData);
-  return result?.data;
+  return result;
 };
 
 //굿즈 수정

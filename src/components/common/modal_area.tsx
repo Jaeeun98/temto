@@ -46,7 +46,7 @@ export default function ModalArea({
         onChange={areaCodeSelete}
         name="areaCodeId"
         id="areaCodeId"
-        defaultValue={areaCodeValue}
+        value={areaCodeValue}
       >
         <option value={""}>지역 선택</option>
         {areaCode?.map((code: AreaCode) => (
@@ -56,7 +56,7 @@ export default function ModalArea({
         ))}
       </select>
 
-      <select name="detailAreaCodeId" defaultValue={detailAreaCodeValue}>
+      <select name="detailAreaCodeId" value={detailAreaCodeValue}>
         <option value={""}>상제 지역 선택</option>
         {detailAreaCode !== null &&
           detailAreaCode.map((code: DetailAreaCode) => (

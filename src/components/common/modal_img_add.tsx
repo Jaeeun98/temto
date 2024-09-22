@@ -22,7 +22,7 @@ export default function ModalImgAdd({ value, name, handleImgDelete }: Props) {
         />
         {value?.map((img: any, i: number) => (
           <ImgWrapper key={img}>
-            <img src={img} alt={`upload_img ${i + 1}`} />
+            <img src={URL.createObjectURL(img)} alt={`upload_img ${i + 1}`} />
             <DeleteBtn onClick={() => handleImgDelete(img)}> ×</DeleteBtn>
           </ImgWrapper>
         ))}
