@@ -52,7 +52,7 @@ export const handleAlertModal = (
   }));
 };
 
-export default function Table({ idTitle, handleDelete }: Props) {
+export default function PushTable({ idTitle, handleDelete }: Props) {
   const { tableData } = useTableContext();
   const [checkBoxId, setCheckboxId] = useState([]); //여러개 선택
   const [id, setId] = useState(""); //하나만 선택
@@ -163,16 +163,12 @@ export default function Table({ idTitle, handleDelete }: Props) {
           })}
         </tbody>
       </table>
-      {idTitle !== "pushId" && <Pagination />}
       <ButtonContainer>
-        {idTitle !== "pushId" && (
-          <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
-        )}
-        {idTitle !== "giveLocalItemId" && (
-          <AddButton text="등록" onClick={handleAddAlert} />
-        )}
+        <AddButton text="등록" onClick={handleAddAlert} />
       </ButtonContainer>
-      {alertModal.addAlert && addComponent(idTitle, id, handleAddAlert, "등록")}
+      {alertModal.addAlert && (
+        <PushModal id={id} closeModal={handleAddAlert} state={"등록"} />
+      )}
       {alertModal.modifyAlert &&
         addComponent(idTitle, id, handleModifyAlert, "수정")}
       {alertModal.deleteAlert && (
@@ -193,6 +189,7 @@ const Tr = styled.tr`
 `;
 
 const ButtonContainer = styled.div`
+  margin-top: 20px;
   position: absolute;
   right: 40px;
   display: flex;

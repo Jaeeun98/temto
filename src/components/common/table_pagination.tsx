@@ -18,13 +18,17 @@ export default function Pagination() {
     {
       columns: tableData.columns,
       data: tableData.data,
-      initialState: { pageIndex: 0, pageSize: tableData.page },
+      initialState: { pageIndex: 0, pageSize: 5 },
     },
     usePagination
   );
+
+  console.log("pageIndex", pageIndex);
+
+  console.log("pageOption", pageOptions);
   return (
     <PaginationWrapper>
-      <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+      <button onClick={() => gotoPage(1)} disabled={!canPreviousPage}>
         «
       </button>
       <button onClick={() => previousPage()} disabled={!canPreviousPage}>
@@ -32,14 +36,23 @@ export default function Pagination() {
       </button>
       {pageOptions.map((pageNumber) => (
         <button
-          key={pageNumber}
-          onClick={() => gotoPage(pageNumber)}
-          className={pageIndex === pageNumber ? "active" : ""}
+          key={pageNumber + 1}
+          onClick={() => {
+            console.log("pageNumber", pageNumber + 1);
+            gotoPage(pageNumber + 1);
+          }}
+          className={pageIndex + 1 === pageNumber + 1 ? "active" : ""}
         >
           {pageNumber + 1}
         </button>
       ))}
-      <button onClick={() => nextPage()} disabled={!canNextPage}>
+      <button
+        onClick={() => {
+          console.log("next");
+          nextPage();
+        }}
+        disabled={!canNextPage}
+      >
         &rsaquo;
       </button>
       <button

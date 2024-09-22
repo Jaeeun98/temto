@@ -4,6 +4,7 @@ import Table from "./table";
 import { useLocation } from "react-router-dom";
 import { nav_arr } from "../nav/nav_list";
 import { IdTitle } from "../../types/table";
+import PushTable from "./push_table";
 
 interface Props {
   onCheckboxChange?: any;
@@ -28,7 +29,11 @@ export default function ListContainer({
   return (
     <Container>
       <H1>{title}</H1>
-      <Table idTitle={idTitle} handleDelete={handleDelete} />
+      {idTitle === "pushId" ? (
+        <PushTable idTitle={idTitle} handleDelete={handleDelete} />
+      ) : (
+        <Table idTitle={idTitle} handleDelete={handleDelete} />
+      )}
     </Container>
   );
 }
