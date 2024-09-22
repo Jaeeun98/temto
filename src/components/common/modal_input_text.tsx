@@ -6,6 +6,7 @@ interface Props {
   value: string;
   placeholder: string;
   name?: string;
+  disabled?: boolean;
 }
 
 export default function ModalInputText({
@@ -13,6 +14,7 @@ export default function ModalInputText({
   value,
   placeholder,
   name,
+  disabled,
 }: Props) {
   return (
     <ModalTextInputWrapper>
@@ -23,6 +25,7 @@ export default function ModalInputText({
         name={name}
         defaultValue={value}
         placeholder={placeholder}
+        disabled={disabled}
       />
     </ModalTextInputWrapper>
   );

@@ -80,6 +80,7 @@ export default function PushModal({ id, closeModal, state }: Props) {
             name="pushTitle"
             value={data?.pushTitle}
             placeholder="제목 입력"
+            disabled={state === "수정" ? true : false}
           />
           <ModalTextInputWrapper>
             <label>내용</label>
