@@ -54,7 +54,8 @@ export default function PushModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const result = await addPush(data);
-    if (result.statue === 200) {
+    console.log(result);
+    if (result.status === 200) {
       alert("등록되었습니다.");
       window.location.reload();
     }
@@ -83,7 +84,12 @@ export default function PushModal({ id, closeModal, state }: Props) {
           />
           <ModalTextInputWrapper>
             <label>내용</label>
-            <textarea name="pushContent">{data?.pushContent}</textarea>
+            <textarea
+              name="pushContent"
+              disabled={state === "수정" ? true : false}
+            >
+              {data?.pushContent}
+            </textarea>
           </ModalTextInputWrapper>
         </form>
         {state !== "수정" && (
