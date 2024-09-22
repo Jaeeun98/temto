@@ -39,10 +39,11 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const result = await login(loginData);
-
-      alert("로그인 되었습니다.");
-      localStorage.setItem("accessToken", result.data.accessToken);
-      navigate("/order");
+      if (result.status === 200) {
+        alert("로그인 되었습니다.");
+        localStorage.setItem("accessToken", result.data.accessToken);
+        navigate("/order");
+      }
     } catch (error) {
       // 에러 발생 시 처리 로직
       console.error("로그인 중 에러 발생:", error);
