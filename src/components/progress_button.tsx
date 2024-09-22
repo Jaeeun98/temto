@@ -20,10 +20,9 @@ export default function ProgressButon(tableData: any) {
         defaultValue={tableData.orderStatus}
         onChange={(e) => onSelectChange(e)}
       >
-        <option value="DEPOSIT_CONFIRMED">입금확인</option>
-        <option value="SHIPPING_COMPLETED">발송완료</option>
-        <option value="WAITING_FOR_DEPOSIT">입금전</option>
-        <option value="ITEM_SHIPPED">상품발송</option>
+        <option value="01">결제완료</option>
+        <option value="02">배송중</option>
+        <option value="03">배송완료</option>
       </Select>
     ),
   };
