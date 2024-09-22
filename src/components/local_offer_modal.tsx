@@ -45,15 +45,6 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     return true;
   };
 
-  const handleFormData = () => {
-    const formData = new FormData();
-    formData.append("giveLocalItemName", giveLocalItemName);
-    formData.append("badgeCode", badgeCode);
-    formData.append("giveLocalItemPrice", giveLocalItemPrice);
-
-    return formData;
-  };
-
   const inputChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     let { name, value } = e.target;
 
@@ -72,9 +63,7 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
-    const formData = handleFormData();
-
-    const result = await localOfferAdd(formData);
+    const result = await localOfferAdd(data);
   };
 
   //*
@@ -82,10 +71,7 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
-    const formData = handleFormData();
-    formData.append("localItemId", id);
-
-    const result = await localOfferModify(id, formData);
+    const result = await localOfferModify({ ...data, giveLocalItemId: id });
   };
 
   const handleLocalOfferData = async () => {

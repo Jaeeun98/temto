@@ -123,14 +123,14 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     const result = await localModify(id, formData);
   };
 
-  const handleLocalData = async () => {
+  const handleLocalDetailData = async () => {
     if (id === "") return;
     const result = await getLocalDetailList(id);
     setData(result);
   };
 
   useEffect(() => {
-    state === "수정" && handleLocalData();
+    state === "수정" && handleLocalDetailData();
   }, []);
 
   return (

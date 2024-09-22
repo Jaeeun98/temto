@@ -14,14 +14,15 @@ interface Code {
 
 export default function ModalBadgeCode({ value }: Props) {
   const { data: badgeCode } = useQuery("badgeCode", getBadgeCodeList);
+
   return (
     <ModalTextInputWrapper>
       <label htmlFor="">뱃지 분류코드</label>
-      <select name="badgeCode" id="" defaultValue={value}>
+      <select name="badgeCode" value={value}>
         <option value="">뱃지 코드 선택 </option>
         {badgeCode?.map((code: Code) => (
-          <option key={code.badgeCodeType} value={code.badgeCodeType}>
-            {code.badgeCode}
+          <option key={code.badgeCode} value={code.badgeCode}>
+            {code.badgeCodeType}
           </option>
         ))}
       </select>

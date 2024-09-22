@@ -7,7 +7,7 @@ export const getLocalOfferList = async (page: number) => {
 };
 
 //특산품 등록
-export const localOfferAdd = async (LocalDetailData: FormData) => {
+export const localOfferAdd = async (LocalDetailData: any) => {
   const result = await formAxiosInstance.post(
     `/give-local-item`,
     LocalDetailData
@@ -22,12 +22,9 @@ export const getLocalOfferDetailList = async (LocalId: string) => {
 };
 
 //특산품 수정
-export const localOfferModify = async (
-  id: string,
-  LocalDetailData: FormData
-) => {
+export const localOfferModify = async (LocalDetailData: any) => {
   const result = await formAxiosInstance.put(
-    `/give-local-item/${id}`,
+    `/give-local-item`,
     LocalDetailData
   );
   return result?.data;
