@@ -40,7 +40,6 @@ const addComponent = (
   }
 };
 
-//*추후에 위치 바꾸고 정리
 //모달 알림창 ture, false
 export const handleAlertModal = (
   alertType: AlertType,
@@ -52,6 +51,7 @@ export const handleAlertModal = (
   }));
 };
 
+//*급해서 우선 수정, push는 page가 없고, 다른 컴포넌트는 page가 있어서 나는 에러 > 추후에 수정하기
 export default function PushTable({ idTitle, handleDelete }: Props) {
   const { tableData } = useTableContext();
   const [checkBoxId, setCheckboxId] = useState([]); //여러개 선택
