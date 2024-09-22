@@ -223,8 +223,9 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
 const Modal = styled.div`
   width: 710px;
-  height: 950px;
-  margin: 10px auto;
+  height: 800px;
+  overflow: auto;
+  margin: 50px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 30px;
   border-radius: 12px;
