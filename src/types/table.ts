@@ -10,5 +10,6 @@ export type IdTitle =
   | "goodsId"
   | "orderId"
   | "tourPlaceId"
+  | "localItemId"
   | "localOfferId"
   | "pushId";

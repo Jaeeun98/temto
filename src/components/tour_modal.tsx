@@ -148,7 +148,7 @@ export default function TourModal({ id, closeModal, state }: Props) {
   return (
     <ModalWrapper>
       <Modal>
-        <ModalCloseButton close="" />
+        <ModalCloseButton close={closeModal} />
         <form onChange={inputChange}>
           <ModalInputText
             label="관광지명"
@@ -219,32 +219,4 @@ const Modal = styled.div`
   border-radius: 12px;
 
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-`;
-
-/*버튼 공통 컴포넌트로 만들수 있으면 만들기 */
-const ButtonBox = styled.div`
-  text-align: right;
-  margin-top: 21px;
-
-  .yes {
-    background: ${({ theme }) => theme.colors.primary[4]};
-    color: ${({ theme }) => theme.colors.grayscale[7]};
-  }
-
-  .no {
-    color: ${({ theme }) => theme.colors.primary[4]};
-    margin-right: 25px;
-  }
-
-  button {
-    background: none;
-    border: none;
-    border: 1px solid ${({ theme }) => theme.colors.primary[4]};
-    width: 100px;
-    height: 50px;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 8px;
-    cursor: pointer;
-  }
 `;

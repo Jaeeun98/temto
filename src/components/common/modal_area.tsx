@@ -26,7 +26,7 @@ export default function ModalArea({
   areaCodeValue,
   detailAreaCodeValue,
 }: Props) {
-  const { data: areaCode } = useQuery("areaCode", getAreaCode);
+  const { data: areaCode } = useQuery("getAreaCode", getAreaCode);
   const [detailAreaCode, setDetailAreaCode] = useState<DetailAreaCode[] | null>(
     null
   );

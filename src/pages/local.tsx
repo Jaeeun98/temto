@@ -2,7 +2,7 @@ import React from "react";
 import ListContainer from "../components/common/list_container";
 import { TableContainer } from "../styles/table_container";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
-import { getLocalList } from "../api/local";
+import { getLocalList, localDelete } from "../api/local";
 
 const columns = [
   {
@@ -33,15 +33,25 @@ const columns = [
 
 //특산품 리스트
 export default function Local() {
-  useFetchAndSetTableData(
-    ["LocalList", 0],
+  const { refetch } = useFetchAndSetTableData(
+    ["localList", 0],
     () => getLocalList(0),
     "modify_button",
     columns
   );
+
+  const handleLocalDelete = async (id: string) => {
+    const result = await localDelete(id);
+
+    if (result.status === 200) {
+      alert("해당 리스트가 삭제되었습니다.");
+      refetch();
+    }
+  };
+
   return (
     <TableContainer>
-      <ListContainer />
+      <ListContainer idTitle="localItemId" handleDelete={handleLocalDelete} />
     </TableContainer>
   );
 }

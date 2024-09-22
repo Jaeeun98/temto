@@ -9,6 +9,7 @@ import ModalAlert from "./modal_alert";
 import { AlertModalState, AlertType, IdTitle } from "../../types/table";
 import GoodsModal from "../goods_modal";
 import TourModal from "../tour_modal";
+import LocalModal from "../local_modal";
 
 interface Props {
   onCheckboxChange?: any;
@@ -29,6 +30,8 @@ const addComponent = (
       return <GoodsModal id={id} closeModal={closeModal} state={state} />;
     case "tourPlaceId":
       return <TourModal id={id} closeModal={closeModal} state={state} />;
+    case "localItemId":
+      return <LocalModal id={id} closeModal={closeModal} state={state} />;
   }
 };
 

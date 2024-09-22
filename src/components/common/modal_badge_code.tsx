@@ -14,7 +14,6 @@ interface Code {
 
 export default function ModalBadgeCode({ value }: Props) {
   const { data: badgeCode } = useQuery("badgeCode", getBadgeCodeList);
-  console.log(badgeCode);
   return (
     <ModalTextInputWrapper>
       <label htmlFor="">뱃지 분류코드</label>
