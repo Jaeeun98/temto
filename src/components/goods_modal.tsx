@@ -245,8 +245,9 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
 
 const Modal = styled.div`
   width: 710px;
-  height: 1030px;
-  margin: 10px auto;
+  height: 800px;
+  overflow: auto;
+  margin: 50px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 10px 30px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

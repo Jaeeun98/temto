@@ -16,9 +16,7 @@ export default function ListContainer({
   handleDelete,
   idTitle = "goodsId",
 }: Props) {
-  // const [title, setTitle] = useState("");
   const location = useLocation();
-  // const pathname = location?.pathname;
 
   const title = useMemo(() => {
     const pathname = location?.pathname;
