@@ -34,8 +34,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     goodsImages: [],
     goodsReleaseDate: date.toISOString(),
     goodsDeliveryDate: date.toISOString(),
-    areaCodeId: "",
-    detailAreaCodeId: "",
   });
 
   const {
@@ -48,8 +46,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     goodsImages,
     goodsReleaseDate,
     goodsDeliveryDate,
-    areaCodeId,
-    detailAreaCodeId,
   } = data;
 
   const handleInputCheck = () => {
@@ -62,9 +58,7 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
       goodsFrom === "" &&
       goodsImages.length === 0 &&
       goodsReleaseDate === "" &&
-      goodsDeliveryDate === "" &&
-      areaCodeId === "" &&
-      detailAreaCodeId === ""
+      goodsDeliveryDate === ""
     ) {
       alert("데이터를 전부 입력해 주세요.");
       return false;
@@ -86,8 +80,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     formData.append("goodsFrom", goodsFrom);
     formData.append("goodsReleaseDate", goodsReleaseDate);
     formData.append("goodsDeliveryDate", goodsDeliveryDate);
-    formData.append("areaCodeId", areaCodeId);
-    formData.append("detailAreaCodeId", detailAreaCodeId);
 
     // 이미지 파일을 배열로 추가
     for (let i = 0; i < goodsImages.length; i++) {
@@ -204,11 +196,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
             value={goodsFrom}
             name="goodsFrom"
             placeholder="발송지 입력"
-          />
-          <ModalArea
-            label="지역"
-            detailAreaCodeValue={detailAreaCodeId}
-            areaCodeValue={areaCodeId}
           />
           <ModalInputDate
             label="상품출시일"

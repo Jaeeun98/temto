@@ -26,8 +26,6 @@ export default function TourModal({ id, closeModal, state }: Props) {
     tourismAddress: "",
     tourismLink: "",
     tourismContact: "",
-    areaCodeId: "",
-    detailAreaCodeId: "",
     mapX: "",
     mapY: "",
     badgeCode: "",
@@ -38,11 +36,9 @@ export default function TourModal({ id, closeModal, state }: Props) {
   });
 
   const {
-    detailAreaCodeId,
     mapX,
     mapY,
     badgeCode,
-    areaCodeId,
     tourismName,
     tourismAddress,
     tourismContact,
@@ -80,11 +76,9 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleInputCheck = () => {
     if (
-      detailAreaCodeId === "" &&
       mapX === "" &&
       mapY === "" &&
       badgeCode === "" &&
-      areaCodeId === "" &&
       tourismName === "" &&
       tourismAddress === "" &&
       tourismContact === "" &&
@@ -99,11 +93,9 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleFormData = () => {
     const formData = new FormData();
-    formData.append("detailAreaCodeId", detailAreaCodeId);
     formData.append("mapX", mapX);
     formData.append("mapY", mapY);
     formData.append("badgeCode", badgeCode);
-    formData.append("areaCodeId", areaCodeId);
     formData.append("tourismName", tourismName);
     formData.append("tourismAddress", tourismAddress);
     formData.append("tourismContact", tourismContact);
@@ -172,11 +164,6 @@ export default function TourModal({ id, closeModal, state }: Props) {
             value={tourismAddress}
             name="tourismAddress"
             placeholder="주소 입력"
-          />
-          <ModalArea
-            label="관광지 지역"
-            detailAreaCodeValue={detailAreaCodeId}
-            areaCodeValue={areaCodeId}
           />
           <ModalInputText
             label="관광지 위도"

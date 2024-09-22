@@ -8,7 +8,5 @@ export interface GoodsDetail {
   goodsFrom: string;
   goodsReleaseDate: string;
   goodsDeliveryDate: string;
-  areaCodeId: string;
-  detailAreaCodeId: string;
   goodsImages: any;
 }

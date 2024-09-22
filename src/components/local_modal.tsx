@@ -13,8 +13,6 @@ import ModalAlert from "./common/modal_alert";
 interface Local {
   localItemName: string;
   localItemPrice: string;
-  areaCodeId: string;
-  detailAreaCodeId: string;
   localItemImages: any;
 }
 
@@ -29,18 +27,10 @@ export default function LocalModal({ id, closeModal, state }: Props) {
   const [data, setData] = useState<Local>({
     localItemName: "",
     localItemPrice: "",
-    areaCodeId: "",
-    detailAreaCodeId: "",
     localItemImages: [],
   });
 
-  const {
-    localItemName,
-    localItemPrice,
-    areaCodeId,
-    detailAreaCodeId,
-    localItemImages,
-  } = data;
+  const { localItemName, localItemPrice, localItemImages } = data;
 
   const [alertModal, setAlertModal] = useState({
     deleteAlert: false,
@@ -50,8 +40,6 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     if (
       localItemName === "" &&
       localItemPrice === "" &&
-      areaCodeId === "" &&
-      detailAreaCodeId === "" &&
       localItemImages.length === 0
     ) {
       alert("데이터를 전부 입력해 주세요.");
@@ -64,8 +52,6 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     const formData = new FormData();
     formData.append("localItemName", localItemName);
     formData.append("localItemPrice", localItemPrice);
-    formData.append("areaCodeId", areaCodeId);
-    formData.append("detailAreaCodeId", detailAreaCodeId);
 
     // 이미지 파일을 배열로 추가
     for (let i = 0; i < localItemImages.length; i++) {
@@ -156,11 +142,6 @@ export default function LocalModal({ id, closeModal, state }: Props) {
             name="localItemPrice"
             placeholder="금액 입력"
           />
-          <ModalArea
-            label="지역 코드"
-            detailAreaCodeValue={detailAreaCodeId}
-            areaCodeValue={areaCodeId}
-          />
           <ModalImgAdd
             value={localItemImages}
             name="localItemImages"
@@ -186,7 +167,7 @@ export default function LocalModal({ id, closeModal, state }: Props) {
 
 const Modal = styled.div`
   width: 710px;
-  height: 530px;
+  height: 400px;
   margin: 200px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 30px;
