@@ -168,7 +168,7 @@ export default function Table({ idTitle, handleDelete }: Props) {
         {idTitle !== "pushId" && (
           <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
         )}
-        {idTitle !== "giveLocalItemId" && idTitle !== "orderId" && (
+        {idTitle !== "orderId" && (
           <AddButton text="등록" onClick={handleAddAlert} />
         )}
       </ButtonContainer>
