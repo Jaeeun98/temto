@@ -37,7 +37,7 @@ const addComponent = (
     case "giveLocalItemId":
       return <LocalOfferModal id={id} closeModal={closeModal} state={state} />;
     case "pushId":
-      return <PushModal id={id} closeModal={closeModal} />;
+      return <PushModal id={id} closeModal={closeModal} state={state} />;
   }
 };
 
@@ -66,7 +66,7 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
 
   //등록 버튼 출력 여부
   const addButtonCheck = () => {
-    if (idTitle === "giveLocalItemId" || idTitle === "pushId") return false;
+    if (idTitle === "giveLocalItemId") return false;
     return true;
   };
 
@@ -174,7 +174,9 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
         {idTitle !== "pushId" && (
           <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
         )}
-        {addButtonCheck() && <AddButton text="등록" onClick={handleAddAlert} />}
+        {idTitle !== "giveLocalItemId" && (
+          <AddButton text="등록" onClick={handleAddAlert} />
+        )}
       </ButtonContainer>
       {alertModal.addAlert && addComponent(idTitle, id, handleAddAlert, "등록")}
       {alertModal.modifyAlert &&

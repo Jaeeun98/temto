@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ModalWrapper } from "../styles/modal_wrapper";
 import styled from "styled-components";
 import ModalCloseButton from "./common/modal_close_button";
 import ModalInputText from "./common/modal_input_text";
 import ModalButton from "./common/modal_button";
 import { ModalTextInputWrapper } from "../styles/modal_text_input_wrapper";
-import { useQuery } from "react-query";
 import { addPush, getDetailPushData } from "../api/push";
 import { handleAlertModal } from "./common/table";
+import ModalAlert from "./common/modal_alert";
 
 interface Props {
   id: string;
   closeModal: any;
+  state: string;
 }
 
 //푸시 상세 보기 & 등록 모달창
-export default function PushModal({ id, closeModal }: Props) {
+export default function PushModal({ id, closeModal, state }: Props) {
   const [data, setData] = useState({
     pushTitle: "",
     pushContent: "",
@@ -23,11 +24,18 @@ export default function PushModal({ id, closeModal }: Props) {
 
   const { pushContent, pushTitle } = data;
 
-  // const { data } = useQuery("getDetailPushData", () => getDetailPushData(id));
-
   const [alertModal, setAlertModal] = useState({
     deleteAlert: false,
   });
+
+  const inputChange = (e: React.ChangeEvent<HTMLFormElement>) => {
+    let { name, value } = e.target;
+
+    setData((prev) => ({
+      ...(prev || {}),
+      [name]: value,
+    }));
+  };
 
   const handleCancleAlert = () =>
     handleAlertModal("deleteAlert", setAlertModal);
@@ -48,28 +56,47 @@ export default function PushModal({ id, closeModal }: Props) {
     const result = await addPush(data);
   };
 
-  console.log(data);
+  const handleLocalDetailData = async () => {
+    if (id === "") return;
+    const result = await getDetailPushData(id);
+    setData(result);
+  };
+
+  useEffect(() => {
+    state === "수정" && handleLocalDetailData();
+  }, []);
+
   return (
     <ModalWrapper>
       <Modal>
         <ModalCloseButton close={closeModal} />
-        <div>
+        <form onChange={inputChange}>
           <ModalInputText
             label="제목"
+            name="pushTitle"
             value={data?.pushTitle}
             placeholder="제목 입력"
           />
           <ModalTextInputWrapper>
             <label>내용</label>
-            <textarea>{data?.pushContent}</textarea>
+            <textarea name="pushContent">{data?.pushContent}</textarea>
           </ModalTextInputWrapper>
-        </div>
-        <ModalButton
-          cancleButton={handleCancleAlert}
-          addButton={handlePushAdd}
-          state={"등록"}
-        />{" "}
+        </form>
+        {state !== "수정" && (
+          <ModalButton
+            cancleButton={handleCancleAlert}
+            addButton={handlePushAdd}
+            state={"등록"}
+          />
+        )}
       </Modal>
+      {alertModal.deleteAlert && (
+        <ModalAlert
+          close={handleCancleAlert}
+          api={closeModal}
+          text={`작성 중인 글이 있습니다. 취소하시겠습니까?`}
+        />
+      )}
     </ModalWrapper>
   );
 }
