@@ -87,6 +87,7 @@ export default function PushModal({ id, closeModal, state }: Props) {
             <textarea
               name="pushContent"
               disabled={state === "수정" ? true : false}
+              value={data?.pushContent}
             >
               {data?.pushContent}
             </textarea>
