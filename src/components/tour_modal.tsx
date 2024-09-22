@@ -26,8 +26,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
     tourismAddress: "",
     tourismLink: "",
     tourismContact: "",
-    areaCode: "",
-    detailAreaCode: "",
+    areaCodeId: "",
+    detailAreaCodeId: "",
     mapX: "",
     mapY: "",
     badgeCode: "",
@@ -38,11 +38,11 @@ export default function TourModal({ id, closeModal, state }: Props) {
   });
 
   const {
-    detailAreaCode,
+    detailAreaCodeId,
     mapX,
     mapY,
     badgeCode,
-    areaCode,
+    areaCodeId,
     tourismName,
     tourismAddress,
     tourismContact,
@@ -56,9 +56,7 @@ export default function TourModal({ id, closeModal, state }: Props) {
     //이미지 추가
     if (name.lastIndexOf("Images") !== -1) {
       const file = e.target.files[0];
-      const fileUrl = URL.createObjectURL(file);
-
-      value = tourismImages ? [...tourismImages, fileUrl] : [fileUrl];
+      value = tourismImages ? [...tourismImages, file] : [file];
     }
 
     if (name === "badgeOpenCount") value = Number(value);
@@ -82,11 +80,11 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleInputCheck = () => {
     if (
-      detailAreaCode === "" &&
+      detailAreaCodeId === "" &&
       mapX === "" &&
       mapY === "" &&
       badgeCode === "" &&
-      areaCode === "" &&
+      areaCodeId === "" &&
       tourismName === "" &&
       tourismAddress === "" &&
       tourismContact === "" &&
@@ -101,16 +99,21 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleFormData = () => {
     const formData = new FormData();
-    formData.append("detailAreaCode", detailAreaCode);
+    formData.append("detailAreaCodeId", detailAreaCodeId);
     formData.append("mapX", mapX);
     formData.append("mapY", mapY);
     formData.append("badgeCode", badgeCode);
-    formData.append("areaCode", areaCode);
+    formData.append("areaCodeId", areaCodeId);
     formData.append("tourismName", tourismName);
     formData.append("tourismAddress", tourismAddress);
     formData.append("tourismContact", tourismContact);
     formData.append("tourismImages", tourismImages);
     formData.append("tourismLink", tourismLink);
+
+    // 이미지 파일을 배열로 추가
+    for (let i = 0; i < tourismImages.length; i++) {
+      formData.append("tourismImages", tourismImages[i]);
+    }
     return formData;
   };
 
@@ -122,6 +125,11 @@ export default function TourModal({ id, closeModal, state }: Props) {
     const formData = handleFormData();
 
     const result = await tourismAdd(formData);
+
+    if (result.status === 200) {
+      alert("데이터를 등록했습니다.");
+      window.location.reload();
+    }
   };
 
   //*
@@ -130,9 +138,12 @@ export default function TourModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const formData = handleFormData();
-    formData.append("tourismId", id);
 
     const result = await tourismModify(id, formData);
+    if (result.status === 200) {
+      alert("데이터를 수정했습니다.");
+      window.location.reload();
+    }
   };
 
   const handleTourData = async () => {
@@ -164,8 +175,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
           />
           <ModalArea
             label="관광지 지역"
-            detailAreaCodeValue={detailAreaCode}
-            areaCodeValue={areaCode}
+            detailAreaCodeValue={detailAreaCodeId}
+            areaCodeValue={areaCodeId}
           />
           <ModalInputText
             label="관광지 위도"

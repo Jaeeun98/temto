@@ -18,14 +18,11 @@ export default function Pagination() {
     {
       columns: tableData.columns,
       data: tableData.data,
-      initialState: { pageIndex: 0, pageSize: 5 },
+      initialState: { pageIndex: 0, pageSize: 10 },
     },
     usePagination
   );
 
-  console.log("pageIndex", pageIndex);
-
-  console.log("pageOption", pageOptions);
   return (
     <PaginationWrapper>
       <button onClick={() => gotoPage(1)} disabled={!canPreviousPage}>
@@ -38,7 +35,6 @@ export default function Pagination() {
         <button
           key={pageNumber + 1}
           onClick={() => {
-            console.log("pageNumber", pageNumber + 1);
             gotoPage(pageNumber + 1);
           }}
           className={pageIndex + 1 === pageNumber + 1 ? "active" : ""}
@@ -48,7 +44,6 @@ export default function Pagination() {
       ))}
       <button
         onClick={() => {
-          console.log("next");
           nextPage();
         }}
         disabled={!canNextPage}

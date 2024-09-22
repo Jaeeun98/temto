@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function ModalInputDate({ label, value, name }: Props) {
-  console.log(value);
   return (
     <ModalTextInputWrapper>
       <label htmlFor={label}>{label}</label>

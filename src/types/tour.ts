@@ -1,9 +1,9 @@
 export interface TourDetail {
-  detailAreaCode: string;
+  detailAreaCodeId: string;
   mapX: string;
   mapY: string;
   badgeCode: string;
-  areaCode: string;
+  areaCodeId: string;
   tourismName: string;
   tourismAddress: string;
   tourismContact: string;

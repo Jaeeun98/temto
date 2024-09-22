@@ -88,8 +88,6 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     }));
   };
 
-  console.log(data);
-
   //이미지 삭제
   const handleImgDelete = (url: string) => {
     let value = localItemImages.filter((urls: any) => urls !== url);

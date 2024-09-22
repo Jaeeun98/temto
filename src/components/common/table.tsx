@@ -63,8 +63,6 @@ export default function Table({ idTitle, handleDelete }: Props) {
   });
   const deleteText = idTitle === "orderId" ? "거절" : "삭제";
 
-  console.log(tableData);
-
   //api 호출시 필요한 ID 저장 - checkbox
   const handleSaveId = (row: Row<any>) =>
     setCheckboxId(checkBoxId.concat(row.original[idTitle]));

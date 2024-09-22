@@ -21,7 +21,7 @@ export const tourismDelete = async (tourismId: string) => {
 //관광지 등록
 export const tourismAdd = async (tourDetailData: FormData) => {
   const result = await formAxiosInstance.post(`/tourism`, tourDetailData);
-  return result?.data;
+  return result;
 };
 
 //관광지 수정

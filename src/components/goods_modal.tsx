@@ -86,7 +86,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     formData.append("goodsFrom", goodsFrom);
     formData.append("goodsReleaseDate", goodsReleaseDate);
     formData.append("goodsDeliveryDate", goodsDeliveryDate);
-    // formData.append("goodsImages", goodsImages);
     formData.append("areaCodeId", areaCodeId);
     formData.append("detailAreaCodeId", detailAreaCodeId);
 
@@ -103,8 +102,6 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     //이미지 추가
     if (name.lastIndexOf("Images") !== -1) {
       const file = e.target.files[0];
-      // const fileUrl = URL.createObjectURL(file);
-
       value = goodsImages ? [...goodsImages, file] : [file];
     }
 
