@@ -141,7 +141,7 @@ export default function TourModal({ id, closeModal, state }: Props) {
   const handleTourData = async () => {
     if (id === "") return;
     const result = await getTourismDetailList(id);
-    setData(result);
+    setData({ ...result, tourismImages: [] });
   };
 
   useEffect(() => {
