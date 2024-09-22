@@ -54,7 +54,6 @@ export default function PushModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const result = await addPush(data);
-    console.log(result);
     if (result.status === 200) {
       alert("등록되었습니다.");
       window.location.reload();
