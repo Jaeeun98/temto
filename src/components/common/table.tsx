@@ -11,6 +11,7 @@ import GoodsModal from "../goods_modal";
 import TourModal from "../tour_modal";
 import LocalModal from "../local_modal";
 import LocalOfferModal from "../local_offer_modal";
+import PushModal from "../push_modal";
 
 interface Props {
   onCheckboxChange?: any;
@@ -35,6 +36,8 @@ const addComponent = (
       return <LocalModal id={id} closeModal={closeModal} state={state} />;
     case "giveLocalItemId":
       return <LocalOfferModal id={id} closeModal={closeModal} state={state} />;
+    case "pushId":
+      return <PushModal id={id} closeModal={closeModal} />;
   }
 };
 
@@ -142,7 +145,10 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
                     <td
                       onClick={() => {
                         if (cell.column.id === "checkbox") handleSaveId(row);
-                        else if (cell.column.id === "modify_button") {
+                        else if (
+                          cell.column.id === "modify_button" ||
+                          cell.column.id === "detail_button"
+                        ) {
                           handleModifySaveId(row);
                           handleModifyAlert();
                         }
@@ -165,7 +171,9 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
       </table>
       {tableData.page && <Pagination />}
       <ButtonContainer>
-        <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
+        {idTitle !== "pushId" && (
+          <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
+        )}
         {addButtonCheck() && <AddButton text="등록" onClick={handleAddAlert} />}
       </ButtonContainer>
       {alertModal.addAlert && addComponent(idTitle, id, handleAddAlert, "등록")}

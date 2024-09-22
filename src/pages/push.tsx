@@ -33,7 +33,7 @@ export default function Push() {
   );
   return (
     <TableContainer>
-      <ListContainer />
+      <ListContainer idTitle="pushId" />
     </TableContainer>
   );
 }
