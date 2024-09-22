@@ -64,6 +64,10 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const result = await localOfferAdd(data);
+    if (result.status === 200) {
+      alert("데이터를 등록했습니다.");
+      window.location.reload();
+    }
   };
 
   //*
@@ -72,6 +76,10 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const result = await localOfferModify({ ...data, giveLocalItemId: id });
+    if (result.status === 200) {
+      alert("데이터를 수정했습니다.");
+      window.location.reload();
+    }
   };
 
   const handleLocalOfferData = async () => {
