@@ -17,7 +17,6 @@ interface Props {
   onCheckboxChange?: any;
   idTitle: IdTitle; //api에 넣을 id key
   handleDelete?: any;
-  handleAdd?: any;
 }
 
 //id = 선택된 id
@@ -53,7 +52,7 @@ export const handleAlertModal = (
   }));
 };
 
-export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
+export default function Table({ idTitle, handleDelete }: Props) {
   const { tableData } = useTableContext();
   const [checkBoxId, setCheckboxId] = useState([]); //여러개 선택
   const [id, setId] = useState(""); //하나만 선택
@@ -63,12 +62,6 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
     modifyAlert: false,
   });
   const deleteText = idTitle === "orderId" ? "거절" : "삭제";
-
-  //등록 버튼 출력 여부
-  const addButtonCheck = () => {
-    if (idTitle === "giveLocalItemId") return false;
-    return true;
-  };
 
   //api 호출시 필요한 ID 저장 - checkbox
   const handleSaveId = (row: Row<any>) =>
@@ -169,7 +162,7 @@ export default function Table({ idTitle, handleDelete, handleAdd }: Props) {
           })}
         </tbody>
       </table>
-      {tableData.page && <Pagination />}
+      {idTitle !== "pushId" && <Pagination />}
       <ButtonContainer>
         {idTitle !== "pushId" && (
           <DeleteButton text={deleteText} onClick={handleDeleteAlert} />

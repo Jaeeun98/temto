@@ -9,13 +9,11 @@ interface Props {
   onCheckboxChange?: any;
   idTitle?: IdTitle; //object key
   handleDelete?: any;
-  handleAdd?: any;
 }
 
 export default function ListContainer({
   handleDelete,
   idTitle = "goodsId",
-  handleAdd,
 }: Props) {
   // const [title, setTitle] = useState("");
   const location = useLocation();
@@ -30,11 +28,7 @@ export default function ListContainer({
   return (
     <Container>
       <H1>{title}</H1>
-      <Table
-        idTitle={idTitle}
-        handleDelete={handleDelete}
-        handleAdd={handleAdd}
-      />
+      <Table idTitle={idTitle} handleDelete={handleDelete} />
     </Container>
   );
 }
