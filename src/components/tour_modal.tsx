@@ -76,13 +76,13 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleInputCheck = () => {
     if (
-      mapX === "" &&
-      mapY === "" &&
-      badgeCode === "" &&
-      tourismName === "" &&
-      tourismAddress === "" &&
-      tourismContact === "" &&
-      tourismImages.length === 0 &&
+      mapX === "" ||
+      mapY === "" ||
+      badgeCode === "" ||
+      tourismName === "" ||
+      tourismAddress === "" ||
+      tourismContact === "" ||
+      tourismImages.length === 0 ||
       tourismLink === ""
     ) {
       alert("데이터를 전부 입력해 주세요.");

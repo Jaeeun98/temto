@@ -38,8 +38,8 @@ export default function LocalModal({ id, closeModal, state }: Props) {
 
   const handleInputCheck = () => {
     if (
-      localItemName === "" &&
-      localItemPrice === "" &&
+      localItemName === "" ||
+      localItemPrice === "" ||
       localItemImages.length === 0
     ) {
       alert("데이터를 전부 입력해 주세요.");

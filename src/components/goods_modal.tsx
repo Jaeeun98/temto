@@ -50,14 +50,14 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
 
   const handleInputCheck = () => {
     if (
-      goodsName === "" &&
-      goodsPrice === "" &&
-      badgeOpenCount === "" &&
-      goodsColor === "" &&
-      goodsSize === "" &&
-      goodsFrom === "" &&
-      goodsImages.length === 0 &&
-      goodsReleaseDate === "" &&
+      goodsName === "" ||
+      goodsPrice === "" ||
+      badgeOpenCount === "" ||
+      goodsColor === "" ||
+      goodsSize === "" ||
+      goodsFrom === "" ||
+      goodsImages.length === 0 ||
+      goodsReleaseDate === "" ||
       goodsDeliveryDate === ""
     ) {
       alert("데이터를 전부 입력해 주세요.");

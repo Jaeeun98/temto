@@ -35,8 +35,8 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
 
   const handleInputCheck = () => {
     if (
-      giveLocalItemName === "" &&
-      badgeCode === "" &&
+      giveLocalItemName === "" ||
+      badgeCode === "" ||
       giveLocalItemPrice === ""
     ) {
       alert("데이터를 전부 입력해 주세요.");

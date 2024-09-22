@@ -41,7 +41,7 @@ export default function PushModal({ id, closeModal, state }: Props) {
     handleAlertModal("deleteAlert", setAlertModal);
 
   const handleInputCheck = () => {
-    if (pushTitle === "" && pushContent === "") {
+    if (pushTitle === "" || pushContent === "") {
       alert("데이터를 전부 입력해 주세요.");
       return false;
     }
