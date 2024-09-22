@@ -21,7 +21,7 @@ export const goodsAdd = async (goodsDetailData: FormData) => {
 //굿즈 수정
 export const goodsModify = async (id: string, goodsDetailData: FormData) => {
   const result = await formAxiosInstance.put(`/goods/${id}`, goodsDetailData);
-  return result?.data;
+  return result;
 };
 
 //굿즈 삭제

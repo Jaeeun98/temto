@@ -27,7 +27,7 @@ export const tourismAdd = async (tourDetailData: FormData) => {
 //관광지 수정
 export const tourismModify = async (id: string, tourDetailData: FormData) => {
   const result = await formAxiosInstance.put(`/tourism/${id}`, tourDetailData);
-  return result?.data;
+  return result;
 };
 
 export const getBadgeCodeList = async () => {

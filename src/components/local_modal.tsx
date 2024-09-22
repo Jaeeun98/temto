@@ -66,7 +66,11 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     formData.append("localItemPrice", localItemPrice);
     formData.append("areaCodeId", areaCodeId);
     formData.append("detailAreaCodeId", detailAreaCodeId);
-    formData.append("localItemImages", localItemImages);
+
+    // 이미지 파일을 배열로 추가
+    for (let i = 0; i < localItemImages.length; i++) {
+      formData.append("localItemImages", localItemImages[i]);
+    }
 
     return formData;
   };
@@ -76,9 +80,7 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     //이미지 추가
     if (name.lastIndexOf("Images") !== -1) {
       const file = e.target.files[0];
-      const fileUrl = URL.createObjectURL(file);
-
-      value = localItemImages ? [...localItemImages, fileUrl] : [fileUrl];
+      value = localItemImages ? [...localItemImages, file] : [file];
     }
 
     if (name === "badgeOpenCount") value = Number(value);
@@ -108,6 +110,10 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     const formData = handleFormData();
 
     const result = await localAdd(formData);
+    if (result.status === 200) {
+      alert("데이터를 등록했습니다.");
+      window.location.reload();
+    }
   };
 
   //*
@@ -116,9 +122,11 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const formData = handleFormData();
-    formData.append("localItemId", id);
-
     const result = await localModify(id, formData);
+    if (result.status === 200) {
+      alert("데이터를 수정했습니다.");
+      window.location.reload();
+    }
   };
 
   const handleLocalDetailData = async () => {
