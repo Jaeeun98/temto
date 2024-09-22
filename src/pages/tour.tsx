@@ -10,10 +10,6 @@ const columns = [
     accessor: "checkbox",
   },
   {
-    Header: "관광지 ID",
-    accessor: "tourPlaceId",
-  },
-  {
     Header: "관광지명",
     accessor: "tourPlaceName",
   },

@@ -10,8 +10,8 @@ const columns = [
     accessor: "checkbox",
   },
   {
-    Header: "굿즈 ID",
-    accessor: "goodsId",
+    Header: "굿즈명",
+    accessor: "goodsName",
   },
   {
     Header: "주문일자",
