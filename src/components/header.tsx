@@ -6,9 +6,8 @@ import styled from "styled-components";
 import { userAreaCode } from "../api/login";
 
 export default function Header() {
-  // const { data: areaName } = useQuery("getUserAreaName", userAreaCode);
+  const { data: areaName } = useQuery("getUserAreaName", userAreaCode);
 
-  // console.log(areaName);
   const navigate = useNavigate();
   return (
     <Container>
@@ -17,7 +16,7 @@ export default function Header() {
         src="/images/header_logo.png"
         alt="temto_logo"
       />
-      {/* <h2>{areaName ? areaName : ""}</h2> */}
+      <h2>{areaName ? areaName.userAreaName : ""}</h2>
     </Container>
   );
 }
@@ -29,10 +28,16 @@ const Container = styled.header`
   padding-left: 20px;
   display: flex;
   align-items: center;
+  gap: 30px;
 
   img {
     width: 215px;
     height: 40px;
     cursor: pointer;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
   }
 `;
