@@ -117,7 +117,9 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
     const result = await tourismAdd(formData);
 
-    if (result.status === 200) {
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 등록했습니다.");
       window.location.reload();
     }
@@ -131,7 +133,10 @@ export default function TourModal({ id, closeModal, state }: Props) {
     const formData = handleFormData();
 
     const result = await tourismModify(id, formData);
-    if (result.status === 200) {
+
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 수정했습니다.");
       window.location.reload();
     }

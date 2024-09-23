@@ -5,7 +5,6 @@ import styled from "styled-components";
 import ModalCloseButton from "./common/modal_close_button";
 import ModalInputText from "./common/modal_input_text";
 import ModalInputDate from "./common/modal_input_date";
-import ModalArea from "./common/modal_area";
 import ModalImgAdd from "./common/modal_img_add";
 import ModalButton from "./common/modal_button";
 import ModalAlert from "./common/modal_alert";
@@ -125,7 +124,9 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
 
     const result = await goodsAdd(formData);
 
-    if (result.status === 200) {
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 등록했습니다.");
       window.location.reload();
     }
@@ -139,7 +140,9 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     const formData = handleFormData();
 
     const result = await goodsModify(id, formData);
-    if (result.status === 200) {
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 수정했습니다.");
       window.location.reload();
     }

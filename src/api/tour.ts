@@ -21,13 +21,13 @@ export const tourismDelete = async (tourismId: string[]) => {
 //관광지 등록
 export const tourismAdd = async (tourDetailData: FormData) => {
   const result = await formAxiosInstance.post(`/tourism`, tourDetailData);
-  return result;
+  return result?.data;
 };
 
 //관광지 수정
 export const tourismModify = async (id: string, tourDetailData: FormData) => {
   const result = await formAxiosInstance.put(`/tourism/${id}`, tourDetailData);
-  return result;
+  return result?.data;
 };
 
 export const getBadgeCodeList = async () => {

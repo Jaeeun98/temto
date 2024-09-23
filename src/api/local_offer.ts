@@ -9,7 +9,7 @@ export const getLocalOfferList = async (page: number) => {
 //특산품제공 등록
 export const localOfferAdd = async (localDetailData: any) => {
   const result = await axiosInstance.post(`/give-local-item`, localDetailData);
-  return result;
+  return result?.data;
 };
 
 //특산품제공 상세
@@ -21,7 +21,7 @@ export const getLocalOfferDetailList = async (localId: string) => {
 //특산품제공 수정
 export const localOfferModify = async (localDetailData: any) => {
   const result = await axiosInstance.put(`/give-local-item`, localDetailData);
-  return result;
+  return result?.data;
 };
 
 //특산품제공 삭제

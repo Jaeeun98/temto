@@ -64,7 +64,10 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const result = await localOfferAdd(data);
-    if (result.status === 200) {
+
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 등록했습니다.");
       window.location.reload();
     }
@@ -76,7 +79,10 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const result = await localOfferModify({ ...data, giveLocalItemId: id });
-    if (result.status === 200) {
+
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 수정했습니다.");
       window.location.reload();
     }
@@ -109,7 +115,12 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
             name="giveLocalItemPrice"
             placeholder="금액 입력"
           />
-          <ModalBadgeCode value={badgeCode} />
+          <ModalInputText
+            label="뱃지 코드"
+            value={badgeCode}
+            name="badgeCode"
+            placeholder="뱃지 코드 입력"
+          />
         </form>
         <ModalButton
           cancleButton={handleCancleAlert}

@@ -54,8 +54,10 @@ export default function PushModal({ id, closeModal, state }: Props) {
     if (!inputCheck) return;
 
     const result = await addPush(data);
-    if (result.status === 200) {
-      alert("등록되었습니다.");
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
+      alert("데이터를 등록했습니다.");
       window.location.reload();
     }
   };

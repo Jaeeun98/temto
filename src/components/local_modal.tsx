@@ -96,7 +96,10 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     const formData = handleFormData();
 
     const result = await localAdd(formData);
-    if (result.status === 200) {
+
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 등록했습니다.");
       window.location.reload();
     }
@@ -109,7 +112,9 @@ export default function LocalModal({ id, closeModal, state }: Props) {
 
     const formData = handleFormData();
     const result = await localModify(id, formData);
-    if (result.status === 200) {
+    if (result.status === "FAIL") {
+      alert(result.errorMessage);
+    } else {
       alert("데이터를 수정했습니다.");
       window.location.reload();
     }

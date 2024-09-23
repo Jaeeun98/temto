@@ -15,7 +15,7 @@ export const getLocalDetailList = async (LocalId: string) => {
 //특산품 등록
 export const localAdd = async (LocalDetailData: FormData) => {
   const result = await formAxiosInstance.post(`/local-item`, LocalDetailData);
-  return result;
+  return result?.data;
 };
 
 //특산품 수정
@@ -24,7 +24,7 @@ export const localModify = async (id: string, localDetailData: FormData) => {
     `/local-item/${id}`,
     localDetailData
   );
-  return result;
+  return result?.data;
 };
 
 //특산품 삭제

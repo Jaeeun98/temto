@@ -13,5 +13,5 @@ export const getDetailPushData = async (pushId: string) => {
 
 export const addPush = async (pushData: any) => {
   const result = await axiosInstance.post(`/push`, pushData);
-  return result;
+  return result?.data;
 };
