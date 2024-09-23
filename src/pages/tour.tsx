@@ -26,6 +26,10 @@ const columns = [
     accessor: "tourPlaceContact",
   },
   {
+    Header: "뱃지 코드",
+    accessor: "badgeCodeName",
+  },
+  {
     Header: "수정",
     accessor: "modify_button",
   },

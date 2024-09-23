@@ -19,7 +19,7 @@ const columns = [
   },
   {
     Header: "뱃지 코드",
-    accessor: "badgeCode",
+    accessor: "badgeCodeName",
   },
   {
     Header: "수정",

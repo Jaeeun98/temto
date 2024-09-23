@@ -25,9 +25,15 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     giveLocalItemName: "",
     giveLocalItemPrice: "",
     badgeCode: "",
+    specialBadgeCodeName: "",
   });
 
-  const { giveLocalItemName, giveLocalItemPrice, badgeCode } = data;
+  const {
+    giveLocalItemName,
+    giveLocalItemPrice,
+    badgeCode,
+    specialBadgeCodeName,
+  } = data;
 
   const [alertModal, setAlertModal] = useState({
     deleteAlert: false,
@@ -94,6 +100,8 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     setData(result);
   };
 
+  console.log(data);
+
   useEffect(() => {
     state === "수정" && handleLocalOfferData();
   }, []);
@@ -115,12 +123,15 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
             name="giveLocalItemPrice"
             placeholder="금액 입력"
           />
-          <ModalInputText
-            label="뱃지 코드"
-            value={badgeCode}
-            name="badgeCode"
-            placeholder="뱃지 코드 입력"
-          />
+          <ModalBadgeCode value={badgeCode} />
+          {data.badgeCode === "99" && (
+            <ModalInputText
+              label="스페셜 뱃지 코드"
+              value={specialBadgeCodeName}
+              name="specialBadgeCodeName"
+              placeholder="스페셜 뱃지 코드 입력"
+            />
+          )}
         </form>
         <ModalButton
           cancleButton={handleCancleAlert}
@@ -143,7 +154,7 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
 
 const Modal = styled.div`
   width: 710px;
-  height: 390px;
+  height: 470px;
   margin: 200px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 30px;
