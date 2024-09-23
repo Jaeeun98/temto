@@ -54,7 +54,7 @@ export default function Goods() {
   );
 
   //*나중에 alert 처리 공통으로 합치기
-  const handleGoodsDelete = async (id: string) => {
+  const handleGoodsDelete = async (id: string[]) => {
     const result = await goodsDelete(id);
 
     if (result.status === 200) {

@@ -25,7 +25,7 @@ export const goodsModify = async (id: string, goodsDetailData: FormData) => {
 };
 
 //굿즈 삭제
-export const goodsDelete = async (goodsId: string) => {
-  const result = await axiosInstance.delete(`/goods/${goodsId}`);
+export const goodsDelete = async (goodsId: string[]) => {
+  const result = await axiosInstance.post(`/goods/delete`, goodsId);
   return result;
 };
