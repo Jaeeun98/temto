@@ -4,7 +4,6 @@ import styled from "styled-components";
 import ModalCloseButton from "./common/modal_close_button";
 import ModalInputText from "./common/modal_input_text";
 
-import ModalArea from "./common/modal_area";
 import ModalImgAdd from "./common/modal_img_add";
 import ModalButton from "./common/modal_button";
 import ModalBadgeCode from "./common/modal_badge_code";
@@ -93,8 +92,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
 
   const handleFormData = () => {
     const formData = new FormData();
-    formData.append("mapX", tourismMapX);
-    formData.append("mapY", tourismMapY);
+    formData.append("tourismMapX", tourismMapX);
+    formData.append("tourismMapY", tourismMapY);
     formData.append("badgeCode", badgeCode);
     formData.append("tourismName", tourismName);
     formData.append("tourismAddress", tourismAddress);

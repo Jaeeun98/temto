@@ -36,7 +36,7 @@ export default function Local() {
     columns
   );
 
-  const handleLocalDelete = async (id: string) => {
+  const handleLocalDelete = async (id: string[]) => {
     const result = await localDelete(id);
 
     if (result.status === 200) {

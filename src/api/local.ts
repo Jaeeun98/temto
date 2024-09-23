@@ -19,16 +19,16 @@ export const localAdd = async (LocalDetailData: FormData) => {
 };
 
 //특산품 수정
-export const localModify = async (id: string, LocalDetailData: FormData) => {
+export const localModify = async (id: string, localDetailData: FormData) => {
   const result = await formAxiosInstance.put(
     `/local-item/${id}`,
-    LocalDetailData
+    localDetailData
   );
   return result;
 };
 
 //특산품 삭제
-export const localDelete = async (LocalId: string) => {
-  const result = await axiosInstance.delete(`/local-item/${LocalId}`);
+export const localDelete = async (localId: string[]) => {
+  const result = await axiosInstance.post(`/local-item/multi-delete`, localId);
   return result;
 };
