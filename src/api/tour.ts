@@ -13,8 +13,8 @@ export const getTourismDetailList = async (tourismId: string) => {
 };
 
 //관광지 삭제
-export const tourismDelete = async (tourismId: string) => {
-  const result = await axiosInstance.delete(`/tourism/${tourismId}`);
+export const tourismDelete = async (tourismId: string[]) => {
+  const result = await axiosInstance.post(`/tourism/multi-delete`, tourismId);
   return result;
 };
 

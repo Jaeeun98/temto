@@ -40,7 +40,7 @@ export default function Tour() {
     columns
   );
 
-  const handleTorismDelete = async (id: string) => {
+  const handleTorismDelete = async (id: string[]) => {
     const result = await tourismDelete(id);
 
     if (!result) return;
