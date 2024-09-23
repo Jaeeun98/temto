@@ -18,10 +18,6 @@ const columns = [
     accessor: "localItemPrice",
   },
   {
-    Header: "지역코드",
-    accessor: "localItemBadgeCount",
-  },
-  {
     Header: "수정",
     accessor: "modify_button",
   },

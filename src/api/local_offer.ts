@@ -7,25 +7,28 @@ export const getLocalOfferList = async (page: number) => {
 };
 
 //특산품제공 등록
-export const localOfferAdd = async (LocalDetailData: any) => {
-  const result = await axiosInstance.post(`/give-local-item`, LocalDetailData);
+export const localOfferAdd = async (localDetailData: any) => {
+  const result = await axiosInstance.post(`/give-local-item`, localDetailData);
   return result;
 };
 
 //특산품제공 상세
-export const getLocalOfferDetailList = async (LocalId: string) => {
-  const result = await axiosInstance.get(`/give-local-item/list/${LocalId}`);
+export const getLocalOfferDetailList = async (localId: string) => {
+  const result = await axiosInstance.get(`/give-local-item/list/${localId}`);
   return result?.data;
 };
 
 //특산품제공 수정
-export const localOfferModify = async (LocalDetailData: any) => {
-  const result = await axiosInstance.put(`/give-local-item`, LocalDetailData);
+export const localOfferModify = async (localDetailData: any) => {
+  const result = await axiosInstance.put(`/give-local-item`, localDetailData);
   return result;
 };
 
 //특산품제공 삭제
-export const localOfferDelete = async (LocalId: string) => {
-  const result = await axiosInstance.delete(`/give-local-item/${LocalId}`);
+export const localOfferDelete = async (localId: string[]) => {
+  const result = await axiosInstance.post(
+    `/give-local-item/multi-delete`,
+    localId
+  );
   return result;
 };

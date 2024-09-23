@@ -36,7 +36,7 @@ export default function LocalOffer() {
     columns
   );
 
-  const handleLocalDelete = async (id: string) => {
+  const handleLocalDelete = async (id: string[]) => {
     const result = await localOfferDelete(id);
 
     if (result.status === 200) {
