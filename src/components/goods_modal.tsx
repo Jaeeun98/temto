@@ -21,7 +21,7 @@ interface Props {
 
 //굿즈 추가, 수정 모달창
 export default function GoodsModal({ id, closeModal, state }: Props) {
-  const date = new Date();
+  const dateInit = new Date().toISOString().split("T")[0];
 
   const [data, setData] = useState<GoodsDetail>({
     goodsName: "",
@@ -31,8 +31,8 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     goodsSize: "",
     goodsFrom: "",
     goodsImages: [],
-    goodsReleaseDate: date.toISOString(),
-    goodsDeliveryDate: date.toISOString(),
+    goodsReleaseDate: dateInit,
+    goodsDeliveryDate: dateInit,
   });
 
   const {

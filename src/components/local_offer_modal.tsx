@@ -100,8 +100,6 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     setData(result);
   };
 
-  console.log(data);
-
   useEffect(() => {
     state === "수정" && handleLocalOfferData();
   }, []);
