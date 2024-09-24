@@ -135,14 +135,17 @@ export default function Table({ idTitle, handleDelete }: Props) {
 
                   return (
                     <td
-                      onClick={() => {
-                        if (cell.column.id === "checkbox") handleSaveId(row);
-                        else if (
-                          cell.column.id === "modify_button" ||
-                          cell.column.id === "detail_button"
-                        ) {
-                          handleModifySaveId(row);
-                          handleModifyAlert();
+                      onClick={(e) => {
+                        const target = e.target as HTMLElement;
+                        if (target.tagName === "BUTTON") {
+                          if (cell.column.id === "checkbox") handleSaveId(row);
+                          else if (
+                            cell.column.id === "modify_button" ||
+                            cell.column.id === "detail_button"
+                          ) {
+                            handleModifySaveId(row);
+                            handleModifyAlert();
+                          }
                         }
                       }}
                       key={key}
