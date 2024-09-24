@@ -9,17 +9,24 @@ interface Props {
 }
 
 export default function ModalImgAdd({ value, name, handleImgDelete }: Props) {
+  console.log(value.length);
   return (
     <ModalTextInputWrapper>
       <label htmlFor="">이미지 등록</label>
       <ImgContainer>
-        <input
-          name={name}
-          type="file"
-          defaultValue={value}
-          accept="image/gif, image/jpeg, image/png"
-          multiple
-        />
+        <label htmlFor="file" className="fileBox">
+          <img src="/images/img_icon.png" alt="image_icon" />
+          <input
+            id="file"
+            name={name}
+            type="file"
+            defaultValue={value}
+            accept="image/gif, image/jpeg, image/png"
+            multiple
+          />
+          <p>({value?.length}/10)</p>
+        </label>
+
         {value?.map((img: any, i: number) => (
           <ImgWrapper key={img}>
             <img src={URL.createObjectURL(img)} alt={`upload_img ${i + 1}`} />
@@ -37,14 +44,30 @@ const ImgContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grayscale[4]};
   gap: 10px;
 
+  .fileBox {
+    width: 64px;
+    height: 64px;
+    background: #f6f6f6;
+    margin-top: 20px;
+    border-radius: 8px;
+    text-align: center;
+    padding-top: 7px;
+    cursor: pointer;
+
+    p {
+      font-size: 11px;
+      color: #c6c6c6;
+    }
+  }
+
   input {
-    border: none;
-    width: 100px;
+    display: none;
   }
 `;
 
 const ImgWrapper = styled.div`
   position: relative;
+  margin-top: 20px;
 
   img {
     width: 64px;
