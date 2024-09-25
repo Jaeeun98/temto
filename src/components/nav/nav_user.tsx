@@ -8,18 +8,19 @@ export default function NavUser() {
         <img src="/images/user.png" alt="user_img" />
       </ImgContainer>
       <p>
-        <span className="id">user</span> 님
+        <span className="id">중구관리자</span> 님
       </p>
     </Container>
   );
 }
 
 const Container = styled.div`
-  padding: 50px;
   text-align: center;
+  padding: 50px 0;
 
   p {
     margin-top: 20px;
+    width: 100%;
 
     .id {
       color: ${(props) => props.theme.colors.primary[0]};

@@ -38,10 +38,9 @@ export default function Login() {
 
   const handleLogin = async () => {
     const result = await login(loginData);
-    console.log(result);
     if (result.status !== "FAIL") {
       alert("로그인 되었습니다.");
-      localStorage.setItem("accessToken", result.data.accessToken);
+      localStorage.setItem("accessToken", result.accessToken);
       navigate("/order");
     } else {
       alert(result.errorMessage);
