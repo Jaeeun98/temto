@@ -148,13 +148,9 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
                   const { key, ...rest } = cell.getCellProps();
                   const cellId = cell.column.id;
                   let value = cell.row.values[cellId];
-                  // const placeValue = Number(
-                  //   cell.row.values[cellId]
-                  // )?.toLocaleString("ko-KR");
-                  console.log(cell.column.Header === "금액");
+
                   if (cell.column.Header === "금액")
                     value = Number(value)?.toLocaleString("ko-KR");
-                  console.log(value.toLocaleString("ko-KR"));
 
                   return (
                     <td
