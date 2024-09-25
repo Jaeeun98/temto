@@ -146,16 +146,25 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
               <Tr key={key} {...rest}>
                 {row.cells.map((cell) => {
                   const { key, ...rest } = cell.getCellProps();
+                  const cellId = cell.column.id;
+                  let value = cell.row.values[cellId];
+                  // const placeValue = Number(
+                  //   cell.row.values[cellId]
+                  // )?.toLocaleString("ko-KR");
+                  console.log(cell.column.Header === "금액");
+                  if (cell.column.Header === "금액")
+                    value = Number(value)?.toLocaleString("ko-KR");
+                  console.log(value.toLocaleString("ko-KR"));
 
                   return (
                     <td
                       onClick={(e) => {
                         const target = e.target as HTMLElement;
-                        if (cell.column.id === "checkbox") handleSaveId(row);
+                        if (cellId === "checkbox") handleSaveId(row);
                         if (target.tagName === "BUTTON") {
                           if (
-                            cell.column.id === "modify_button" ||
-                            cell.column.id === "detail_button"
+                            cellId === "modify_button" ||
+                            cellId === "detail_button"
                           ) {
                             handleModifySaveId(row);
                             handleModifyAlert();
@@ -169,7 +178,7 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
                         textAlign: "center",
                       }}
                     >
-                      {cell.render("Cell")}
+                      {value}
                     </td>
                   );
                 })}

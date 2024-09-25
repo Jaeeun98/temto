@@ -36,15 +36,15 @@ function useFetchAndSetTableData<T>(
           totalPages: data.totalPages,
           nowPage: data.pageable.pageNumber,
         };
+      }
 
-        //button 추가
-        if (addButtonType === "progress_button") {
-          contentData = contentData.map(OrderButon);
-        } else {
-          contentData = contentData.map((item: any) =>
-            addTableButton(item, addButtonType)
-          );
-        }
+      //button 추가
+      if (addButtonType === "progress_button") {
+        contentData = contentData.map(OrderButon);
+      } else {
+        contentData = contentData.map((item: any) =>
+          addTableButton(item, addButtonType)
+        );
       }
 
       setTableData({
