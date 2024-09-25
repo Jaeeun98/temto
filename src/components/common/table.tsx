@@ -103,7 +103,6 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
     },
     usePagination
   );
-  console.log(tableData);
 
   return (
     <div>
@@ -152,9 +151,9 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
                     <td
                       onClick={(e) => {
                         const target = e.target as HTMLElement;
+                        if (cell.column.id === "checkbox") handleSaveId(row);
                         if (target.tagName === "BUTTON") {
-                          if (cell.column.id === "checkbox") handleSaveId(row);
-                          else if (
+                          if (
                             cell.column.id === "modify_button" ||
                             cell.column.id === "detail_button"
                           ) {

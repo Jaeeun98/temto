@@ -27,8 +27,6 @@ function useFetchAndSetTableData<T>(
     let contentData = data;
     let page = null;
 
-    console.log(queryKey);
-
     //데이터 정리
     if (data) {
       //pushList는 page, checkbox 없음
