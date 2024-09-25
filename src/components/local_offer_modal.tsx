@@ -6,6 +6,7 @@ import ModalInputText from "./common/modal_input_text";
 import ModalButton from "./common/modal_button";
 import { handleAlertModal } from "./common/table";
 import {
+  getLocalNameList,
   getLocalOfferDetailList,
   localOfferAdd,
   localOfferModify,
@@ -21,12 +22,14 @@ interface Props {
 
 //특산품 제공 추가, 수정 모달창
 export default function LocalOfferModal({ id, closeModal, state }: Props) {
-  const { data: localData } = useQuery("getLocalNameData");
+  const { data: localData } = useQuery("getLocalNameData", getLocalNameList);
   const [data, setData] = useState({
     giveLocalItemName: "",
     giveLocalItemPrice: "",
     specialBadgeCodeName: "",
   });
+
+  console.log(localData);
 
   const { giveLocalItemName, giveLocalItemPrice, specialBadgeCodeName } = data;
 
@@ -79,7 +82,7 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
-    const result = await localOfferModify({ ...data, giveLocalItemId: id });
+    const result = await localOfferModify(id, data);
 
     if (result.status === "FAIL") {
       alert(result.errorMessage);
@@ -144,7 +147,7 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
 
 const Modal = styled.div`
   width: 710px;
-  height: 470px;
+  height: 390px;
   margin: 200px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 30px;

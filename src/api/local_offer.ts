@@ -6,6 +6,14 @@ export const getLocalOfferList = async (page: number) => {
   return result?.data;
 };
 
+//특산품명 리스트
+export const getLocalNameList = async () => {
+  const result = await axiosInstance.get(
+    `/give-local-item/give-local-item-name`
+  );
+  return result?.data;
+};
+
 //특산품제공 등록
 export const localOfferAdd = async (localDetailData: any) => {
   const result = await axiosInstance.post(`/give-local-item`, localDetailData);
@@ -19,8 +27,11 @@ export const getLocalOfferDetailList = async (localId: string) => {
 };
 
 //특산품제공 수정
-export const localOfferModify = async (localDetailData: any) => {
-  const result = await axiosInstance.put(`/give-local-item`, localDetailData);
+export const localOfferModify = async (id: string, localDetailData: any) => {
+  const result = await axiosInstance.put(
+    `/give-local-item/${id}`,
+    localDetailData
+  );
   return result?.data;
 };
 
