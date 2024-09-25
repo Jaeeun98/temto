@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function ModalImgAdd({ value, name, handleImgDelete }: Props) {
-  console.log(value.length);
   return (
     <ModalTextInputWrapper>
       <label htmlFor="">이미지 등록</label>

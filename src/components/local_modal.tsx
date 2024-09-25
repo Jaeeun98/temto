@@ -172,7 +172,7 @@ export default function LocalModal({ id, closeModal, state }: Props) {
 
 const Modal = styled.div`
   width: 710px;
-  height: 400px;
+  height: 430px;
   margin: 200px auto;
   background: ${({ theme }) => theme.colors.grayscale[7]};
   padding: 30px;
