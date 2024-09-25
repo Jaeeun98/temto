@@ -152,8 +152,6 @@ export default function TourModal({ id, closeModal, state }: Props) {
     state === "수정" && handleTourData();
   }, []);
 
-  console.log(data);
-
   return (
     <ModalWrapper>
       <Modal>

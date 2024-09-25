@@ -10,8 +10,8 @@ import {
   localOfferAdd,
   localOfferModify,
 } from "../api/local_offer";
-import ModalBadgeCode from "./common/modal_badge_code";
 import ModalAlert from "./common/modal_alert";
+import { useQuery } from "react-query";
 
 interface Props {
   id: string;
@@ -21,19 +21,14 @@ interface Props {
 
 //특산품 제공 추가, 수정 모달창
 export default function LocalOfferModal({ id, closeModal, state }: Props) {
+  const { data: localData } = useQuery("getLocalNameData");
   const [data, setData] = useState({
     giveLocalItemName: "",
     giveLocalItemPrice: "",
-    badgeCode: "",
     specialBadgeCodeName: "",
   });
 
-  const {
-    giveLocalItemName,
-    giveLocalItemPrice,
-    badgeCode,
-    specialBadgeCodeName,
-  } = data;
+  const { giveLocalItemName, giveLocalItemPrice, specialBadgeCodeName } = data;
 
   const [alertModal, setAlertModal] = useState({
     deleteAlert: false,
@@ -42,8 +37,8 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
   const handleInputCheck = () => {
     if (
       giveLocalItemName === "" ||
-      badgeCode === "" ||
-      giveLocalItemPrice === ""
+      giveLocalItemPrice === "" ||
+      specialBadgeCodeName === ""
     ) {
       alert("데이터를 전부 입력해 주세요.");
       return false;
@@ -121,15 +116,12 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
             name="giveLocalItemPrice"
             placeholder="금액 입력"
           />
-          <ModalBadgeCode value={badgeCode} />
-          {data.badgeCode === "99" && (
-            <ModalInputText
-              label="스페셜 뱃지 코드"
-              value={specialBadgeCodeName}
-              name="specialBadgeCodeName"
-              placeholder="스페셜 뱃지 코드 입력"
-            />
-          )}
+          <ModalInputText
+            label="스페셜 뱃지 코드"
+            value={specialBadgeCodeName}
+            name="specialBadgeCodeName"
+            placeholder="스페셜 뱃지 코드"
+          />
         </form>
         <ModalButton
           cancleButton={handleCancleAlert}
