@@ -37,9 +37,9 @@ const columns = [
 
 //관광지 리스트
 export default function Tour() {
-  const { refetch } = useFetchAndSetTableData(
-    ["tourList", 0],
-    () => getTourismList(0),
+  const { refetch, setCurrentPage } = useFetchAndSetTableData(
+    "tourList",
+    getTourismList,
     "modify_button", // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
@@ -54,9 +54,17 @@ export default function Tour() {
     }
   };
 
+  const handlePage = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <TableContainer>
-      <ListContainer idTitle="tourPlaceId" handleDelete={handleTorismDelete} />
+      <ListContainer
+        handlePage={handlePage}
+        idTitle="tourPlaceId"
+        handleDelete={handleTorismDelete}
+      />
     </TableContainer>
   );
 }

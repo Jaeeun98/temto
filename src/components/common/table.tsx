@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTable, usePagination, Row } from "react-table";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
-import Pagination from "./table_pagination";
+// import Pagination from "./table_pagination";
 import DeleteButton from "./delete_button";
 import AddButton from "./add_button";
 import ModalAlert from "./modal_alert";
@@ -14,9 +14,9 @@ import LocalOfferModal from "../local_offer_modal";
 import PushModal from "../push_modal";
 
 interface Props {
-  onCheckboxChange?: any;
   idTitle: IdTitle; //api에 넣을 id key
   handleDelete?: any;
+  handlePage?: any;
 }
 
 //id = 선택된 id
@@ -52,7 +52,7 @@ export const handleAlertModal = (
   }));
 };
 
-export default function Table({ idTitle, handleDelete }: Props) {
+export default function Table({ idTitle, handleDelete, handlePage }: Props) {
   const { tableData } = useTableContext();
   const [checkBoxId, setCheckboxId] = useState([]); //여러개 선택
   const [id, setId] = useState(""); //하나만 선택
@@ -80,15 +80,30 @@ export default function Table({ idTitle, handleDelete }: Props) {
     handleAlertModal("modifyAlert", setAlertModal);
   };
   //react-table 데이터
-  const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
-    useTable(
-      {
-        // @ts-ignore
-        columns: tableData.columns,
-        data: tableData.data,
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    nextPage,
+    previousPage,
+    pageOptions,
+    gotoPage,
+  } = useTable(
+    {
+      // @ts-ignore
+      columns: tableData.columns,
+      data: tableData.data,
+      initialState: {
+        pageIndex: 0,
       },
-      usePagination
-    );
+      manualPagination: true,
+      pageCount: tableData.page.totalPages,
+    },
+    usePagination
+  );
+  console.log(tableData);
 
   return (
     <div>
@@ -164,7 +179,68 @@ export default function Table({ idTitle, handleDelete }: Props) {
           })}
         </tbody>
       </table>
-      {idTitle !== "pushId" && <Pagination />}
+      {idTitle !== "pushId" && (
+        <PaginationWrapper>
+          <button
+            onClick={() => {
+              gotoPage(1);
+              handlePage(0);
+            }}
+            disabled={tableData.page.nowPage + 1 === 1 ? true : false}
+          >
+            «
+          </button>
+          <button
+            onClick={() => {
+              previousPage();
+              handlePage(tableData.page.nowPage - 1);
+            }}
+            disabled={tableData.page.nowPage + 1 === 1 ? true : false}
+          >
+            &lsaquo;
+          </button>
+          {pageOptions.map((pageNumber) => (
+            <button
+              key={pageNumber + 1}
+              onClick={() => {
+                gotoPage(pageNumber + 1);
+                handlePage(pageNumber);
+              }}
+              className={
+                tableData.page.nowPage + 1 === pageNumber + 1 ? "active" : ""
+              }
+            >
+              {pageNumber + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => {
+              nextPage();
+              handlePage(tableData.page.nowPage + 1);
+            }}
+            disabled={
+              tableData.page.nowPage === tableData.page.totalPages - 1
+                ? true
+                : false
+            }
+          >
+            &rsaquo;
+          </button>
+          <button
+            onClick={() => {
+              gotoPage(pageOptions.length - 1);
+              handlePage(tableData.page.totalPages - 1);
+            }}
+            disabled={
+              tableData.page.nowPage === tableData.page.totalPages - 1
+                ? true
+                : false
+            }
+          >
+            »
+          </button>
+        </PaginationWrapper>
+      )}
       <ButtonContainer>
         {idTitle !== "pushId" && (
           <DeleteButton text={deleteText} onClick={handleDeleteAlert} />
@@ -198,4 +274,42 @@ const ButtonContainer = styled.div`
   right: 40px;
   display: flex;
   gap: 10px;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 14px;
+  font-weight: 400;
+
+  button {
+    background: none;
+    border: none;
+    color: ${({ theme }) => theme.colors.grayscale[4]};
+    cursor: pointer;
+    padding: 8px;
+  }
+
+  button.active {
+    color: ${({ theme }) =>
+      theme.colors.primary[4]}; /* 선택된 페이지 번호 색상 */
+  }
+
+  button:disabled {
+    color: #ccc; /* 비활성화된 버튼 색상 */
+    cursor: not-allowed;
+  }
+
+  button:not(.active):hover {
+    color: ${({ theme }) => theme.colors.grayscale[1]};
+  }
+
+  button:first-child,
+  button:last-child {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 5px;
+  }
 `;

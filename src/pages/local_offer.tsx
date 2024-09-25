@@ -29,9 +29,9 @@ const columns = [
 
 //특산품 제공
 export default function LocalOffer() {
-  const { refetch } = useFetchAndSetTableData(
-    ["LocalOfferList", 0],
-    () => getLocalOfferList(0),
+  const { refetch, setCurrentPage } = useFetchAndSetTableData(
+    "LocalOfferList",
+    getLocalOfferList,
     "modify_button",
     columns
   );
@@ -45,11 +45,16 @@ export default function LocalOffer() {
     }
   };
 
+  const handlePage = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <TableContainer>
       <ListContainer
         idTitle="giveLocalItemId"
         handleDelete={handleLocalDelete}
+        handlePage={handlePage}
       />
     </TableContainer>
   );

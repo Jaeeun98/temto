@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { useTable, usePagination, Row } from "react-table";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
-import Pagination from "./table_pagination";
-import DeleteButton from "./delete_button";
 import AddButton from "./add_button";
 import ModalAlert from "./modal_alert";
 import { AlertModalState, AlertType, IdTitle } from "../../types/table";
