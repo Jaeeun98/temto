@@ -26,8 +26,8 @@ const columns = [
 //푸시 리스트
 export default function Push() {
   useFetchAndSetTableData(
-    ["pushList", 0],
-    () => getPushList(),
+    "pushList",
+    getPushList,
     "detail_button", // 버튼 추가 여부를 결정하는 매개변수
     columns
   );

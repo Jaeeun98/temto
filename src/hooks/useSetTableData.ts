@@ -27,25 +27,26 @@ function useFetchAndSetTableData<T>(
     let contentData = data;
     let page = null;
 
+    console.log(queryKey);
+
     //데이터 정리
     if (data) {
       //pushList는 page, checkbox 없음
-      if (queryKey[0] === "pushList") {
-      } else {
+      if (queryKey !== "pushList") {
         contentData = contentData.content.map(addCheckbox);
         page = {
           totalPages: data.totalPages,
           nowPage: data.pageable.pageNumber,
         };
-      }
 
-      //button 추가
-      if (addButtonType === "progress_button") {
-        contentData = contentData.map(OrderButon);
-      } else {
-        contentData = contentData.map((item: any) =>
-          addTableButton(item, addButtonType)
-        );
+        //button 추가
+        if (addButtonType === "progress_button") {
+          contentData = contentData.map(OrderButon);
+        } else {
+          contentData = contentData.map((item: any) =>
+            addTableButton(item, addButtonType)
+          );
+        }
       }
 
       setTableData({

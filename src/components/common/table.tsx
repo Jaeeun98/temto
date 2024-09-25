@@ -99,7 +99,7 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
         pageIndex: 0,
       },
       manualPagination: true,
-      pageCount: tableData.page.totalPages,
+      pageCount: tableData.page?.totalPages,
     },
     usePagination
   );
@@ -186,16 +186,16 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
               gotoPage(1);
               handlePage(0);
             }}
-            disabled={tableData.page.nowPage + 1 === 1 ? true : false}
+            disabled={tableData.page?.nowPage + 1 === 1 ? true : false}
           >
             «
           </button>
           <button
             onClick={() => {
               previousPage();
-              handlePage(tableData.page.nowPage - 1);
+              handlePage(tableData.page?.nowPage - 1);
             }}
-            disabled={tableData.page.nowPage + 1 === 1 ? true : false}
+            disabled={tableData.page?.nowPage + 1 === 1 ? true : false}
           >
             &lsaquo;
           </button>
@@ -207,7 +207,7 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
                 handlePage(pageNumber);
               }}
               className={
-                tableData.page.nowPage + 1 === pageNumber + 1 ? "active" : ""
+                tableData.page?.nowPage + 1 === pageNumber + 1 ? "active" : ""
               }
             >
               {pageNumber + 1}
@@ -216,10 +216,10 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
           <button
             onClick={() => {
               nextPage();
-              handlePage(tableData.page.nowPage + 1);
+              handlePage(tableData?.page.nowPage + 1);
             }}
             disabled={
-              tableData.page.nowPage === tableData.page.totalPages - 1
+              tableData.page?.nowPage === tableData.page?.totalPages - 1
                 ? true
                 : false
             }
@@ -229,10 +229,10 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
           <button
             onClick={() => {
               gotoPage(pageOptions.length - 1);
-              handlePage(tableData.page.totalPages - 1);
+              handlePage(tableData.page?.totalPages - 1);
             }}
             disabled={
-              tableData.page.nowPage === tableData.page.totalPages - 1
+              tableData.page?.nowPage === tableData.page?.totalPages - 1
                 ? true
                 : false
             }
