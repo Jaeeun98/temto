@@ -25,9 +25,9 @@ const columns = [
 
 //특산품 리스트
 export default function Local() {
-  const { refetch } = useFetchAndSetTableData(
-    ["localList", 0],
-    () => getLocalList(0),
+  const { refetch, setCurrentPage } = useFetchAndSetTableData(
+    "localList",
+    getLocalList,
     "modify_button",
     columns
   );
@@ -41,9 +41,17 @@ export default function Local() {
     }
   };
 
+  const handlePage = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <TableContainer>
-      <ListContainer idTitle="localItemId" handleDelete={handleLocalDelete} />
+      <ListContainer
+        handlePage={handlePage}
+        idTitle="localItemId"
+        handleDelete={handleLocalDelete}
+      />
     </TableContainer>
   );
 }

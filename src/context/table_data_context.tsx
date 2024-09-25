@@ -9,7 +9,7 @@ interface Content {
 interface TableData {
   data: Content[];
   columns: any; //추후에 다시 작성
-  page: number;
+  page: any;
 }
 
 interface TableProvierType {
@@ -24,7 +24,10 @@ export const TableProvier = ({ children }: { children: ReactNode }) => {
   const [tableData, setTableData] = useState<TableData>({
     data: [],
     columns: [],
-    page: 7,
+    page: {
+      totalPage: 0,
+      nowPage: 0,
+    },
   });
 
   return (

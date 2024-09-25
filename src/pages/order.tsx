@@ -34,9 +34,9 @@ const columns = [
 
 //주문 리스트
 export default function Order() {
-  const { refetch } = useFetchAndSetTableData(
-    ["OrderList", 0],
-    () => getOrderList(0),
+  const { refetch, setCurrentPage } = useFetchAndSetTableData(
+    "OrderList",
+    getOrderList,
     "progress_button", // 버튼 추가 여부를 결정하는 매개변수
     columns
   );
@@ -50,9 +50,17 @@ export default function Order() {
     }
   };
 
+  const handlePage = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <TableContainer>
-      <ListContainer idTitle="orderId" handleDelete={handleOrderDelete} />
+      <ListContainer
+        idTitle="orderId"
+        handleDelete={handleOrderDelete}
+        handlePage={handlePage}
+      />
     </TableContainer>
   );
 }

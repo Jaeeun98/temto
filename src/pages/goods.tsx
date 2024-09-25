@@ -46,9 +46,9 @@ const columns = [
 
 //굿즈
 export default function Goods() {
-  const { refetch } = useFetchAndSetTableData(
-    ["goodsList", 0],
-    () => getGoodsList(0),
+  const { refetch, setCurrentPage } = useFetchAndSetTableData(
+    "goodsList",
+    getGoodsList,
     "modify_button",
     columns
   );
@@ -63,9 +63,17 @@ export default function Goods() {
     }
   };
 
+  const handlePage = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <TableContainer>
-      <ListContainer idTitle="goodsId" handleDelete={handleGoodsDelete} />
+      <ListContainer
+        handlePage={handlePage}
+        idTitle="goodsId"
+        handleDelete={handleGoodsDelete}
+      />
     </TableContainer>
   );
 }

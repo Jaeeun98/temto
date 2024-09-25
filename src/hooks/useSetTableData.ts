@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useTableContext } from "../context/table_data_context";
 import { addTableButton } from "../components/common/table_button";
@@ -9,13 +9,18 @@ type ButtonType = "progress_button" | "modify_button" | "detail_button";
 
 //테이블 데이터 처리
 function useFetchAndSetTableData<T>(
-  queryKey: [string, any],
-  fetchFunction: () => Promise<any>,
+  queryKey: any,
+  fetchFunction: any,
   addButtonType: ButtonType, //어떤 버튼 추가할지
   columns: any
 ) {
   //*나중에 에러 처리 & 로딩 처리 넣기
-  const { data, error, isLoading, refetch } = useQuery(queryKey, fetchFunction);
+  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 상태
+
+  const { data, error, isLoading, refetch } = useQuery(
+    [queryKey, currentPage],
+    () => fetchFunction(currentPage)
+  );
   const { setTableData } = useTableContext();
 
   useEffect(() => {
@@ -28,7 +33,10 @@ function useFetchAndSetTableData<T>(
       if (queryKey[0] === "pushList") {
       } else {
         contentData = contentData.content.map(addCheckbox);
-        page = data.pageable.pageSize;
+        page = {
+          totalPages: data.totalPages,
+          nowPage: data.pageable.pageNumber,
+        };
       }
 
       //button 추가
@@ -48,7 +56,7 @@ function useFetchAndSetTableData<T>(
     }
   }, [data]);
 
-  return { data, error, isLoading, refetch };
+  return { data, error, isLoading, refetch, setCurrentPage };
 }
 
 export default useFetchAndSetTableData;
