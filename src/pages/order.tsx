@@ -35,7 +35,7 @@ const columns = [
 //주문 리스트
 export default function Order() {
   const { refetch, setCurrentPage } = useFetchAndSetTableData(
-    "OrderList",
+    "orderId",
     getOrderList,
     "progress_button", // 버튼 추가 여부를 결정하는 매개변수
     columns

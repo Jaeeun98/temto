@@ -26,7 +26,7 @@ const columns = [
 //특산품 리스트
 export default function Local() {
   const { refetch, setCurrentPage } = useFetchAndSetTableData(
-    "localList",
+    "localItemId",
     getLocalList,
     "modify_button",
     columns
