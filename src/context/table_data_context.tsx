@@ -12,15 +12,15 @@ interface TableData {
   page: any;
 }
 
-interface TableProvierType {
+interface TableProviderType {
   tableData: TableData;
   setTableData: React.Dispatch<React.SetStateAction<TableData>>;
 }
 
-const TableContext = createContext<TableProvierType | undefined>(undefined);
+const TableContext = createContext<TableProviderType | undefined>(undefined);
 
 //table data
-export const TableProvier = ({ children }: { children: ReactNode }) => {
+export const TableProvider = ({ children }: { children: ReactNode }) => {
   const [tableData, setTableData] = useState<TableData>({
     data: [],
     columns: [],
@@ -40,7 +40,7 @@ export const TableProvier = ({ children }: { children: ReactNode }) => {
 export const useTableContext = () => {
   const context = useContext(TableContext);
   if (context === undefined) {
-    throw new Error("useTableContext must be used within a TableProvier");
+    throw new Error("useTableContext must be used within a TableProvider");
   }
   return context;
 };

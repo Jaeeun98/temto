@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTable, usePagination, Row } from "react-table";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
-// import Pagination from "./table_pagination";
+import { useCheckboxContext } from "../../context/table_checkboxId_context";
+
 import DeleteButton from "./delete_button";
 import AddButton from "./add_button";
 import ModalAlert from "./modal_alert";
@@ -54,7 +55,9 @@ export const handleAlertModal = (
 
 export default function Table({ idTitle, handleDelete, handlePage }: Props) {
   const { tableData } = useTableContext();
-  const [checkBoxId, setCheckboxId] = useState([]); //여러개 선택
+  const { checkboxId, setCheckboxId } = useCheckboxContext();
+
+  // const [checkBoxId, setCheckboxId] = useState<any>([]); //여러개 선택
   const [id, setId] = useState(""); //하나만 선택
   const [alertModal, setAlertModal] = useState<AlertModalState>({
     deleteAlert: false,
@@ -64,8 +67,19 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
   const deleteText = idTitle === "orderId" ? "거절" : "삭제";
 
   //api 호출시 필요한 ID 저장 - checkbox
-  const handleSaveId = (row: Row<any>) =>
-    setCheckboxId(checkBoxId.concat(row.original[idTitle]));
+  const handleSaveId = (checked: any, row: Row<any>) => {
+    let rowId = row.original[idTitle];
+    //추가
+    if (checked) {
+      if (!checkboxId.includes(rowId))
+        rowId = checkboxId.concat(row.original[idTitle]);
+    } else {
+      //삭제
+      rowId = checkboxId.filter((item: any) => item !== rowId);
+    }
+
+    setCheckboxId(rowId);
+  };
 
   const handleModifySaveId = (row: Row<any>) => setId(row.original[idTitle]);
 
@@ -103,6 +117,12 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
     },
     usePagination
   );
+
+  useEffect(() => {
+    setCheckboxId([]);
+  }, [tableData]);
+
+  console.log(checkboxId);
 
   return (
     <div>
@@ -155,8 +175,10 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
                   return (
                     <td
                       onClick={(e) => {
-                        const target = e.target as HTMLElement;
-                        if (cellId === "checkbox") handleSaveId(row);
+                        const target = e.target as any;
+
+                        if (cellId === "checkbox")
+                          handleSaveId(target.checked, row);
                         if (target.tagName === "BUTTON") {
                           if (
                             cellId === "modify_button" ||
@@ -259,7 +281,7 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
       {alertModal.deleteAlert && (
         <ModalAlert
           close={handleDeleteAlert}
-          api={() => handleDelete(checkBoxId)}
+          api={() => handleDelete(checkboxId)}
           text={`선택하신 리스트를 ${deleteText}하시겠습니까?`}
         />
       )}

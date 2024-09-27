@@ -30,7 +30,7 @@ const columns = [
 //특산품 제공
 export default function LocalOffer() {
   const { refetch, setCurrentPage } = useFetchAndSetTableData(
-    "LocalOfferList",
+    "giveLocalItemId",
     getLocalOfferList,
     "modify_button",
     columns
