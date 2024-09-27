@@ -6,13 +6,12 @@ import ModalInputText from "./common/modal_input_text";
 import ModalButton from "./common/modal_button";
 import { handleAlertModal } from "./common/table";
 import {
-  getLocalNameList,
   getLocalOfferDetailList,
   localOfferAdd,
   localOfferModify,
 } from "../api/local_offer";
 import ModalAlert from "./common/modal_alert";
-import { useQuery } from "react-query";
+import ModalInputSearch from "./common/modal_input_search";
 
 interface Props {
   id: string;
@@ -22,14 +21,11 @@ interface Props {
 
 //특산품 제공 추가, 수정 모달창
 export default function LocalOfferModal({ id, closeModal, state }: Props) {
-  const { data: localData } = useQuery("getLocalNameData", getLocalNameList);
   const [data, setData] = useState({
     giveLocalItemName: "",
     giveLocalItemPrice: "",
     specialBadgeCodeName: "",
   });
-
-  console.log(localData);
 
   const { giveLocalItemName, giveLocalItemPrice, specialBadgeCodeName } = data;
 
@@ -50,9 +46,13 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
   };
 
   const inputChange = (e: React.ChangeEvent<HTMLFormElement>) => {
-    let { name, value } = e.target;
+    let { name, value, innerText } = e.target;
 
-    if (name === "badgeOpenCount") value = Number(value);
+    if (!name) {
+      name = "giveLocalItemName";
+      value = innerText;
+    }
+
     setData((prev) => ({
       ...(prev || {}),
       [name]: value,
@@ -107,11 +107,12 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
       <Modal>
         <ModalCloseButton close={closeModal} />
         <form onChange={inputChange}>
-          <ModalInputText
+          <ModalInputSearch
             label="특산품명"
             value={giveLocalItemName}
             name="giveLocalItemName"
             placeholder="특산품명 입력"
+            handleInputChange={inputChange}
           />
           <ModalInputText
             label="금액"
