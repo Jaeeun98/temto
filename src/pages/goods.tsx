@@ -47,7 +47,7 @@ const columns = [
 //굿즈
 export default function Goods() {
   const { refetch, setCurrentPage } = useFetchAndSetTableData(
-    "goodsList",
+    "goodsId",
     getGoodsList,
     "modify_button",
     columns

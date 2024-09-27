@@ -38,7 +38,7 @@ const columns = [
 //관광지 리스트
 export default function Tour() {
   const { refetch, setCurrentPage } = useFetchAndSetTableData(
-    "tourList",
+    "tourPlaceId",
     getTourismList,
     "modify_button", // 버튼 추가 여부를 결정하는 매개변수
     columns

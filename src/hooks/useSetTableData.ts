@@ -31,7 +31,9 @@ function useFetchAndSetTableData<T>(
     if (data) {
       //pushList는 page, checkbox 없음
       if (queryKey !== "pushList") {
-        contentData = contentData.content.map(addCheckbox);
+        contentData = contentData.content.map((item: any) => {
+          return addCheckbox(item, queryKey);
+        });
         page = {
           totalPages: data.totalPages,
           nowPage: data.pageable.pageNumber,

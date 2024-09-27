@@ -2,7 +2,9 @@ import styled, { ThemeProvider } from "styled-components";
 import colors from "./styles/theme";
 import Header from "./components/header";
 import Navbar from "./components/nav/navbar.tsx";
-import { TableProvier } from "./context/table_data_context";
+import { TableProvider } from "./context/table_data_context";
+import { CheckboxIdProvider } from "./context/table_checkboxId_context";
+
 import { Outlet, useLocation } from "react-router-dom";
 
 const App = () => {
@@ -14,15 +16,17 @@ const App = () => {
   };
 
   return (
-    <TableProvier>
-      <ThemeProvider theme={theme}>
-        {pathname !== "/" && <Header />}
-        <Container>
-          {pathname !== "/" && <Navbar />}
-          <Outlet />
-        </Container>
-      </ThemeProvider>
-    </TableProvier>
+    <TableProvider>
+      <CheckboxIdProvider>
+        <ThemeProvider theme={theme}>
+          {pathname !== "/" && <Header />}
+          <Container>
+            {pathname !== "/" && <Navbar />}
+            <Outlet />
+          </Container>
+        </ThemeProvider>
+      </CheckboxIdProvider>
+    </TableProvider>
   );
 };
 
