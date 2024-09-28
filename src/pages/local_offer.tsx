@@ -18,7 +18,7 @@ const columns = [
     accessor: "giveLocalItemPrice",
   },
   {
-    Header: "뱃지 코드",
+    Header: "스페셜 뱃지",
     accessor: "badgeCodeName",
   },
   {
