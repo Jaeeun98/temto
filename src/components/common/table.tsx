@@ -56,8 +56,6 @@ export const handleAlertModal = (
 export default function Table({ idTitle, handleDelete, handlePage }: Props) {
   const { tableData } = useTableContext();
   const { checkboxId, setCheckboxId } = useCheckboxContext();
-
-  // const [checkBoxId, setCheckboxId] = useState<any>([]); //여러개 선택
   const [id, setId] = useState(""); //하나만 선택
   const [alertModal, setAlertModal] = useState<AlertModalState>({
     deleteAlert: false,
@@ -83,8 +81,19 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
 
   const handleModifySaveId = (row: Row<any>) => setId(row.original[idTitle]);
 
-  const handleDeleteAlert = () =>
+  //삭제할 아이디 선택했는지 체크
+  const handleDeleteIdCheck = () => {
+    if (checkboxId.length === 0) {
+      alert("리스트를 선택해주세요.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleDeleteAlert = () => {
+    if (!handleDeleteIdCheck()) return;
     handleAlertModal("deleteAlert", setAlertModal);
+  };
 
   const handleAddAlert = () => {
     handleAlertModal("addAlert", setAlertModal);
@@ -121,8 +130,6 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
   useEffect(() => {
     setCheckboxId([]);
   }, [tableData]);
-
-  console.log(checkboxId);
 
   return (
     <div>
