@@ -1,14 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useQuery } from "react-query";
 import styled from "styled-components";
+import { userAreaCode } from "../../api/login";
 
 export default function NavUser() {
+  const { data: areaName } = useQuery("getUserAreaName", userAreaCode);
+
+  useEffect(() => {}, [areaName]);
+
+  if (!areaName) return <div></div>;
+
   return (
     <Container>
       <ImgContainer>
         <img src="/images/user.png" alt="user_img" />
       </ImgContainer>
       <p>
-        <span className="id">중구관리자</span> 님
+        <span className="id">{areaName.userAreaName?.split(" ")[1]}관리자</span>{" "}
+        님
       </p>
     </Container>
   );
