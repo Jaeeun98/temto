@@ -170,16 +170,16 @@ export default function TourModal({ id, closeModal, state }: Props) {
             placeholder="주소 입력"
           />
           <ModalInputText
-            label="관광지 위도"
+            label="관광지 경도"
             value={tourismMapX}
             name="tourismMapX"
-            placeholder="관광지 위도"
+            placeholder="관광지 경도"
           />
           <ModalInputText
-            label="관광지 경도"
+            label="관광지 위도"
             value={tourismMapY}
             name="tourismMapY"
-            placeholder="관광지 경도"
+            placeholder="관광지 위도"
           />
           <ModalInputText
             label="링크"
