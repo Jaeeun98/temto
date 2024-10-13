@@ -3,80 +3,24 @@ import { useTable, usePagination, Row } from "react-table";
 import styled from "styled-components";
 import { useTableContext } from "../../context/table_data_context";
 import AddButton from "./add_button";
-import ModalAlert from "./modal_alert";
-import { AlertModalState, AlertType, IdTitle } from "../../types/table";
-import GoodsModal from "../goods_modal";
-import TourModal from "../tour_modal";
-import LocalModal from "../local_modal";
-import LocalOfferModal from "../local_offer_modal";
 import PushModal from "../push_modal";
-
-interface Props {
-  onCheckboxChange?: any;
-  idTitle: IdTitle; //api에 넣을 id key
-  handleDelete?: any;
-}
-
-//id = 선택된 id
-const addComponent = (
-  idTitle: IdTitle,
-  id: string,
-  closeModal: any,
-  state: "등록" | "수정"
-) => {
-  switch (idTitle) {
-    case "goodsId":
-      return <GoodsModal id={id} closeModal={closeModal} state={state} />;
-    case "tourPlaceId":
-      return <TourModal id={id} closeModal={closeModal} state={state} />;
-    case "localItemId":
-      return <LocalModal id={id} closeModal={closeModal} state={state} />;
-    case "giveLocalItemId":
-      return <LocalOfferModal id={id} closeModal={closeModal} state={state} />;
-    case "pushId":
-      return <PushModal id={id} closeModal={closeModal} state={state} />;
-  }
-};
-
-//모달 알림창 ture, false
-export const handleAlertModal = (
-  alertType: AlertType,
-  setAlertModal: React.Dispatch<React.SetStateAction<AlertModalState>>
-) => {
-  setAlertModal((prev: any) => ({
-    ...prev,
-    [alertType]: !prev[alertType],
-  }));
-};
+import { useAlertModal } from "../../hooks/useAlertModal";
 
 //*급해서 우선 수정, push는 page가 없고, 다른 컴포넌트는 page가 있어서 나는 에러 > 추후에 수정하기
-export default function PushTable({ idTitle, handleDelete }: Props) {
+export default function PushTable() {
   const { tableData } = useTableContext();
-  const [checkBoxId, setCheckboxId] = useState([]); //여러개 선택
   const [id, setId] = useState(""); //하나만 선택
-  const [alertModal, setAlertModal] = useState<AlertModalState>({
-    deleteAlert: false,
+  const { alertModal, handleAlertModal } = useAlertModal({
     addAlert: false,
     modifyAlert: false,
   });
-  const deleteText = idTitle === "orderId" ? "거절" : "삭제";
 
-  //api 호출시 필요한 ID 저장 - checkbox
-  const handleSaveId = (row: Row<any>) =>
-    setCheckboxId(checkBoxId.concat(row.original[idTitle]));
+  const handleModifySaveId = (row: Row<any>) => setId(row.original["pushId"]);
 
-  const handleModifySaveId = (row: Row<any>) => setId(row.original[idTitle]);
+  const handleAddAlert = () => handleAlertModal("addAlert");
 
-  const handleDeleteAlert = () =>
-    handleAlertModal("deleteAlert", setAlertModal);
+  const handleModifyAlert = () => handleAlertModal("modifyAlert");
 
-  const handleAddAlert = () => {
-    handleAlertModal("addAlert", setAlertModal);
-  };
-
-  const handleModifyAlert = () => {
-    handleAlertModal("modifyAlert", setAlertModal);
-  };
   //react-table 데이터
   const { getTableProps, getTableBodyProps, headerGroups, page, prepareRow } =
     useTable(
@@ -134,11 +78,7 @@ export default function PushTable({ idTitle, handleDelete }: Props) {
                   return (
                     <td
                       onClick={() => {
-                        if (cell.column.id === "checkbox") handleSaveId(row);
-                        else if (
-                          cell.column.id === "modify_button" ||
-                          cell.column.id === "detail_button"
-                        ) {
+                        if (cell.column.id === "detail_button") {
                           handleModifySaveId(row);
                           handleModifyAlert();
                         }
@@ -165,14 +105,8 @@ export default function PushTable({ idTitle, handleDelete }: Props) {
       {alertModal.addAlert && (
         <PushModal id={id} closeModal={handleAddAlert} state={"등록"} />
       )}
-      {alertModal.modifyAlert &&
-        addComponent(idTitle, id, handleModifyAlert, "수정")}
-      {alertModal.deleteAlert && (
-        <ModalAlert
-          close={handleDeleteAlert}
-          api={() => handleDelete(checkBoxId)}
-          text={`선택하신 리스트를 ${deleteText}하시겠습니까?`}
-        />
+      {alertModal.modifyAlert && (
+        <PushModal id={id} closeModal={handleModifyAlert} state={"수정"} />
       )}
     </div>
   );

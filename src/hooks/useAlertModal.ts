@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 interface AlertModalState {
-  deleteAlert: boolean;
+  deleteAlert?: boolean;
   addAlert?: boolean;
   modifyAlert?: boolean;
 }

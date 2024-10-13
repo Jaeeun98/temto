@@ -204,68 +204,67 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
           })}
         </tbody>
       </table>
-      {idTitle !== "pushId" && (
-        <PaginationWrapper>
+
+      <PaginationWrapper>
+        <button
+          onClick={() => {
+            gotoPage(1);
+            handlePage(0);
+          }}
+          disabled={tableData.page?.nowPage + 1 === 1 ? true : false}
+        >
+          «
+        </button>
+        <button
+          onClick={() => {
+            previousPage();
+            handlePage(tableData.page?.nowPage - 1);
+          }}
+          disabled={tableData.page?.nowPage + 1 === 1 ? true : false}
+        >
+          &lsaquo;
+        </button>
+        {pageOptions.map((pageNumber) => (
           <button
+            key={pageNumber + 1}
             onClick={() => {
-              gotoPage(1);
-              handlePage(0);
+              gotoPage(pageNumber + 1);
+              handlePage(pageNumber);
             }}
-            disabled={tableData.page?.nowPage + 1 === 1 ? true : false}
-          >
-            «
-          </button>
-          <button
-            onClick={() => {
-              previousPage();
-              handlePage(tableData.page?.nowPage - 1);
-            }}
-            disabled={tableData.page?.nowPage + 1 === 1 ? true : false}
-          >
-            &lsaquo;
-          </button>
-          {pageOptions.map((pageNumber) => (
-            <button
-              key={pageNumber + 1}
-              onClick={() => {
-                gotoPage(pageNumber + 1);
-                handlePage(pageNumber);
-              }}
-              className={
-                tableData.page?.nowPage + 1 === pageNumber + 1 ? "active" : ""
-              }
-            >
-              {pageNumber + 1}
-            </button>
-          ))}
-          <button
-            onClick={() => {
-              nextPage();
-              handlePage(tableData?.page.nowPage + 1);
-            }}
-            disabled={
-              tableData.page?.nowPage === tableData.page?.totalPages - 1
-                ? true
-                : false
+            className={
+              tableData.page?.nowPage + 1 === pageNumber + 1 ? "active" : ""
             }
           >
-            &rsaquo;
+            {pageNumber + 1}
           </button>
-          <button
-            onClick={() => {
-              gotoPage(pageOptions.length - 1);
-              handlePage(tableData.page?.totalPages - 1);
-            }}
-            disabled={
-              tableData.page?.nowPage === tableData.page?.totalPages - 1
-                ? true
-                : false
-            }
-          >
-            »
-          </button>
-        </PaginationWrapper>
-      )}
+        ))}
+        <button
+          onClick={() => {
+            nextPage();
+            handlePage(tableData?.page.nowPage + 1);
+          }}
+          disabled={
+            tableData.page?.nowPage === tableData.page?.totalPages - 1
+              ? true
+              : false
+          }
+        >
+          &rsaquo;
+        </button>
+        <button
+          onClick={() => {
+            gotoPage(pageOptions.length - 1);
+            handlePage(tableData.page?.totalPages - 1);
+          }}
+          disabled={
+            tableData.page?.nowPage === tableData.page?.totalPages - 1
+              ? true
+              : false
+          }
+        >
+          »
+        </button>
+      </PaginationWrapper>
       <ButtonContainer>
         {idTitle !== "pushId" && (
           <DeleteButton text={deleteText} onClick={handleDeleteAlert} />

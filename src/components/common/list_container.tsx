@@ -32,7 +32,7 @@ export default function ListContainer({
       <H1>{title}</H1>
       <CheckboxIdProvider>
         {idTitle === "pushId" ? (
-          <PushTable idTitle={idTitle} handleDelete={handleDelete} />
+          <PushTable />
         ) : (
           <Table
             idTitle={idTitle}
