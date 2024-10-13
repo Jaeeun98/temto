@@ -3,6 +3,7 @@ import ListContainer from "../components/common/list_container";
 import { TableContainer } from "../styles/table_container";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
 import { getLocalOfferList, localOfferDelete } from "../api/local_offer";
+import { handleDeleteApiCall } from "../utils/apiHandler";
 
 const columns = [
   {
@@ -36,14 +37,8 @@ export default function LocalOffer() {
     columns
   );
 
-  const handleLocalDelete = async (id: string[]) => {
-    const result = await localOfferDelete(id);
-
-    if (result.status === 200) {
-      alert("해당 리스트가 삭제되었습니다.");
-      refetch();
-    }
-  };
+  const handleLocalDelete = async (id: string[]) =>
+    await handleDeleteApiCall(() => localOfferDelete(id), refetch);
 
   const handlePage = (page: number) => {
     setCurrentPage(page);

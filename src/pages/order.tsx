@@ -3,6 +3,7 @@ import ListContainer from "../components/common/list_container";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
 import { getOrderList, orderDelete } from "../api/order";
 import { TableContainer } from "../styles/table_container";
+import { handleDeleteApiCall } from "../utils/apiHandler";
 
 const columns = [
   {
@@ -41,18 +42,14 @@ export default function Order() {
     columns
   );
 
-  const handleOrderDelete = async (id: string[]) => {
-    const result = await orderDelete(id);
-
-    if (result.status === 200) {
-      alert("해당 리스트가 거절되었습니다.");
-      refetch();
-    }
-  };
+  const handleOrderDelete = async (id: string[]) =>
+    await handleDeleteApiCall(() => orderDelete(id), refetch);
 
   const handlePage = (page: number) => {
     setCurrentPage(page);
   };
+
+  console.log("order");
 
   return (
     <TableContainer>

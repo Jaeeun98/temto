@@ -11,6 +11,7 @@ import { TourDetail } from "../types/tour";
 import { getTourismDetailList, tourismAdd, tourismModify } from "../api/tour";
 import ModalAlert from "./common/modal_alert";
 import { useAlertModal } from "../hooks/useAlertModal";
+import { handleApiCall } from "../utils/apiHandler";
 
 interface Props {
   id: string;
@@ -108,38 +109,22 @@ export default function TourModal({ id, closeModal, state }: Props) {
     return formData;
   };
 
-  //*
   const handleTourAdd = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
     const formData = handleFormData();
 
-    const result = await tourismAdd(formData);
-
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 등록했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => tourismAdd(formData), "add");
   };
 
-  //*
   const handleTourModify = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
     const formData = handleFormData();
 
-    const result = await tourismModify(id, formData);
-
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 수정했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => tourismModify(id, formData), "modify");
   };
 
   const handleTourData = async () => {

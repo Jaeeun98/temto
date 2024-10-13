@@ -8,6 +8,7 @@ import { ModalTextInputWrapper } from "../styles/modal_text_input_wrapper";
 import { addPush, getDetailPushData } from "../api/push";
 import ModalAlert from "./common/modal_alert";
 import { useAlertModal } from "../hooks/useAlertModal";
+import { handleApiCall } from "../utils/apiHandler";
 
 interface Props {
   id: string;
@@ -47,18 +48,11 @@ export default function PushModal({ id, closeModal, state }: Props) {
 
   const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
 
-  //*
   const handlePushAdd = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
-    const result = await addPush(data);
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 등록했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => addPush(data), "add");
   };
 
   const handleLocalDetailData = async () => {

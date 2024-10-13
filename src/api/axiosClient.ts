@@ -42,7 +42,7 @@ formAxiosInstance.interceptors.request.use(
   }
 );
 
-//에러 처리 > 추후에 수정하기
+//에러 처리
 axiosInstance.interceptors.response.use(
   //응답 성공시
   (response) => response,
@@ -58,7 +58,6 @@ axiosInstance.interceptors.response.use(
       } else {
         alert(err.response.data.errorMessage);
         return;
-        // return Promise.reject(err);
       }
     }
   }

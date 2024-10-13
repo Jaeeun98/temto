@@ -12,6 +12,7 @@ import { getGoodsDetailList, goodsModify, goodsAdd } from "../api/goods";
 import ModalInputNumber from "./common/modal_input_number";
 import { GoodsDetail } from "../types/goods";
 import { useAlertModal } from "../hooks/useAlertModal";
+import { handleApiCall } from "../utils/apiHandler";
 
 interface Props {
   id: string;
@@ -114,37 +115,22 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
 
   const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
 
-  //*굿즈 등록
   const handleGoodsAdd = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
     const formData = handleFormData();
 
-    const result = await goodsAdd(formData);
-
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 등록했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => goodsAdd(formData), "add");
   };
 
-  //*굿즈 수정
   const handleGoodsModify = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
     const formData = handleFormData();
 
-    const result = await goodsModify(id, formData);
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 수정했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => goodsModify(id, formData), "modify");
   };
 
   //수정시 굿즈 데이터 가져오기

@@ -4,6 +4,7 @@ import ListContainer from "../components/common/list_container";
 import { getGoodsList, goodsDelete } from "../api/goods";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
 import { TableContainer } from "../styles/table_container";
+import { handleDeleteApiCall } from "../utils/apiHandler";
 
 const columns = [
   {
@@ -53,15 +54,8 @@ export default function Goods() {
     columns
   );
 
-  //*나중에 alert 처리 공통으로 합치기
-  const handleGoodsDelete = async (id: string[]) => {
-    const result = await goodsDelete(id);
-
-    if (result.status === 200) {
-      alert("해당 리스트가 삭제되었습니다.");
-      refetch();
-    }
-  };
+  const handleGoodsDelete = async (id: string[]) =>
+    await handleDeleteApiCall(() => goodsDelete(id), refetch);
 
   const handlePage = (page: number) => {
     setCurrentPage(page);

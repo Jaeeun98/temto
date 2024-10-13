@@ -3,6 +3,7 @@ import ListContainer from "../components/common/list_container";
 import { TableContainer } from "../styles/table_container";
 import useFetchAndSetTableData from "../hooks/useSetTableData";
 import { getLocalList, localDelete } from "../api/local";
+import { handleDeleteApiCall } from "../utils/apiHandler";
 
 const columns = [
   {
@@ -32,18 +33,10 @@ export default function Local() {
     columns
   );
 
-  const handleLocalDelete = async (id: string[]) => {
-    const result = await localDelete(id);
+  const handleLocalDelete = async (id: string[]) =>
+    await handleDeleteApiCall(() => localDelete(id), refetch);
 
-    if (result.status === 200) {
-      alert("해당 리스트가 삭제되었습니다.");
-      refetch();
-    }
-  };
-
-  const handlePage = (page: number) => {
-    setCurrentPage(page);
-  };
+  const handlePage = (page: number) => setCurrentPage(page);
 
   return (
     <TableContainer>

@@ -12,6 +12,7 @@ import {
 import ModalAlert from "./common/modal_alert";
 import ModalInputSearch from "./common/modal_input_search";
 import { useAlertModal } from "../hooks/useAlertModal";
+import { handleApiCall } from "../utils/apiHandler";
 
 interface Props {
   id: string;
@@ -61,34 +62,18 @@ export default function LocalOfferModal({ id, closeModal, state }: Props) {
 
   const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
 
-  //*
   const handleLocalOfferAdd = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
-    const result = await localOfferAdd(data);
-
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 등록했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => localOfferAdd(data), "add");
   };
 
-  //*
   const handleLocalOfferModify = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
-    const result = await localOfferModify(id, data);
-
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 수정했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => localOfferModify(id, data), "modify");
   };
 
   const handleLocalOfferData = async () => {

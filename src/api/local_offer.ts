@@ -32,6 +32,7 @@ export const localOfferModify = async (id: string, localDetailData: any) => {
     `/give-local-item/${id}`,
     localDetailData
   );
+  console.log(result);
   return result?.data;
 };
 

@@ -8,6 +8,7 @@ import ModalButton from "./common/modal_button";
 import { getLocalDetailList, localAdd, localModify } from "../api/local";
 import ModalAlert from "./common/modal_alert";
 import { useAlertModal } from "../hooks/useAlertModal";
+import { handleApiCall } from "../utils/apiHandler";
 
 interface Local {
   localItemName: string;
@@ -85,36 +86,23 @@ export default function LocalModal({ id, closeModal, state }: Props) {
   };
 
   const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
-  //*
+
   const handleLocalAdd = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
     const formData = handleFormData();
 
-    const result = await localAdd(formData);
-
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 등록했습니다.");
-      window.location.reload();
-    }
+    await handleApiCall(() => localAdd(formData), "add");
   };
 
-  //*
   const handleLocalModify = async () => {
     const inputCheck = handleInputCheck();
     if (!inputCheck) return;
 
     const formData = handleFormData();
-    const result = await localModify(id, formData);
-    if (result.status === "FAIL") {
-      alert(result.errorMessage);
-    } else {
-      alert("데이터를 수정했습니다.");
-      window.location.reload();
-    }
+
+    await handleApiCall(() => localModify(id, formData), "modify");
   };
 
   const handleLocalDetailData = async () => {
