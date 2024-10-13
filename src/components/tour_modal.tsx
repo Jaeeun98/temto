@@ -7,10 +7,10 @@ import ModalInputText from "./common/modal_input_text";
 import ModalImgAdd from "./common/modal_img_add";
 import ModalButton from "./common/modal_button";
 import ModalBadgeCode from "./common/modal_badge_code";
-import { handleAlertModal } from "./common/table";
 import { TourDetail } from "../types/tour";
 import { getTourismDetailList, tourismAdd, tourismModify } from "../api/tour";
 import ModalAlert from "./common/modal_alert";
+import { useAlertModal } from "../hooks/useAlertModal";
 
 interface Props {
   id: string;
@@ -30,7 +30,8 @@ export default function TourModal({ id, closeModal, state }: Props) {
     badgeCode: "",
     tourismImages: [],
   });
-  const [alertModal, setAlertModal] = useState({
+
+  const { alertModal, handleAlertModal } = useAlertModal({
     deleteAlert: false,
   });
 
@@ -70,8 +71,7 @@ export default function TourModal({ id, closeModal, state }: Props) {
     }));
   };
 
-  const handleCancleAlert = () =>
-    handleAlertModal("deleteAlert", setAlertModal);
+  const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
 
   const handleInputCheck = () => {
     if (
@@ -201,14 +201,14 @@ export default function TourModal({ id, closeModal, state }: Props) {
           />
         </form>
         <ModalButton
-          cancleButton={handleCancleAlert}
+          cancelButton={handleAlertModalCancel}
           addButton={state === "등록" ? handleTourAdd : handleTourModify}
           state={state}
         />
       </Modal>
       {alertModal.deleteAlert && (
         <ModalAlert
-          close={handleCancleAlert}
+          close={handleAlertModalCancel}
           api={closeModal}
           text={`작성 중인 글이 있습니다. 취소하시겠습니까?`}
         />

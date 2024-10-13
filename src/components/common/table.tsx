@@ -7,12 +7,13 @@ import { useCheckboxContext } from "../../context/table_checkboxId_context";
 import DeleteButton from "./delete_button";
 import AddButton from "./add_button";
 import ModalAlert from "./modal_alert";
-import { AlertModalState, AlertType, IdTitle } from "../../types/table";
+import { IdTitle } from "../../types/table";
 import GoodsModal from "../goods_modal";
 import TourModal from "../tour_modal";
 import LocalModal from "../local_modal";
 import LocalOfferModal from "../local_offer_modal";
 import PushModal from "../push_modal";
+import { useAlertModal } from "../../hooks/useAlertModal";
 
 interface Props {
   idTitle: IdTitle; //api에 넣을 id key
@@ -41,27 +42,16 @@ const addComponent = (
   }
 };
 
-//*추후에 위치 바꾸고 정리
-//모달 알림창 ture, false
-export const handleAlertModal = (
-  alertType: AlertType,
-  setAlertModal: React.Dispatch<React.SetStateAction<AlertModalState>>
-) => {
-  setAlertModal((prev: any) => ({
-    ...prev,
-    [alertType]: !prev[alertType],
-  }));
-};
-
 export default function Table({ idTitle, handleDelete, handlePage }: Props) {
   const { tableData } = useTableContext();
   const { checkboxId, setCheckboxId } = useCheckboxContext();
   const [id, setId] = useState(""); //하나만 선택
-  const [alertModal, setAlertModal] = useState<AlertModalState>({
+  const { alertModal, handleAlertModal } = useAlertModal({
     deleteAlert: false,
     addAlert: false,
     modifyAlert: false,
   });
+
   const deleteText = idTitle === "orderId" ? "거절" : "삭제";
 
   //api 호출시 필요한 ID 저장 - checkbox
@@ -92,15 +82,15 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
 
   const handleDeleteAlert = () => {
     if (!handleDeleteIdCheck()) return;
-    handleAlertModal("deleteAlert", setAlertModal);
+    handleAlertModal("deleteAlert");
   };
 
   const handleAddAlert = () => {
-    handleAlertModal("addAlert", setAlertModal);
+    handleAlertModal("addAlert");
   };
 
   const handleModifyAlert = () => {
-    handleAlertModal("modifyAlert", setAlertModal);
+    handleAlertModal("modifyAlert");
   };
   //react-table 데이터
   const {
@@ -130,6 +120,8 @@ export default function Table({ idTitle, handleDelete, handlePage }: Props) {
   useEffect(() => {
     setCheckboxId([]);
   }, [tableData]);
+
+  console.log("table");
 
   return (
     <div>

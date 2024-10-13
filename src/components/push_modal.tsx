@@ -6,8 +6,8 @@ import ModalInputText from "./common/modal_input_text";
 import ModalButton from "./common/modal_button";
 import { ModalTextInputWrapper } from "../styles/modal_text_input_wrapper";
 import { addPush, getDetailPushData } from "../api/push";
-import { handleAlertModal } from "./common/table";
 import ModalAlert from "./common/modal_alert";
+import { useAlertModal } from "../hooks/useAlertModal";
 
 interface Props {
   id: string;
@@ -24,7 +24,7 @@ export default function PushModal({ id, closeModal, state }: Props) {
 
   const { pushContent, pushTitle } = data;
 
-  const [alertModal, setAlertModal] = useState({
+  const { alertModal, handleAlertModal } = useAlertModal({
     deleteAlert: false,
   });
 
@@ -37,9 +37,6 @@ export default function PushModal({ id, closeModal, state }: Props) {
     }));
   };
 
-  const handleCancleAlert = () =>
-    handleAlertModal("deleteAlert", setAlertModal);
-
   const handleInputCheck = () => {
     if (pushTitle === "" || pushContent === "") {
       alert("데이터를 전부 입력해 주세요.");
@@ -47,6 +44,8 @@ export default function PushModal({ id, closeModal, state }: Props) {
     }
     return true;
   };
+
+  const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
 
   //*
   const handlePushAdd = async () => {
@@ -97,7 +96,7 @@ export default function PushModal({ id, closeModal, state }: Props) {
         </form>
         {state !== "수정" && (
           <ModalButton
-            cancleButton={handleCancleAlert}
+            cancelButton={handleAlertModalCancel}
             addButton={handlePushAdd}
             state={"등록"}
           />
@@ -105,7 +104,7 @@ export default function PushModal({ id, closeModal, state }: Props) {
       </Modal>
       {alertModal.deleteAlert && (
         <ModalAlert
-          close={handleCancleAlert}
+          close={handleAlertModalCancel}
           api={closeModal}
           text={`작성 중인 글이 있습니다. 취소하시겠습니까?`}
         />

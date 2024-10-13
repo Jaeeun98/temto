@@ -8,10 +8,10 @@ import ModalInputDate from "./common/modal_input_date";
 import ModalImgAdd from "./common/modal_img_add";
 import ModalButton from "./common/modal_button";
 import ModalAlert from "./common/modal_alert";
-import { handleAlertModal } from "./common/table";
 import { getGoodsDetailList, goodsModify, goodsAdd } from "../api/goods";
 import ModalInputNumber from "./common/modal_input_number";
 import { GoodsDetail } from "../types/goods";
+import { useAlertModal } from "../hooks/useAlertModal";
 
 interface Props {
   id: string;
@@ -65,7 +65,7 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     return true;
   };
 
-  const [alertModal, setAlertModal] = useState({
+  const { alertModal, handleAlertModal } = useAlertModal({
     deleteAlert: false,
   });
 
@@ -112,8 +112,7 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
     }));
   };
 
-  const handleCancleAlert = () =>
-    handleAlertModal("deleteAlert", setAlertModal);
+  const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
 
   //*굿즈 등록
   const handleGoodsAdd = async () => {
@@ -217,14 +216,14 @@ export default function GoodsModal({ id, closeModal, state }: Props) {
           />
         </form>
         <ModalButton
-          cancleButton={handleCancleAlert}
+          cancelButton={handleAlertModalCancel}
           addButton={state === "등록" ? handleGoodsAdd : handleGoodsModify}
           state={state}
         />
       </Modal>
       {alertModal.deleteAlert && (
         <ModalAlert
-          close={handleCancleAlert}
+          close={handleAlertModalCancel}
           api={closeModal}
           text={`작성 중인 글이 있습니다. 취소하시겠습니까?`}
         />

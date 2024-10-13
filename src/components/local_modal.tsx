@@ -3,12 +3,11 @@ import { ModalWrapper } from "../styles/modal_wrapper";
 import styled from "styled-components";
 import ModalCloseButton from "./common/modal_close_button";
 import ModalInputText from "./common/modal_input_text";
-import ModalArea from "./common/modal_area";
 import ModalImgAdd from "./common/modal_img_add";
 import ModalButton from "./common/modal_button";
-import { handleAlertModal } from "./common/table";
 import { getLocalDetailList, localAdd, localModify } from "../api/local";
 import ModalAlert from "./common/modal_alert";
+import { useAlertModal } from "../hooks/useAlertModal";
 
 interface Local {
   localItemName: string;
@@ -32,7 +31,7 @@ export default function LocalModal({ id, closeModal, state }: Props) {
 
   const { localItemName, localItemPrice, localItemImages } = data;
 
-  const [alertModal, setAlertModal] = useState({
+  const { alertModal, handleAlertModal } = useAlertModal({
     deleteAlert: false,
   });
 
@@ -85,9 +84,7 @@ export default function LocalModal({ id, closeModal, state }: Props) {
     }));
   };
 
-  const handleCancleAlert = () =>
-    handleAlertModal("deleteAlert", setAlertModal);
-
+  const handleAlertModalCancel = () => handleAlertModal("deleteAlert");
   //*
   const handleLocalAdd = async () => {
     const inputCheck = handleInputCheck();
@@ -154,14 +151,14 @@ export default function LocalModal({ id, closeModal, state }: Props) {
           />
         </form>
         <ModalButton
-          cancleButton={handleCancleAlert}
+          cancelButton={handleAlertModalCancel}
           addButton={state === "등록" ? handleLocalAdd : handleLocalModify}
           state={state}
         />
       </Modal>
       {alertModal.deleteAlert && (
         <ModalAlert
-          close={handleCancleAlert}
+          close={handleAlertModalCancel}
           api={closeModal}
           text={`작성 중인 글이 있습니다. 취소하시겠습니까?`}
         />
