@@ -3,7 +3,6 @@ import colors from "./styles/theme";
 import Header from "./components/header";
 import Navbar from "./components/nav/navbar.tsx";
 import { TableProvider } from "./context/table_data_context";
-import { CheckboxIdProvider } from "./context/table_checkboxId_context";
 
 import { Outlet, useLocation } from "react-router-dom";
 
@@ -17,15 +16,13 @@ const App = () => {
 
   return (
     <TableProvider>
-      <CheckboxIdProvider>
-        <ThemeProvider theme={theme}>
-          {pathname !== "/" && <Header />}
-          <Container>
-            {pathname !== "/" && <Navbar />}
-            <Outlet />
-          </Container>
-        </ThemeProvider>
-      </CheckboxIdProvider>
+      <ThemeProvider theme={theme}>
+        {pathname !== "/" && <Header />}
+        <Container>
+          {pathname !== "/" && <Navbar />}
+          <Outlet />
+        </Container>
+      </ThemeProvider>
     </TableProvider>
   );
 };

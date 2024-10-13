@@ -1,10 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import Table from "./table";
 import { useLocation } from "react-router-dom";
 import { nav_arr } from "../nav/nav_list";
 import { IdTitle } from "../../types/table";
 import PushTable from "./push_table";
+import { CheckboxIdProvider } from "../../context/table_checkboxId_context";
 
 interface Props {
   onCheckboxChange?: any;
@@ -29,15 +30,17 @@ export default function ListContainer({
   return (
     <Container>
       <H1>{title}</H1>
-      {idTitle === "pushId" ? (
-        <PushTable idTitle={idTitle} handleDelete={handleDelete} />
-      ) : (
-        <Table
-          idTitle={idTitle}
-          handleDelete={handleDelete}
-          handlePage={handlePage}
-        />
-      )}
+      <CheckboxIdProvider>
+        {idTitle === "pushId" ? (
+          <PushTable idTitle={idTitle} handleDelete={handleDelete} />
+        ) : (
+          <Table
+            idTitle={idTitle}
+            handleDelete={handleDelete}
+            handlePage={handlePage}
+          />
+        )}
+      </CheckboxIdProvider>
     </Container>
   );
 }
